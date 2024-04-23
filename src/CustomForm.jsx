@@ -161,6 +161,8 @@ const FedEx = {
   },
 };
 
+let extensionService;
+
 const CustomForm = () => {
   const [formData, setFormData] = useState({});
   const [accountNumber, setAccountNumber] = useState(0);
@@ -406,7 +408,7 @@ const CustomForm = () => {
   async function updateCartDiscount() {
     console.log('inside updateCartDiscount ');
     const myHeaders = new Headers(); 
-    
+
 
     myHeaders.append("Content-Type", "application/json");
     myHeaders.append( 'Access-Control-Allow-Origin', '*');
@@ -465,7 +467,7 @@ const CustomForm = () => {
 
 
 
-        const extensionService = await module.initializeExtensionService({
+         extensionService = await module.initializeExtensionService({
           extensionId,
           parentOrigin,
           taggedElementId: 'container',
