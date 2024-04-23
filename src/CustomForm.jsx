@@ -483,7 +483,7 @@ const CustomForm = () => {
 
 
   return (
-    <div className="container">
+    <div id="container">
       <div>
         <div>
           <div>Who Pays Shipping</div>
