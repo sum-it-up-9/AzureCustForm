@@ -406,6 +406,7 @@ const CustomForm = () => {
   async function updateCartDiscount() {
     console.log('inside updateCartDiscount ');
     const myHeaders = new Headers(); 
+    
 
     myHeaders.append("Content-Type", "application/json");
     myHeaders.append( 'Access-Control-Allow-Origin', '*');
@@ -415,6 +416,8 @@ const CustomForm = () => {
     const res=await fetch(`https://api-hit-pied.vercel.app/discount/${checkoutid}`, { method: "GET", headers: myHeaders, redirect: "follow" });
     const data= await res.json();
     console.log('updated cart value returned from discounted api: ',data);
+    console.log('reload checkout');
+    extensionService.post({ type: ExtensionCommandType.ReloadCheckout });
   }
 
 
