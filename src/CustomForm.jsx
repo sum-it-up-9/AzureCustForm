@@ -470,13 +470,20 @@ const CustomForm = () => {
         console.log('this is parentOrigin: ',parentOrigin)
 
 
-
+       
 
          extensionService = await module.initializeExtensionService({
           extensionId,
           parentOrigin,
           taggedElementId: 'container',
         });
+
+        extensionService.addListener('EXTENSION:CONSIGNMENTS_CHANGED', async (data) => {
+  
+         console.log(data?.payload?.consignments, data?.payload?.previousConsignments);
+       
+        });
+
 
         setCheckoutid(cartId);
       
