@@ -165,6 +165,7 @@ const CustomForm = () => {
   const [formData, setFormData] = useState({});
   const [accountNumber, setAccountNumber] = useState(0);
   const [sellarsShipper, setSellarsShipper] = useState("Prepaid Truckload");
+  const [checkoutid, setCheckoutid] = useState(0);
 
   const [customerPreferredObj, setCustomerPreferredObj] = useState({
     CarrierName: "",
@@ -198,23 +199,23 @@ const CustomForm = () => {
   console.log(typeof FormFields);
   const [selectedRadioOption, setSelectedRadioOption] = useState("Ground");
 
-  const handleSubmit = () => {
-    console.log("handlesubmit called");
-    fetch(`http://localhost:3000/cart/cart1`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Response from server:", data);
-        // Do something with the response data
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  };
+  // const handleSubmit = () => {
+  //   console.log("handlesubmit called");
+  //   fetch(`http://localhost:3000/cart/cart1`, {
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   })
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       console.log("Response from server:", data);
+  //       // Do something with the response data
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error:", error);
+  //     });
+  // };
 
   const handleRadioOptionChange = (event) => {
     setSelectedRadioOption(event.target.value);
@@ -388,6 +389,59 @@ const CustomForm = () => {
     setIsUsingFedExAccount(e.target.value);
   };
 
+  async function updateCartDiscount() {
+    console.log('inside updateCartDiscount ');
+    const myHeaders = new Headers(); 
+    myHeaders.append("X-Auth-Token", "44v4r4o38ki0gznr4kn5exdznzft69c"); 
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append( 'Access-Control-Allow-Origin', '*');
+    //const raw = JSON.stringify({ "cart": { "discounts": [{ "discounted_amount": 2, "name": "manual" }] } });
+
+    const checkoutid = cart.id; 
+    const res=await fetch(`https://api-hit-pied.vercel.app/discount/${checkoutid}`, { method: "GET", headers: myHeaders, redirect: "follow" });
+    const data= await res.json();
+    console.log('updated cart value returned from dicounted api: ',data);
+  }
+
+  async function updateCartDiscount() {
+    console.log('inside updateCartDiscount ');
+    const myHeaders = new Headers(); 
+
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append( 'Access-Control-Allow-Origin', '*');
+    //const raw = JSON.stringify({ "cart": { "discounts": [{ "discounted_amount": 2, "name": "manual" }] } });
+
+    
+    const res=await fetch(`https://api-hit-pied.vercel.app/discount/${checkoutid}`, { method: "GET", headers: myHeaders, redirect: "follow" });
+    const data= await res.json();
+    console.log('updated cart value returned from discounted api: ',data);
+  }
+
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log('cart updated: ', cart);
+
+    fetch(`https://api-hit-pied.vercel.app/cart/cart1`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+
+      },
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Response from server:', data);
+        updateCartDiscount();
+        //cart.cartAmount = 200;
+        // Do something with the response data
+      })
+      .catch(error => {
+        cart.cartAmount = 200;
+        console.error('Error:', error);
+      });
+  };
 
 
   useEffect(() => {
@@ -401,6 +455,7 @@ const CustomForm = () => {
         const extensionId = params.get('extensionId');
         console.log('this is exctention id: ',extensionId)
         const cartId = params.get('cartId');
+       
         console.log('this is card id: ',cartId)
         const parentOrigin = params.get('parentOrigin');
         console.log('this is parentOrigin: ',parentOrigin)
@@ -414,7 +469,7 @@ const CustomForm = () => {
           taggedElementId: 'container',
         });
 
-    
+        setCheckoutid(cartId);
       
     
     });
