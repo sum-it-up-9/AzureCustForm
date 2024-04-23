@@ -408,10 +408,10 @@ const CustomForm = () => {
 
 
 
-        const extensionService = await checkoutKitLoader.initializeExtensionService({
+        const extensionService = await module.initializeExtensionService({
           extensionId,
           parentOrigin,
-          taggedElementId: 'container', // Assuming 'content' is the ID of the element where you want to initialize the extension
+          taggedElementId: 'container',
         });
 
     
