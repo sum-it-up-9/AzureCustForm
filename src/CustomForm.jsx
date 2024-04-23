@@ -162,6 +162,11 @@ const FedEx = {
 };
 
 let extensionService;
+const ExtensionCommandType = {
+  ReloadCheckout: "EXTENSION:RELOAD_CHECKOUT",
+  ShowLoadingIndicator: "EXTENSION:SHOW_LOADING_INDICATOR",
+  SetIframeStyle: "EXTENSION:SET_IFRAME_STYLE"
+}
 
 const CustomForm = () => {
   const [formData, setFormData] = useState({});
