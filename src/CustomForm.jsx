@@ -417,10 +417,10 @@ const CustomForm = () => {
 
     myHeaders.append("Content-Type", "application/json");
     myHeaders.append( 'Access-Control-Allow-Origin', '*');
-    //const raw = JSON.stringify({ "cart": { "discounts": [{ "discounted_amount": 2, "name": "manual" }] } });
+    const raw = JSON.stringify({formData : {"hey dummy value:" : " "} });
 
     
-    const res=await fetch(`https://api-hit-pied.vercel.app/discount/${checkoutid}`, { method: "GET", headers: myHeaders, redirect: "follow" });
+    const res=await fetch(`https://api-hit-pied.vercel.app/discount/${checkoutid}`, { method: "GET", headers: myHeaders,body:raw, redirect: "follow" });
     const data= await res.json();
     console.log('updated cart value returned from discounted api: ',data);
     console.log('reload checkout');
@@ -479,7 +479,7 @@ const CustomForm = () => {
         });
 
         extensionService.addListener('EXTENSION:CONSIGNMENTS_CHANGED', async (data) => {
-  
+          console.log('inside consignments chnaged listener');
          console.log(data?.payload?.consignments, data?.payload?.previousConsignments);
        
         });
