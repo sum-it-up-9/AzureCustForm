@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 
 const CustomerPreferred = {
   CarrierName: {
@@ -387,6 +387,45 @@ const CustomForm = () => {
   const handleFedExAccountChange = (e) => {
     setIsUsingFedExAccount(e.target.value);
   };
+
+
+
+  useEffect(() => {
+
+    checkoutKitLoader.load('extension').then(async function(module) {
+      console.log("Checkout loader - extension")
+      const params = new URL(document.location).searchParams;
+
+        console.log("params: ",params);
+
+        const extensionId = params.get('extensionId');
+        console.log('this is exctention id: ',extensionId)
+        const cartId = params.get('cartId');
+        console.log('this is card id: ',cartId)
+        const parentOrigin = params.get('parentOrigin');
+        console.log('this is parentOrigin: ',parentOrigin)
+
+
+
+
+        const extensionService = await CheckoutKitLoader.initializeExtensionService({
+          extensionId,
+          parentOrigin,
+          taggedElementId: 'content', // Assuming 'content' is the ID of the element where you want to initialize the extension
+        });
+
+    
+      
+    
+    });
+
+   
+    // Cleanup function
+    return () => {
+      // Cleanup code if necessary
+    };
+  }, []);
+
 
   return (
     <div className="container">
