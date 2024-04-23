@@ -418,8 +418,8 @@ const CustomForm = () => {
   }
 
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = () => {
+   
     console.log('cart updated: ', cart);
 
     fetch(`https://api-hit-pied.vercel.app/cart/cart1`, {
