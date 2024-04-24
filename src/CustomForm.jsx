@@ -498,14 +498,7 @@ const CustomForm = () => {
   }, []);
 
 
-  useEffect(()=>{
-    const formSHippingMethod=document.getElementById('checkout-shipping-options');
-    console.log(formSHippingMethod,'formSHippingMethod from react: ');
-    if(formSHippingMethod){
-      formSHippingMethod.style.display = "none";
-    }
-   
-  });
+ 
 
 
   return (
