@@ -478,6 +478,8 @@ const CustomForm = () => {
           taggedElementId: 'container',
         });
 
+        console.log('extentionService: ',extensionService);
+
         extensionService.addListener('EXTENSION:CONSIGNMENTS_CHANGED', async (data) => {
           console.log('inside consignments chnaged listener');
          console.log(data?.payload?.consignments, data?.payload?.previousConsignments);
