@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 const CustomerPreferred = {
   CarrierName: {
@@ -75,37 +75,37 @@ const UPS = {
   Ground: {
     label: "Ground",
     type: "radio",
-    formName:"UPSObj"
+    formName: "UPSObj",
   },
   "2nd Day Air": {
     label: "2nd Day Air",
     type: "radio",
-    formName:"UPSObj"
+    formName: "UPSObj",
   },
   "2nd Day Air AM": {
     label: "2nd Day Air AM",
     type: "radio",
-    formName:"UPSObj"
+    formName: "UPSObj",
   },
   "3 Day Select": {
     label: "3 Day Select",
     type: "radio",
-    formName:"UPSObj"
+    formName: "UPSObj",
   },
   "Next Day Air": {
     label: "Next Day Air",
     type: "radio",
-    formName:"UPSObj"
+    formName: "UPSObj",
   },
   "Next Day Air AM": {
     label: "Next Day Air AM",
     type: "radio",
-    formName:"UPSObj"
+    formName: "UPSObj",
   },
   "Next Day Air Saver": {
     label: "Next Day Air Saver",
     type: "radio",
-    formName:"UPSObj"
+    formName: "UPSObj",
   },
 };
 
@@ -165,8 +165,8 @@ let extensionService;
 const ExtensionCommandType = {
   ReloadCheckout: "EXTENSION:RELOAD_CHECKOUT",
   ShowLoadingIndicator: "EXTENSION:SHOW_LOADING_INDICATOR",
-  SetIframeStyle: "EXTENSION:SET_IFRAME_STYLE"
-}
+  SetIframeStyle: "EXTENSION:SET_IFRAME_STYLE",
+};
 
 const CustomForm = () => {
   const [formData, setFormData] = useState({});
@@ -398,110 +398,98 @@ const CustomForm = () => {
 
   // async function updateCartDiscount() {
   //   console.log('inside updateCartDiscount ');
-  //   const myHeaders = new Headers(); 
-  //   myHeaders.append("X-Auth-Token", "44v4r4o38ki0gznr4kn5exdznzft69c"); 
+  //   const myHeaders = new Headers();
+  //   myHeaders.append("X-Auth-Token", "44v4r4o38ki0gznr4kn5exdznzft69c");
   //   myHeaders.append("Content-Type", "application/json");
   //   myHeaders.append( 'Access-Control-Allow-Origin', '*');
   //   //const raw = JSON.stringify({ "cart": { "discounts": [{ "discounted_amount": 2, "name": "manual" }] } });
 
-  //   const checkoutid = cart.id; 
+  //   const checkoutid = cart.id;
   //   const res=await fetch(`https://api-hit-pied.vercel.app/discount/${checkoutid}`, { method: "GET", headers: myHeaders, redirect: "follow" });
   //   const data= await res.json();
   //   console.log('updated cart value returned from dicounted api: ',data);
   // }
 
   async function updateCartDiscount() {
-    console.log('inside updateCartDiscount ');
-    const myHeaders = new Headers(); 
-
+    console.log("inside updateCartDiscount ");
+    const myHeaders = new Headers();
 
     myHeaders.append("Content-Type", "application/json");
-    myHeaders.append( 'Access-Control-Allow-Origin', '*');
-    const raw = JSON.stringify({formData : {"hey dummy value:" : " "} });
+    myHeaders.append("Access-Control-Allow-Origin", "*");
+    const raw = JSON.stringify({ formData: { "hey dummy value:": " " } });
 
-    
-    const res=await fetch(`https://api-hit-pied.vercel.app/discount/${checkoutid}`, { method: "POST", headers: myHeaders,body:raw, redirect: "follow" });
-    const data= await res.json();
-    console.log('updated cart value returned from discounted api: ',data);
-    console.log('reload checkout');
+    const res = await fetch(
+      `https://api-hit-pied.vercel.app/discount/${checkoutid}`,
+      { method: "POST", headers: myHeaders, body: raw, redirect: "follow" }
+    );
+    const data = await res.json();
+    console.log("updated cart value returned from discounted api: ", data);
+    console.log("reload checkout");
     extensionService.post({ type: ExtensionCommandType.ReloadCheckout });
   }
 
-
   const handleSubmit = () => {
-   
-    
-
     fetch(`https://api-hit-pied.vercel.app/cart/cart1`, {
-      method: 'GET',
+      method: "GET",
       headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
-
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
       },
     })
-      .then(response => response.json())
-      .then(data => {
-        console.log('Response from server:', data);
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Response from server:", data);
         updateCartDiscount();
         //cart.cartAmount = 200;
         // Do something with the response data
       })
-      .catch(error => {
-        console.error('Error:', error);
+      .catch((error) => {
+        console.error("Error:", error);
       });
   };
 
-
   useEffect(() => {
-
-    checkoutKitLoader.load('extension').then(async function(module) {
-      console.log("Checkout loader - extension")
+    checkoutKitLoader.load("extension").then(async function (module) {
+      console.log("Checkout loader - extension");
       const params = new URL(document.location).searchParams;
 
-        console.log("params: ",params);
+      console.log("params: ", params);
 
-        const extensionId = params.get('extensionId');
-        console.log('this is exctention id: ',extensionId)
-        const cartId = params.get('cartId');
-       
-        console.log('this is card id: ',cartId)
-        const parentOrigin = params.get('parentOrigin');
-        console.log('this is parentOrigin: ',parentOrigin)
+      const extensionId = params.get("extensionId");
+      console.log("this is exctention id: ", extensionId);
+      const cartId = params.get("cartId");
 
+      console.log("this is card id: ", cartId);
+      const parentOrigin = params.get("parentOrigin");
+      console.log("this is parentOrigin: ", parentOrigin);
 
-       
+      extensionService = await module.initializeExtensionService({
+        extensionId,
+        parentOrigin,
+        taggedElementId: "container",
+      });
 
-         extensionService = await module.initializeExtensionService({
-          extensionId,
-          parentOrigin,
-          taggedElementId: 'container',
-        });
+      console.log("extentionService: ", extensionService);
 
-        console.log('extentionService: ',extensionService);
+      extensionService.addListener(
+        "EXTENSION:CONSIGNMENTS_CHANGED",
+        async (data) => {
+          console.log("inside consignments chnaged listener");
+          console.log(
+            data?.payload?.consignments,
+            data?.payload?.previousConsignments
+          );
+        }
+      );
 
-        extensionService.addListener('EXTENSION:CONSIGNMENTS_CHANGED', async (data) => {
-          console.log('inside consignments chnaged listener');
-         console.log(data?.payload?.consignments, data?.payload?.previousConsignments);
-       
-        });
-
-
-        setCheckoutid(cartId);
-      
-    
+      setCheckoutid(cartId);
     });
 
-   
     // Cleanup function
     return () => {
       // Cleanup code if necessary
     };
   }, []);
-
-
- 
-
 
   return (
     <div id="container">
@@ -595,11 +583,22 @@ const CustomForm = () => {
           />
         </div>
         <button
+          style={{
+            backgroundColor: "black",
+            color: "white",
+         
+            padding: "10px 30px",
+            borderRadius: "5px",
+            border: "none",
+            cursor: "pointer",
+            fontSize: "16px",
+            fontWeight: "bold",
+          }}
           onClick={() => {
             handleSubmit();
           }}
         >
-          Submit
+          Submit Shipping Options
         </button>
       </div>
     </div>
