@@ -495,8 +495,8 @@ const CustomForm = () => {
     <div id="container">
       <div>
         <div>
-          <div>Who Pays Shipping</div>
-          <select onChange={handleShippingChange} name="" id="">
+          <div style={{marginBottom:'5px'}}>Who Pays Shipping</div>
+          <select style={{marginBottom:'10px'}} onChange={handleShippingChange} name="" id="">
             <option value="Sellars Pays Freight">Sellars Pays Freight</option>
             <option value="Customer Pays Freight">Customer Pays Freight</option>
           </select>
@@ -504,7 +504,7 @@ const CustomForm = () => {
 
         {whoPaysShippping === "Sellars Pays Freight" ? (
           <div>
-            <div>Shipper To Use</div>
+            <div style={{marginBottom:'5px'}}>Shipper To Use</div>
             <select onChange={handleSellersShipperChange} name="" id="">
               <option value="Prepaid Truckload">Prepaid Truckload</option>
               <option value="Prepaid LTL">Prepaid LTL</option>
@@ -513,7 +513,7 @@ const CustomForm = () => {
         ) : (
           <>
             <div>
-              <div>Shipper To Use</div>
+              <div style={{marginBottom:'5px'}}>Shipper To Use</div>
               <select onChange={handleShipperChange} name="" id="">
                 <option value="FedEx">FedEx</option>
                 <option value="Customer Preferred Carrier">
@@ -571,8 +571,8 @@ const CustomForm = () => {
         )}
 
         <div>
-          <div>
-            <label htmlFor="specialInstructions">Special Instructions</label>
+          <div style={{marginTop:'10px'}}>
+            <label  htmlFor="specialInstructions">Special Instructions</label>
           </div>
           <textarea
             name="specialInstructions"
