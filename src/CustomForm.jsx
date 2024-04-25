@@ -257,7 +257,10 @@ const CustomForm = () => {
 
   const handleSellersShipperChange = (e) => {
     setSellarsShipper(e.target.value);
-    document.getElementById('checkout-shipping-continue').disabled = true;
+    window.top.postMessage(
+      "hide-checkout-shipping-continue",
+      "https://vivacommerce-b2b-demo-i9.mybigcommerce.com"
+    );
   };
 
   function handleWillCallChange(e) {
