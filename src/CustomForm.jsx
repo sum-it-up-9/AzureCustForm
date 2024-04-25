@@ -5,51 +5,61 @@ const CustomerPreferred = {
     label: "Carrier Name",
     type: "text",
     formName: "CustomerPreferredObj",
+    required:true
   },
   ContactName: {
     label: "Contact Name",
     type: "text",
     formName: "CustomerPreferredObj",
+    required:true
   },
   Name: {
     label: "Name",
     type: "text",
     formName: "CustomerPreferredObj",
+    required:true
   },
   ContactPhone: {
     label: "Contact Phone",
     type: "text",
     formName: "CustomerPreferredObj",
+    required:true
   },
   Address1: {
     label: "Address 1",
     type: "text",
     formName: "CustomerPreferredObj",
+    required:true
   },
   Address2: {
     label: "Address 2",
     type: "text",
     formName: "CustomerPreferredObj",
+    required:false
   },
   State: {
     label: "State",
     type: "dropdown",
     formName: "CustomerPreferredObj",
+    required:true
   },
   City: {
     label: "City",
     type: "text",
     formName: "CustomerPreferredObj",
+    required:true
   },
   Zip: {
     label: "Zip",
     type: "text",
     formName: "CustomerPreferredObj",
+    required:true
   },
   Country: {
     label: "Country",
     type: "dropdown",
     formName: "CustomerPreferredObj",
+    required:true
   },
 };
 
@@ -58,16 +68,19 @@ const WillCall = {
     lable: "Contact Name",
     type: "text",
     formName: "WillCallObj",
+    required:true
   },
   ContactEmail: {
     lable: "Contact Email",
     type: "email",
     formName: "WillCallObj",
+    required:true
   },
   ContactPhone: {
     lable: "Contact Phone",
     type: "text",
     formName: "WillCallObj",
+    required:true
   },
 };
 
@@ -170,8 +183,10 @@ const ExtensionCommandType = {
 
 const CustomForm = () => {
   const [formData, setFormData] = useState({});
+  const [specialInstructions, setSpecialInstructions]=useState('');
   const [accountNumber, setAccountNumber] = useState(0);
   const [sellarsShipper, setSellarsShipper] = useState("Prepaid Truckload");
+  
   const [checkoutid, setCheckoutid] = useState(0);
 
   const [customerPreferredObj, setCustomerPreferredObj] = useState({
@@ -293,12 +308,14 @@ const CustomForm = () => {
     //console.log(fieldOptions, "sdf");
     console.log("called");
     if (fieldType.type === "text") {
+      console.log('req: ',fieldType.required);
       return (
         <>
           {fieldName}
           <input
             type="text"
             name={fieldName}
+            required ={fieldType.required}
             value={formName[fieldName]}
             onChange={(e) => {
               if (formName === "FedExObj") {
@@ -321,6 +338,7 @@ const CustomForm = () => {
         <select
           name={fieldName}
           value={fieldType[fieldName]}
+          required={fieldType.required}
           onChange={(e) => {
             if (formName === "FedExObj") {
               handleFedExChange(e);
@@ -428,24 +446,72 @@ const CustomForm = () => {
     extensionService.post({ type: ExtensionCommandType.ReloadCheckout });
   }
 
-  const handleSubmit = () => {
-    fetch(`https://api-hit-pied.vercel.app/cart/cart1`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Response from server:", data);
-        updateCartDiscount();
-        //cart.cartAmount = 200;
-        // Do something with the response data
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    let payload;
+    if(whoPaysShippping === 'Sellars Pays Freight'){
+      payload={
+        whoPaysShippping,
+        sellarsShipper,
+
+      };
+    }
+    else if(whoPaysShippping === 'Customer Pays Freight'){
+      if(selectedShipper === 'FedEx'){
+        payload={
+          whoPaysShippping,
+          shipper:selectedShipper,
+          useFedExAccount:isDisplayingAccountNumber,
+          specialInstructions,
+        }
+        if(payload.useFedExAccount){
+          payload.AccountNumber=accountNumber
+        }
+      }
+      else if(selectedShipper === 'Customer Preferred Carrier'){
+        payload={
+          whoPaysShippping,
+          shipper:selectedShipper,
+          AccountNumber:accountNumber,
+          formData:customerPreferredObj,
+          specialInstructions
+        }
+      }
+      else if(selectedShipper === 'UPS'){
+        payload={
+          whoPaysShippping,
+          shipper:selectedShipper,
+          AccountNumber:accountNumber,
+          formData:UPSObj,
+          specialInstructions
+        }
+      }
+      else if(selectedShipper === 'Will Call'){
+        payload={
+          whoPaysShippping,
+          shipper:selectedShipper,
+          formData:WillCallObj,
+          specialInstructions
+        }
+      }
+    }
+    console.log(payload);
+    // fetch(`https://api-hit-pied.vercel.app/cart/cart1`, {
+    //   method: "GET",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     "Access-Control-Allow-Origin": "*",
+    //   },
+    // })
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     console.log("Response from server:", data);
+    //     updateCartDiscount();
+    //     // Do something with the response data
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error:", error);
+    //   });
   };
 
   useEffect(() => {
@@ -494,112 +560,125 @@ const CustomForm = () => {
   return (
     <div id="container">
       <div>
-        <div>
-          <div style={{marginBottom:'5px'}}>Who Pays Shipping</div>
-          <select style={{marginBottom:'10px'}} onChange={handleShippingChange} name="" id="">
-            <option value="Sellars Pays Freight">Sellars Pays Freight</option>
-            <option value="Customer Pays Freight">Customer Pays Freight</option>
-          </select>
-        </div>
-
-        {whoPaysShippping === "Sellars Pays Freight" ? (
+        <form onSubmit={handleSubmit}>
           <div>
-            <div style={{marginBottom:'5px'}}>Shipper To Use</div>
-            <select onChange={handleSellersShipperChange} name="" id="">
-              <option value="Prepaid Truckload">Prepaid Truckload</option>
-              <option value="Prepaid LTL">Prepaid LTL</option>
+            <div style={{ marginBottom: "5px" }}>Who Pays Shipping</div>
+            <select
+              required
+              style={{ marginBottom: "10px" }}
+              onChange={handleShippingChange}
+              name=""
+              id=""
+            >
+              <option value="Sellars Pays Freight">Sellars Pays Freight</option>
+              <option value="Customer Pays Freight">
+                Customer Pays Freight
+              </option>
             </select>
           </div>
-        ) : (
-          <>
-            <div>
-              <div style={{marginBottom:'5px'}}>Shipper To Use</div>
-              <select onChange={handleShipperChange} name="" id="">
-                <option value="FedEx">FedEx</option>
-                <option value="Customer Preferred Carrier">
-                  Customer Preferred Carrier
-                </option>
 
-                <option value="UPS">UPS</option>
-                <option value="Will Call">Will Call</option>
+          {whoPaysShippping === "Sellars Pays Freight" ? (
+            <div>
+              <div style={{ marginBottom: "5px" }}>Shipper To Use</div>
+              <select required onChange={handleSellersShipperChange} name="" id="">
+                <option value="Prepaid Truckload">Prepaid Truckload</option>
+                <option value="Prepaid LTL">Prepaid LTL</option>
               </select>
             </div>
-            {isDisplayingAccountNumber === "Customer Preferred Carrier" ||
-            isDisplayingAccountNumber === "UPS" ? (
+          ) : (
+            <>
               <div>
-                <div>Account Number</div>
-                <input type="text" />
-              </div>
-            ) : null}
+                <div style={{ marginBottom: "5px" }}>Shipper To Use</div>
+                <select onChange={handleShipperChange} name="" id="">
+                  <option value="FedEx">FedEx</option>
+                  <option value="Customer Preferred Carrier">
+                    Customer Preferred Carrier
+                  </option>
 
-            {isDisplayingAccountNumber === "FedEx" && (
-              <>
-                <div>
-                  <label htmlFor="useFedExAccount">Use My FedEx Account</label>
-                </div>
-                <select
-                  onChange={handleFedExAccountChange}
-                  name="useFedExAccount"
-                  id="useFedExAccount"
-                >
-                  <option value="Yes">Yes</option>
-                  <option value="No">No</option>
+                  <option value="UPS">UPS</option>
+                  <option value="Will Call">Will Call</option>
                 </select>
-
-                {isUsingFedExAccount === "Yes" && (
-                  <div>
-                    <div>Account Number</div>
-                    <input type="text" />
-                  </div>
-                )}
-              </>
-            )}
-
-            <div></div>
-
-            <div>
-              <h2>Dynamic Form</h2>
-              <div>
-                {Object.entries(FormFields).map(([fieldName, fieldType]) => (
-                  <div key={fieldName}>
-                    {renderFormField(fieldName, fieldType, fieldType?.formName)}
-                  </div>
-                ))}
               </div>
-            </div>
-          </>
-        )}
+              {isDisplayingAccountNumber === "Customer Preferred Carrier" ||
+              isDisplayingAccountNumber === "UPS" ? (
+                <div>
+                  <div>Account Number</div>
+                  <input type="text" required onChange={(e)=>{setAccountNumber(e.target.value)}} />
+                </div>
+              ) : null}
 
-        <div>
-          <div style={{marginTop:'10px'}}>
-            <label  htmlFor="specialInstructions">Special Instructions</label>
+              {isDisplayingAccountNumber === "FedEx" && (
+                <>
+                  <div>
+                    <label htmlFor="useFedExAccount">
+                      Use My FedEx Account
+                    </label>
+                  </div>
+                  <select
+                    onChange={handleFedExAccountChange}
+                    name="useFedExAccount"
+                    id="useFedExAccount"
+                  >
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+
+                  {isUsingFedExAccount === "Yes" && (
+                    <div>
+                      <div>Account Number</div>
+                      <input type="text" onChange={(e)=>{setAccountNumber(e.target.value)}} required/>
+                    </div>
+                  )}
+                </>
+              )}
+
+              <div></div>
+
+              <div>
+                <h2>Dynamic Form</h2>
+                <div>
+                  {Object.entries(FormFields).map(([fieldName, fieldType]) => (
+                    <div key={fieldName}>
+                      {renderFormField(
+                        fieldName,
+                        fieldType,
+                        fieldType?.formName
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </>
+          )}
+
+          <div>
+            <div style={{ marginTop: "10px" }}>
+              <label htmlFor="specialInstructions">Special Instructions</label>
+            </div>
+            <textarea
+              name="specialInstructions"
+              id="specialInstructions"
+              onChange={(e) => {setSpecialInstructions(e.target.value)}}
+              rows={4} // Set the number of visible text lines
+              cols={25} // Set the number of visible text columns
+            />
           </div>
-          <textarea
-            name="specialInstructions"
-            id="specialInstructions"
-            onChange={() => {}}
-            rows={4} // Set the number of visible text lines
-            cols={25} // Set the number of visible text columns
-          />
-        </div>
-        <button
-          style={{
-            backgroundColor: "black",
-            color: "white",
-         
-            padding: "10px 30px",
-            borderRadius: "5px",
-            border: "none",
-            cursor: "pointer",
-            fontSize: "16px",
-            fontWeight: "bold",
-          }}
-          onClick={() => {
-            handleSubmit();
-          }}
-        >
-          Submit Shipping Options
-        </button>
+          <button
+            style={{
+              backgroundColor: "black",
+              color: "white",
+              padding: "10px 30px",
+              borderRadius: "5px",
+              border: "none",
+              cursor: "pointer",
+              fontSize: "16px",
+              fontWeight: "bold",
+            }}
+            type="submit"
+          >
+            Submit Shipping Options
+          </button>
+        </form>
       </div>
     </div>
   );
