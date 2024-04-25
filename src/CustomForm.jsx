@@ -461,7 +461,7 @@ const CustomForm = () => {
     });
 
     const res = await fetch(
-      `https://update-price-list.vercel.app/updateCartItems`,
+      `http://localhost:3000/updateCartItems`,
       { method: "POST", headers: myHeaders, body: raw, redirect: "follow" }
     );
     const data = await res.json();
