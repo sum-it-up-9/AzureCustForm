@@ -317,6 +317,7 @@ const CustomForm = () => {
       setFormFields(CustomerPreferred);
       setIsDisplayingAccountNumber("Customer Preferred Carrier");
     }
+    sendMessage();
   };
 
   const renderFormField = (fieldName, fieldType, formName) => {
