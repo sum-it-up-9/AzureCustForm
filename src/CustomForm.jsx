@@ -683,7 +683,7 @@ const CustomForm = () => {
                 Customer Pays Freight
               </option>
             </select> */}
-            <div>
+            {/* <div>
               <select
                 required
                 style={{
@@ -707,6 +707,37 @@ const CustomForm = () => {
                   Customer Pays Freight
                 </option>
               </select>
+            </div> */}
+            <div style={{ position: "relative", width: "200px" }}>
+              <select
+                required
+                style={{
+                  width: "100%", // Adjust the width as needed
+                  height: "30px", // Adjust the height as needed
+                  fontSize: "12px", // Adjust the font size as needed
+                }}
+                onChange={handleShippingChange}
+                name=""
+                id=""
+                defaultValue="Customer Pays Freight" // Set default value
+              >
+                <option value="Sellars Pays Freight">
+                  Sellars Pays Freight
+                </option>
+                <option value="Customer Pays Freight">
+                  Customer Pays Freight
+                </option>
+              </select>
+              <div
+                style={{
+                  position: "absolute",
+                  top: "0",
+                  left: "0",
+                  fontSize: "10px",
+                }}
+              >
+                Who Pays Shipping
+              </div>
             </div>
           </div>
 
