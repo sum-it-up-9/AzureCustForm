@@ -494,6 +494,10 @@ const CustomForm = () => {
     }
     console.log(payload);
     addMetafieldsTocart();
+    window.top.postMessage(
+      "show-checkout-shipping-continue",
+      "https://vivacommerce-b2b-demo-i9.mybigcommerce.com"
+    );
   };
 
   function sleep(ms) {
