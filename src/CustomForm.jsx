@@ -747,7 +747,7 @@ const CustomForm = () => {
               <div></div>
 
               <div>
-                <h2>Dynamic Form</h2>
+               
                 <div>
                   {Object.entries(FormFields).map(([fieldName, fieldType]) => (
                     <div key={fieldName}>
