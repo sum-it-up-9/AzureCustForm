@@ -250,7 +250,8 @@ const CustomForm = () => {
 
   const handleShippingChange = (event) => {
     // console.log(event.target.value);
-    setWhoPaysShipping(event.target.value);
+    setWhoPaysShipping(event.target.value)
+    extensionService.post({ type: ExtensionCommandType.ReloadCheckout });;
     //call azure function to update the product prices
   };
 
