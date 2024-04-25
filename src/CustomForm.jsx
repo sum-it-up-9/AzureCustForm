@@ -436,14 +436,14 @@ const CustomForm = () => {
 
     myHeaders.append("Content-Type", "application/json");
     myHeaders.append("Access-Control-Allow-Origin", "*");
-    const raw = JSON.stringify({ formData: { "hey dummy value:": " " } });
+    //const raw = JSON.stringify({ formData: { "hey dummy value:": " " } });
 
-    const res = await fetch(
-      `https://api-hit-pied.vercel.app/metafields/${checkoutid}`,
-      { method: "POST", headers: myHeaders, body: raw, redirect: "follow" }
-    );
-    const data = await res.json();
-    console.log("added cart metafields: ", data);
+    // const res = await fetch(
+    //   `https://api-hit-pied.vercel.app/metafields/${checkoutid}`,
+    //   { method: "POST", headers: myHeaders, body: raw, redirect: "follow" }
+    // );
+    // const data = await res.json();
+    // console.log("added cart metafields: ", data);
     console.log("reload checkout");
     extensionService.post({ type: ExtensionCommandType.ReloadCheckout });
   }
@@ -492,7 +492,7 @@ const CustomForm = () => {
         };
       }
     }
-    console.log(payload);
+   // console.log(payload);
     addMetafieldsTocart();
     window.top.postMessage(
       "show-checkout-shipping-continue",
