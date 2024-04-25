@@ -182,6 +182,14 @@ const ExtensionCommandType = {
   SetIframeStyle: "EXTENSION:SET_IFRAME_STYLE",
 };
 
+async function sendMessage(){
+  window.top.postMessage(
+    "hide-checkout-shipping-continue",
+    "https://vivacommerce-b2b-demo-i9.mybigcommerce.com"
+  );
+}
+
+let payload;
 const CustomForm = () => {
   const [formData, setFormData] = useState({});
   const [specialInstructions, setSpecialInstructions] = useState("");
@@ -252,12 +260,16 @@ const CustomForm = () => {
   const handleShippingChange = (event) => {
     // console.log(event.target.value);
     setWhoPaysShipping(event.target.value)
+    sendMessage();
     extensionService.post({ type: ExtensionCommandType.ReloadCheckout });;
+
     //call azure function to update the product prices
   };
 
   const handleSellersShipperChange = (e) => {
     setSellarsShipper(e.target.value);
+    sendMessage();
+ 
   };
 
   function handleWillCallChange(e) {
@@ -266,15 +278,18 @@ const CustomForm = () => {
       //console.log(e.target.name, e.target.value);
       return { ...prev, [e.target.name]: e.target.value };
     });
+    //sendMessage();
   }
 
   function handleFedExChange(e) {
     setFedExObj(e.target.value);
     console.log("change", e.target.value);
+   // sendMessage();
   }
 
   function handleUPSChange(e) {
     setUPSObj(e.target.value);
+    //sendMessage();
   }
 
   function handleCustomerPreferredChange(e) {
@@ -303,6 +318,7 @@ const CustomForm = () => {
       setFormFields(CustomerPreferred);
       setIsDisplayingAccountNumber("Customer Preferred Carrier");
     }
+    sendMessage();
   };
 
   const renderFormField = (fieldName, fieldType, formName) => {
@@ -431,27 +447,32 @@ const CustomForm = () => {
   //   console.log('updated cart value returned from dicounted api: ',data);
   // }
 
-  async function addMetafieldsTocart() {
-    console.log("inside updateCartDiscount ");
+  async function UpdateCartPrice() {
+    console.log("inside UpdateCartPrice ");
     const myHeaders = new Headers();
 
     myHeaders.append("Content-Type", "application/json");
     myHeaders.append("Access-Control-Allow-Origin", "*");
-    const raw = JSON.stringify({ formData: { "hey dummy value:": " " } });
+    
+   
+    const raw = JSON.stringify( {
+      checkoutId:checkoutid,
+      whoPaysShipping: whoPaysShippping === 'Customer Pays Freight' ? 'Customer' : 'Seller',
+      metafields:payload
+    });
 
     const res = await fetch(
-      `https://api-hit-pied.vercel.app/metafields/${checkoutid}`,
+      `http://localhost:3000/updateCartItems`,
       { method: "POST", headers: myHeaders, body: raw, redirect: "follow" }
     );
     const data = await res.json();
-    console.log("added cart metafields: ", data);
+    console.log("updated cart prices and metafield data returned: ", data);
     console.log("reload checkout");
     extensionService.post({ type: ExtensionCommandType.ReloadCheckout });
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    let payload;
     if (whoPaysShippping === "Sellars Pays Freight") {
       payload = {
         whoPaysShippping,
@@ -493,8 +514,12 @@ const CustomForm = () => {
         };
       }
     }
-    console.log(payload);
-    addMetafieldsTocart();
+    // console.log(payload);
+    UpdateCartPrice();
+    window.top.postMessage(
+      "show-checkout-shipping-continue",
+      "https://vivacommerce-b2b-demo-i9.mybigcommerce.com"
+    );
   };
 
   function sleep(ms) {
@@ -519,7 +544,7 @@ const CustomForm = () => {
 
   async function consignmentUpdateTriggered(extensionService, cartId, data) {
     console.log("consignments changed", data);
-    //compareConsignments(data.payload.consignments, data.payload.previousConsignments);
+    compareConsignments(data.payload.consignments, data.payload.previousConsignments);
 
     showLoadingIndicator(extensionService);
     //post message to parent window - hide continue button
@@ -531,7 +556,9 @@ const CustomForm = () => {
     //perform price update operations
 
     try {
-      await requestCartPriceUpdate(cartId);
+
+      //await requestCartPriceUpdate(cartId);
+      await UpdateCartPrice();
     } catch (e) {
       console.log("Error in requestCartPriceUpdate");
     }
@@ -640,7 +667,7 @@ const CustomForm = () => {
         "EXTENSION:CONSIGNMENTS_CHANGED",
         async (data) => {
           console.log("inside consignments chnaged listener");
-          //console.log(data?.payload?.consignments,data?.payload?.previousConsignments);
+          console.log(data?.payload?.consignments,data?.payload?.previousConsignments);
 
           const priceUpdateNeeded = compareConsignments(
             data?.payload?.consignments,
