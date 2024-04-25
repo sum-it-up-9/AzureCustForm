@@ -514,7 +514,7 @@ const CustomForm = () => {
     //     console.error("Error:", error);
     //   });
   };
-  
+
   function sleep(ms) {
     return new Promise((resolve) => {
       setTimeout(resolve, ms);
@@ -542,7 +542,7 @@ const CustomForm = () => {
 
     showLoadingIndicator(extensionService);
     //post message to parent window - hide continue button
-    window.top.postMessage("hide-checkout-shipping-continue", "https://sellars-absorbent-materials-sandbox-1.mybigcommerce.com");
+    window.top.postMessage("hide-checkout-shipping-continue", "https://vivacommerce-b2b-demo-i9.mybigcommerce.com");
 
 
     //perform price update operations
@@ -558,7 +558,7 @@ const CustomForm = () => {
     await sleep(1000);
     //post message to parent window - show continue button
     hideLoadingIndicator();
-    window.top.postMessage("show-checkout-shipping-continue", "https://sellars-absorbent-materials-sandbox-1.mybigcommerce.com");
+    window.top.postMessage("show-checkout-shipping-continue", "https://vivacommerce-b2b-demo-i9.mybigcommerce.com");
     //window.top.postMessage("checkout-shipping-next-step", "https://sellars-absorbent-materials-sandbox-1.mybigcommerce.com");
   }
 
