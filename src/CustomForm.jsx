@@ -688,8 +688,8 @@ const CustomForm = () => {
                 required
                 style={{
                   marginBottom: "10px",
-                  width: "200px", // Adjust the width as needed
-                  height: "30px", // Adjust the height as needed
+                  width: "500px", // Adjust the width as needed
+                  height: "50px", // Adjust the height as needed
                   fontSize: "12px", // Adjust the font size as needed
                 }}
                 onChange={handleShippingChange}
