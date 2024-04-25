@@ -188,7 +188,7 @@ async function sendMessage(){
   );
 }
 
-
+let payload;
 const CustomForm = () => {
   const [formData, setFormData] = useState({});
   const [specialInstructions, setSpecialInstructions] = useState("");
@@ -446,27 +446,32 @@ const CustomForm = () => {
   //   console.log('updated cart value returned from dicounted api: ',data);
   // }
 
-  async function addMetafieldsTocart() {
-    console.log("inside updateCartDiscount ");
+  async function UpdateCartPrice() {
+    console.log("inside UpdateCartPrice ");
     const myHeaders = new Headers();
 
     myHeaders.append("Content-Type", "application/json");
     myHeaders.append("Access-Control-Allow-Origin", "*");
-    //const raw = JSON.stringify({ formData: { "hey dummy value:": " " } });
+    
+   
+    const raw = JSON.stringify( {
+      checkoutid,
+      whoPaysShipping: whoPaysShippping === 'Customer Pays Freight' ? 'Customer' : 'Seller',
+      metafields:payload
+    });
 
-    // const res = await fetch(
-    //   `https://api-hit-pied.vercel.app/metafields/${checkoutid}`,
-    //   { method: "POST", headers: myHeaders, body: raw, redirect: "follow" }
-    // );
-    // const data = await res.json();
-    // console.log("added cart metafields: ", data);
+    const res = await fetch(
+      `https://update-price-list.vercel.app/updateCartItems`,
+      { method: "POST", headers: myHeaders, body: raw, redirect: "follow" }
+    );
+    const data = await res.json();
+    console.log("updated cart prices and metafield data returned: ", data);
     console.log("reload checkout");
     extensionService.post({ type: ExtensionCommandType.ReloadCheckout });
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    let payload;
     if (whoPaysShippping === "Sellars Pays Freight") {
       payload = {
         whoPaysShippping,
@@ -508,8 +513,8 @@ const CustomForm = () => {
         };
       }
     }
-   // console.log(payload);
-    addMetafieldsTocart();
+    // console.log(payload);
+    UpdateCartPrice();
     window.top.postMessage(
       "show-checkout-shipping-continue",
       "https://vivacommerce-b2b-demo-i9.mybigcommerce.com"
@@ -550,7 +555,9 @@ const CustomForm = () => {
     //perform price update operations
 
     try {
-      await requestCartPriceUpdate(cartId);
+
+      //await requestCartPriceUpdate(cartId);
+      await UpdateCartPrice();
     } catch (e) {
       console.log("Error in requestCartPriceUpdate");
     }
