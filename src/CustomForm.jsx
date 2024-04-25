@@ -181,7 +181,7 @@ const ExtensionCommandType = {
   SetIframeStyle: "EXTENSION:SET_IFRAME_STYLE",
 };
 
-function sendMessage(){
+async function sendMessage(){
   window.top.postMessage(
     "hide-checkout-shipping-continue",
     "https://vivacommerce-b2b-demo-i9.mybigcommerce.com"
