@@ -181,6 +181,14 @@ const ExtensionCommandType = {
   SetIframeStyle: "EXTENSION:SET_IFRAME_STYLE",
 };
 
+function sendMessage(){
+  window.top.postMessage(
+    "hide-checkout-shipping-continue",
+    "https://vivacommerce-b2b-demo-i9.mybigcommerce.com"
+  );
+}
+
+
 const CustomForm = () => {
   const [formData, setFormData] = useState({});
   const [specialInstructions, setSpecialInstructions] = useState("");
@@ -251,16 +259,16 @@ const CustomForm = () => {
   const handleShippingChange = (event) => {
     // console.log(event.target.value);
     setWhoPaysShipping(event.target.value)
+    sendMessage();
     extensionService.post({ type: ExtensionCommandType.ReloadCheckout });;
+
     //call azure function to update the product prices
   };
 
   const handleSellersShipperChange = (e) => {
     setSellarsShipper(e.target.value);
-    window.top.postMessage(
-      "hide-checkout-shipping-continue",
-      "https://vivacommerce-b2b-demo-i9.mybigcommerce.com"
-    );
+    sendMessage();
+ 
   };
 
   function handleWillCallChange(e) {
@@ -269,15 +277,18 @@ const CustomForm = () => {
       //console.log(e.target.name, e.target.value);
       return { ...prev, [e.target.name]: e.target.value };
     });
+    //sendMessage();
   }
 
   function handleFedExChange(e) {
     setFedExObj(e.target.value);
     console.log("change", e.target.value);
+   // sendMessage();
   }
 
   function handleUPSChange(e) {
     setUPSObj(e.target.value);
+    //sendMessage();
   }
 
   function handleCustomerPreferredChange(e) {
