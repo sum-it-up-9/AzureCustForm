@@ -670,7 +670,7 @@ const CustomForm = () => {
       <div>
         <form onSubmit={handleSubmit}>
           <div>
-            {/* <div style={{ marginBottom: "5px" }}>Who Pays Shipping</div>
+            <div style={{ marginBottom: "5px" }}>Who Pays Shipping</div>
             <select
               required
               style={{ marginBottom: "10px" }}
@@ -682,33 +682,8 @@ const CustomForm = () => {
               <option value="Customer Pays Freight">
                 Customer Pays Freight
               </option>
-            </select> */}
-            {/* <div>
-              <select
-                required
-                style={{
-                  marginBottom: "10px",
-                  width: "500px", // Adjust the width as needed
-                  height: "50px", // Adjust the height as needed
-                  fontSize: "12px", // Adjust the font size as needed
-                }}
-                onChange={handleShippingChange}
-                name=""
-                id=""
-                defaultValue="Customer Pays Freight" // Set default value
-              >
-                <option value="Who Pays Shipping" disabled>
-                  Who Pays Shipping
-                </option>
-                <option value="Sellars Pays Freight">
-                  Sellars Pays Freight
-                </option>
-                <option value="Customer Pays Freight">
-                  Customer Pays Freight
-                </option>
-              </select>
-            </div> */}
-            <div style={{ position: "relative", width: "200px" }}>
+            </select>
+            {/* <div style={{ position: "relative", width: "200px" }}>
               <select
                 required
                 style={{
@@ -738,7 +713,7 @@ const CustomForm = () => {
               >
                 Who Pays Shipping
               </div>
-            </div>
+            </div> */}
           </div>
 
           {whoPaysShippping === "Sellars Pays Freight" ? (
