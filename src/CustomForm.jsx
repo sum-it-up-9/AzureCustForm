@@ -514,7 +514,27 @@ const CustomForm = () => {
     //     console.error("Error:", error);
     //   });
   };
+  
+  function sleep(ms) {
+    return new Promise((resolve) => {
+      setTimeout(resolve, ms);
+    });
+  }
 
+  function showLoadingIndicator() {
+    extensionService.post({
+      type: ExtensionCommandType.ShowLoadingIndicator,
+      payload: { show: true },
+    });
+
+  }
+
+  function hideLoadingIndicator() {
+    extensionService.post({
+      type: ExtensionCommandType.ShowLoadingIndicator,
+      payload: { show: false },
+    });
+  }
 
   async function consignmentUpdateTriggered(extensionService, cartId, data) {
     console.log('consignments changed', data);
@@ -591,7 +611,7 @@ const CustomForm = () => {
         //   console.log(`️🔄 Consignment #${id} shipping option change: ${previousShippingOptionId} -> ${shippingOptionId}.`);
         //   changed = true;
         // }
-        
+
       }
     });
     return changed;
