@@ -429,7 +429,7 @@ const CustomForm = () => {
   //   console.log('updated cart value returned from dicounted api: ',data);
   // }
 
-  async function updateCartDiscount() {
+  async function addMetafieldsTocart() {
     console.log("inside updateCartDiscount ");
     const myHeaders = new Headers();
 
@@ -438,11 +438,11 @@ const CustomForm = () => {
     const raw = JSON.stringify({ formData: { "hey dummy value:": " " } });
 
     const res = await fetch(
-      `https://api-hit-pied.vercel.app/discount/${checkoutid}`,
+      `https://api-hit-pied.vercel.app/metafields/${checkoutid}`,
       { method: "POST", headers: myHeaders, body: raw, redirect: "follow" }
     );
     const data = await res.json();
-    console.log("updated cart value returned from discounted api: ", data);
+    console.log("added cart metafields: ", data);
     console.log("reload checkout");
     extensionService.post({ type: ExtensionCommandType.ReloadCheckout });
   }
@@ -497,22 +497,9 @@ const CustomForm = () => {
       }
     }
     console.log(payload);
-    // fetch(`https://api-hit-pied.vercel.app/cart/cart1`, {
-    //   method: "GET",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     "Access-Control-Allow-Origin": "*",
-    //   },
-    // })
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     console.log("Response from server:", data);
-    //     updateCartDiscount();
-    //     // Do something with the response data
-    //   })
-    //   .catch((error) => {
-    //     console.error("Error:", error);
-    //   });
+  ;
+  addMetafieldsTocart();
+    
   };
 
   function sleep(ms) {
