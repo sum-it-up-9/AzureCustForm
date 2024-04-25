@@ -661,7 +661,7 @@ const CustomForm = () => {
       <div>
         <form onSubmit={handleSubmit}>
           <div>
-            <div style={{ marginBottom: "5px" }}>Who Pays Shipping</div>
+            {/* <div style={{ marginBottom: "5px" }}>Who Pays Shipping</div> */}
             <select
               required
               style={{ marginBottom: "10px" }}
@@ -669,6 +669,7 @@ const CustomForm = () => {
               name=""
               id=""
             >
+              <option value="" disabled selected hidden>Who Pays Shipping</option>
               <option value="Sellars Pays Freight">Sellars Pays Freight</option>
               <option value="Customer Pays Freight">
                 Customer Pays Freight
