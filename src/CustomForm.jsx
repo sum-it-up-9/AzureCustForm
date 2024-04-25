@@ -316,7 +316,6 @@ const CustomForm = () => {
         <>
           {fieldName}
           <input
-            className="my-input-style"
             type="text"
             name={fieldName}
             required={fieldType.required}
@@ -367,7 +366,6 @@ const CustomForm = () => {
       return (
         <div>
           <input
-            className="my-input-style"
             type="radio"
             name={fieldName}
             value={fieldType.label}
@@ -393,7 +391,6 @@ const CustomForm = () => {
           <label htmlFor={fieldName}>{fieldType.lable}</label>
 
           <input
-            className="my-input-style"
             id={fieldName}
             type="email"
             name={fieldName}
@@ -753,7 +750,7 @@ const CustomForm = () => {
                 <div>
                   <div>Account Number</div>
                   <input
-                    className="my-input-style"
+      
                     type="text"
                     required
                     onChange={(e) => {
@@ -783,7 +780,7 @@ const CustomForm = () => {
                     <div>
                       <div>Account Number</div>
                       <input
-                        className="my-input-style"
+          
                         type="text"
                         onChange={(e) => {
                           setAccountNumber(e.target.value);
