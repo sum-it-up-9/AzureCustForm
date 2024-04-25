@@ -455,7 +455,7 @@ const CustomForm = () => {
     
    
     const raw = JSON.stringify( {
-      checkoutid,
+      checkoutId:checkoutid,
       whoPaysShipping: whoPaysShippping === 'Customer Pays Freight' ? 'Customer' : 'Seller',
       metafields:payload
     });
