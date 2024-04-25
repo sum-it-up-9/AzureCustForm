@@ -5,61 +5,61 @@ const CustomerPreferred = {
     label: "Carrier Name",
     type: "text",
     formName: "CustomerPreferredObj",
-    required:true
+    required: true,
   },
   ContactName: {
     label: "Contact Name",
     type: "text",
     formName: "CustomerPreferredObj",
-    required:true
+    required: true,
   },
   Name: {
     label: "Name",
     type: "text",
     formName: "CustomerPreferredObj",
-    required:true
+    required: true,
   },
   ContactPhone: {
     label: "Contact Phone",
     type: "text",
     formName: "CustomerPreferredObj",
-    required:true
+    required: true,
   },
   Address1: {
     label: "Address 1",
     type: "text",
     formName: "CustomerPreferredObj",
-    required:true
+    required: true,
   },
   Address2: {
     label: "Address 2",
     type: "text",
     formName: "CustomerPreferredObj",
-    required:false
+    required: false,
   },
   State: {
     label: "State",
     type: "dropdown",
     formName: "CustomerPreferredObj",
-    required:true
+    required: true,
   },
   City: {
     label: "City",
     type: "text",
     formName: "CustomerPreferredObj",
-    required:true
+    required: true,
   },
   Zip: {
     label: "Zip",
     type: "text",
     formName: "CustomerPreferredObj",
-    required:true
+    required: true,
   },
   Country: {
     label: "Country",
     type: "dropdown",
     formName: "CustomerPreferredObj",
-    required:true
+    required: true,
   },
 };
 
@@ -68,19 +68,19 @@ const WillCall = {
     lable: "Contact Name",
     type: "text",
     formName: "WillCallObj",
-    required:true
+    required: true,
   },
   ContactEmail: {
     lable: "Contact Email",
     type: "email",
     formName: "WillCallObj",
-    required:true
+    required: true,
   },
   ContactPhone: {
     lable: "Contact Phone",
     type: "text",
     formName: "WillCallObj",
-    required:true
+    required: true,
   },
 };
 
@@ -183,10 +183,10 @@ const ExtensionCommandType = {
 
 const CustomForm = () => {
   const [formData, setFormData] = useState({});
-  const [specialInstructions, setSpecialInstructions]=useState('');
+  const [specialInstructions, setSpecialInstructions] = useState("");
   const [accountNumber, setAccountNumber] = useState(0);
   const [sellarsShipper, setSellarsShipper] = useState("Prepaid Truckload");
-  
+
   const [checkoutid, setCheckoutid] = useState(0);
 
   const [customerPreferredObj, setCustomerPreferredObj] = useState({
@@ -309,14 +309,14 @@ const CustomForm = () => {
     //console.log(fieldOptions, "sdf");
     console.log("called");
     if (fieldType.type === "text") {
-      console.log('req: ',fieldType.required);
+      console.log("req: ", fieldType.required);
       return (
         <>
           {fieldName}
           <input
             type="text"
             name={fieldName}
-            required ={fieldType.required}
+            required={fieldType.required}
             value={formName[fieldName]}
             onChange={(e) => {
               if (formName === "FedExObj") {
@@ -450,56 +450,49 @@ const CustomForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     let payload;
-    if(whoPaysShippping === 'Sellars Pays Freight'){
-      payload={
+    if (whoPaysShippping === "Sellars Pays Freight") {
+      payload = {
         whoPaysShippping,
         sellarsShipper,
-
       };
-    }
-    else if(whoPaysShippping === 'Customer Pays Freight'){
-      if(selectedShipper === 'FedEx'){
-        payload={
+    } else if (whoPaysShippping === "Customer Pays Freight") {
+      if (selectedShipper === "FedEx") {
+        payload = {
           whoPaysShippping,
-          shipper:selectedShipper,
-          useFedExAccount:isDisplayingAccountNumber,
+          shipper: selectedShipper,
+          useFedExAccount: isDisplayingAccountNumber,
           specialInstructions,
+        };
+        if (payload.useFedExAccount) {
+          payload.AccountNumber = accountNumber;
         }
-        if(payload.useFedExAccount){
-          payload.AccountNumber=accountNumber
-        }
-      }
-      else if(selectedShipper === 'Customer Preferred Carrier'){
-        payload={
+      } else if (selectedShipper === "Customer Preferred Carrier") {
+        payload = {
           whoPaysShippping,
-          shipper:selectedShipper,
-          AccountNumber:accountNumber,
-          formData:customerPreferredObj,
-          specialInstructions
-        }
-      }
-      else if(selectedShipper === 'UPS'){
-        payload={
+          shipper: selectedShipper,
+          AccountNumber: accountNumber,
+          formData: customerPreferredObj,
+          specialInstructions,
+        };
+      } else if (selectedShipper === "UPS") {
+        payload = {
           whoPaysShippping,
-          shipper:selectedShipper,
-          AccountNumber:accountNumber,
-          formData:UPSObj,
-          specialInstructions
-        }
-      }
-      else if(selectedShipper === 'Will Call'){
-        payload={
+          shipper: selectedShipper,
+          AccountNumber: accountNumber,
+          formData: UPSObj,
+          specialInstructions,
+        };
+      } else if (selectedShipper === "Will Call") {
+        payload = {
           whoPaysShippping,
-          shipper:selectedShipper,
-          formData:WillCallObj,
-          specialInstructions
-        }
+          shipper: selectedShipper,
+          formData: WillCallObj,
+          specialInstructions,
+        };
       }
     }
     console.log(payload);
-  ;
-  addMetafieldsTocart();
-    
+    addMetafieldsTocart();
   };
 
   function sleep(ms) {
@@ -513,7 +506,6 @@ const CustomForm = () => {
       type: ExtensionCommandType.ShowLoadingIndicator,
       payload: { show: true },
     });
-
   }
 
   function hideLoadingIndicator() {
@@ -524,18 +516,19 @@ const CustomForm = () => {
   }
 
   async function consignmentUpdateTriggered(extensionService, cartId, data) {
-    console.log('consignments changed', data);
+    console.log("consignments changed", data);
     //compareConsignments(data.payload.consignments, data.payload.previousConsignments);
 
     showLoadingIndicator(extensionService);
     //post message to parent window - hide continue button
-    window.top.postMessage("hide-checkout-shipping-continue", "https://vivacommerce-b2b-demo-i9.mybigcommerce.com");
-
+    window.top.postMessage(
+      "hide-checkout-shipping-continue",
+      "https://vivacommerce-b2b-demo-i9.mybigcommerce.com"
+    );
 
     //perform price update operations
 
     try {
-
       await requestCartPriceUpdate(cartId);
     } catch (e) {
       console.log("Error in requestCartPriceUpdate");
@@ -545,65 +538,78 @@ const CustomForm = () => {
     await sleep(1000);
     //post message to parent window - show continue button
     hideLoadingIndicator();
-    window.top.postMessage("show-checkout-shipping-continue", "https://vivacommerce-b2b-demo-i9.mybigcommerce.com");
+    window.top.postMessage(
+      "show-checkout-shipping-continue",
+      "https://vivacommerce-b2b-demo-i9.mybigcommerce.com"
+    );
     //window.top.postMessage("checkout-shipping-next-step", "https://sellars-absorbent-materials-sandbox-1.mybigcommerce.com");
   }
 
   async function requestCartPriceUpdate(cartId) {
     //make fetch call to  http://localhost:7071/api/updateProductPrices with cartID as a post json
     //test with California and Florida
-    const cartUpdate = await fetch('http://localhost:7071/api/updateProductPrices', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        checkoutId: cartId,
-        fedex:{
-          accountNumber:"CUST-101"
-        }
-      })
-    }).then(response => {
+    const cartUpdate = await fetch(
+      "http://localhost:7071/api/updateProductPrices",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          checkoutId: cartId,
+          fedex: {
+            accountNumber: "CUST-101",
+          },
+        }),
+      }
+    ).then((response) => {
       console.log(response);
       return response.json();
     });
 
     console.log(cartUpdate);
-
   }
 
   function compareConsignments(consignments, previousConsignments) {
     let changed = false;
     consignments.forEach((consignment) => {
-      const { id, shippingAddress: { country, stateOrProvinceCode } } = consignment;
+      const {
+        id,
+        shippingAddress: { country, stateOrProvinceCode },
+      } = consignment;
       //const shippingOptionId = consignment?.selectedShippingOption?.id;
 
       if (previousConsignments.length === 0) {
         changed = true;
       } else {
-        const prevConsignment = previousConsignments.find(prev => prev.id === id);
+        const prevConsignment = previousConsignments.find(
+          (prev) => prev.id === id
+        );
         const previousCountry = prevConsignment.shippingAddress.country;
-        const previousStateOrProvinceCode = prevConsignment.shippingAddress.stateOrProvinceCode;
-      //  const previousShippingOptionId = prevConsignment?.selectedShippingOption?.id;
+        const previousStateOrProvinceCode =
+          prevConsignment.shippingAddress.stateOrProvinceCode;
+        //  const previousShippingOptionId = prevConsignment?.selectedShippingOption?.id;
 
         if (country !== previousCountry) {
-          console.log(`️🔄 Consignment #${id} shipping country change: ${previousCountry} -> ${country}.`);
+          console.log(
+            `️🔄 Consignment #${id} shipping country change: ${previousCountry} -> ${country}.`
+          );
           changed = true;
         }
         if (stateOrProvinceCode !== previousStateOrProvinceCode) {
-          console.log(`️🔄 Consignment #${id} shipping state change: ${previousStateOrProvinceCode} -> ${stateOrProvinceCode}.`);
+          console.log(
+            `️🔄 Consignment #${id} shipping state change: ${previousStateOrProvinceCode} -> ${stateOrProvinceCode}.`
+          );
           changed = true;
         }
         // if (shippingOptionId !== previousShippingOptionId) {
         //   console.log(`️🔄 Consignment #${id} shipping option change: ${previousShippingOptionId} -> ${shippingOptionId}.`);
         //   changed = true;
         // }
-
       }
     });
     return changed;
   }
-
 
   useEffect(() => {
     checkoutKitLoader.load("extension").then(async function (module) {
@@ -634,16 +640,19 @@ const CustomForm = () => {
           console.log("inside consignments chnaged listener");
           //console.log(data?.payload?.consignments,data?.payload?.previousConsignments);
 
-
-          const priceUpdateNeeded = compareConsignments(data?.payload?.consignments, data?.payload?.previousConsignments);
+          const priceUpdateNeeded = compareConsignments(
+            data?.payload?.consignments,
+            data?.payload?.previousConsignments
+          );
           if (priceUpdateNeeded) {
-            console.log("Consignment updated, need to trigger price update.")
+            console.log("Consignment updated, need to trigger price update.");
             consignmentUpdateTriggered(extensionService, cartId, data);
           } else {
-            console.log("Key Consignment fields(country, state, shipping option) not updated, no need to trigger price update.")
+            console.log(
+              "Key Consignment fields(country, state, shipping option) not updated, no need to trigger price update."
+            );
           }
           //call azure function to update the product prices
-
         }
       );
 
@@ -661,7 +670,7 @@ const CustomForm = () => {
       <div>
         <form onSubmit={handleSubmit}>
           <div>
-            {/* <div style={{ marginBottom: "5px" }}>Who Pays Shipping</div> */}
+            {/* <div style={{ marginBottom: "5px" }}>Who Pays Shipping</div>
             <select
               required
               style={{ marginBottom: "10px" }}
@@ -669,18 +678,47 @@ const CustomForm = () => {
               name=""
               id=""
             >
-              <option value="" disabled selected hidden>Who Pays Shipping</option>
               <option value="Sellars Pays Freight">Sellars Pays Freight</option>
               <option value="Customer Pays Freight">
                 Customer Pays Freight
               </option>
-            </select>
+            </select> */}
+            <div>
+              <select
+                required
+                style={{
+                  marginBottom: "10px",
+                  width: "200px", // Adjust the width as needed
+                  height: "30px", // Adjust the height as needed
+                  fontSize: "12px", // Adjust the font size as needed
+                }}
+                onChange={handleShippingChange}
+                name=""
+                id=""
+                defaultValue="Customer Pays Freight" // Set default value
+              >
+                <option value="Who Pays Shipping" disabled>
+                  Who Pays Shipping
+                </option>
+                <option value="Sellars Pays Freight">
+                  Sellars Pays Freight
+                </option>
+                <option value="Customer Pays Freight">
+                  Customer Pays Freight
+                </option>
+              </select>
+            </div>
           </div>
 
           {whoPaysShippping === "Sellars Pays Freight" ? (
             <div>
               <div style={{ marginBottom: "5px" }}>Shipper To Use</div>
-              <select required onChange={handleSellersShipperChange} name="" id="">
+              <select
+                required
+                onChange={handleSellersShipperChange}
+                name=""
+                id=""
+              >
                 <option value="Prepaid Truckload">Prepaid Truckload</option>
                 <option value="Prepaid LTL">Prepaid LTL</option>
               </select>
@@ -703,7 +741,13 @@ const CustomForm = () => {
               isDisplayingAccountNumber === "UPS" ? (
                 <div>
                   <div>Account Number</div>
-                  <input type="text" required onChange={(e)=>{setAccountNumber(e.target.value)}} />
+                  <input
+                    type="text"
+                    required
+                    onChange={(e) => {
+                      setAccountNumber(e.target.value);
+                    }}
+                  />
                 </div>
               ) : null}
 
@@ -726,7 +770,13 @@ const CustomForm = () => {
                   {isUsingFedExAccount === "Yes" && (
                     <div>
                       <div>Account Number</div>
-                      <input type="text" onChange={(e)=>{setAccountNumber(e.target.value)}} required/>
+                      <input
+                        type="text"
+                        onChange={(e) => {
+                          setAccountNumber(e.target.value);
+                        }}
+                        required
+                      />
                     </div>
                   )}
                 </>
@@ -735,7 +785,6 @@ const CustomForm = () => {
               <div></div>
 
               <div>
-               
                 <div>
                   {Object.entries(FormFields).map(([fieldName, fieldType]) => (
                     <div key={fieldName}>
@@ -758,7 +807,9 @@ const CustomForm = () => {
             <textarea
               name="specialInstructions"
               id="specialInstructions"
-              onChange={(e) => {setSpecialInstructions(e.target.value)}}
+              onChange={(e) => {
+                setSpecialInstructions(e.target.value);
+              }}
               rows={4} // Set the number of visible text lines
               cols={25} // Set the number of visible text columns
             />
