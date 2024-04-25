@@ -257,6 +257,7 @@ const CustomForm = () => {
 
   const handleSellersShipperChange = (e) => {
     setSellarsShipper(e.target.value);
+    document.getElementById('checkout-shipping-continue').disabled = true;
   };
 
   function handleWillCallChange(e) {
