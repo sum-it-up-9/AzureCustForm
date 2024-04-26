@@ -601,7 +601,7 @@ const CustomForm = () => {
     extensionService.post({
       type: ExtensionCommandType.ReloadCheckout,
     });
-    
+
     window.top.postMessage(
       "show-checkout-shipping-continue",
       "https://vivacommerce-b2b-demo-i9.mybigcommerce.com"
@@ -949,6 +949,7 @@ const CustomForm = () => {
             />
           </div>
           <button
+            id="checkout-submit"
             style={{
               backgroundColor: "black",
               color: "white",
