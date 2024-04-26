@@ -492,6 +492,33 @@ const CustomForm = () => {
   //   console.log("reload checkout");
   //   extensionService.post({ type: ExtensionCommandType.ReloadCheckout });
   // }
+  async function customerJWT(apiAccountClientId) {
+    let resource = `/customer/current.jwt?app_client_id=${apiAccountClientId}`;
+    const res = await fetch(resource,{
+      method: GET
+    });
+    if (!res.ok) {
+      throw new Error(`HTTP error! Status: ${res.status}`);
+    }
+    const data = await res.text();
+
+    console.log("Custom DATA Token",data)
+
+    // fetch(resource)
+    // .then(response => {
+    //   console.log("Token hai",response.text());
+    //   if(response.status === 200) {
+    //     return response.text();
+    //   } else {
+    //     return new Error(`response.status is ${response.status}`);
+    //   }
+    // })
+    // .then(jwt => {
+    //   console.log(jwt); // JWT here
+    //   // decode...
+    // })
+    // .catch(error => console.error(error));
+  }
 
   async function UpdateCartPrice(cartId, whoPaysFreight) {
     let raw;
@@ -522,30 +549,9 @@ const CustomForm = () => {
 
     myHeaders.append("Content-Type", "application/json");
     myHeaders.append("Access-Control-Allow-Origin", "*");
-
-    const customerJWT = (apiAccountClientId) => {
-      let resource = `/customer/current.jwt?app_client_id=${apiAccountClientId}`;
-      return fetch(resource)
-      .then(response => {
-        console.log("Token hai",response.text());
-        if(response.status === 200) {
-          return response.text();
-        } else {
-          return new Error(`response.status is ${response.status}`);
-        }
-      })
-      .then(jwt => {
-        console.log(jwt); // JWT here
-        // decode...
-      })
-      .catch(error => console.error(error));
-    }
     
-
     try {
-      customerJWT("23x6i6jx6x6xu24fr1q5a8f4xee9wz0").then((res) => {
-        console.log("My token",res.json());
-      })
+      customerJWT("23x6i6jx6x6xu24fr1q5a8f4xee9wz0");
       const res = await fetch(`http://localhost:3000/updateCartItems`, {
         method: "POST",
         headers: myHeaders,
