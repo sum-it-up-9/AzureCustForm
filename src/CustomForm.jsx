@@ -963,7 +963,7 @@ const CustomForm = () => {
                                 <Grid container
                                     spacing={3}>
                                     {Object.entries(FormFields).map(([fieldName, fieldType]) => (
-                                        <Grid item key={fieldName} fullWidth md={6}>
+                                        <Grid item key={fieldName} fullWidth sm={6}>
                                             {renderFormField(
                                                 fieldName,
                                                 fieldType,
