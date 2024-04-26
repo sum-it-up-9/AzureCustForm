@@ -617,12 +617,13 @@ const CustomForm = () => {
 
     //sleep for 3 seconds
     await sleep(1000);
-    //post message to parent window - show continue button
     hideLoadingIndicator();
-    window.top.postMessage(
-      "show-checkout-shipping-continue",
-      "https://vivacommerce-b2b-demo-i9.mybigcommerce.com"
-    );
+    //post message to parent window - show continue button
+   
+    // window.top.postMessage(
+    //   "show-checkout-shipping-continue",
+    //   "https://vivacommerce-b2b-demo-i9.mybigcommerce.com"
+    // );
    
     //window.top.postMessage("checkout-shipping-next-step", "https://sellars-absorbent-materials-sandbox-1.mybigcommerce.com");
   }
