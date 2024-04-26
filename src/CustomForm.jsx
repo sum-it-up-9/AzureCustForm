@@ -280,6 +280,12 @@ const CustomForm = () => {
 
     await sleep(1000);
     hideLoadingIndicator();
+
+    window.top.postMessage(
+      "show-submit-shipping-options",
+      "https://vivacommerce-b2b-demo-i9.mybigcommerce.com"
+    );
+    
    
   };
 
@@ -606,6 +612,12 @@ const CustomForm = () => {
       "show-checkout-shipping-continue",
       "https://vivacommerce-b2b-demo-i9.mybigcommerce.com"
     );
+
+    window.top.postMessage(
+      "show-submit-shipping-options",
+      "https://vivacommerce-b2b-demo-i9.mybigcommerce.com"
+    );
+    
   };
 
   function sleep(ms) {
@@ -764,7 +776,11 @@ const CustomForm = () => {
             "hide-checkout-shipping-continue",
             "https://vivacommerce-b2b-demo-i9.mybigcommerce.com"
           );
-
+          window.top.postMessage(
+            "hide-submit-shipping-options",
+            "https://vivacommerce-b2b-demo-i9.mybigcommerce.com"
+          );
+          
 
           const priceUpdateNeeded = compareConsignments(
             data?.payload?.consignments,
@@ -777,12 +793,18 @@ const CustomForm = () => {
             extensionService.post({
               type: ExtensionCommandType.ReloadCheckout,
             });
+
           } else {
             console.log(
               "Key Consignment fields(country, state, shipping option) not updated, no need to trigger price update."
             );
           }
-          //call azure function to update the product prices
+          window.top.postMessage(
+            "show-submit-shipping-options",
+            "https://vivacommerce-b2b-demo-i9.mybigcommerce.com"
+          );
+          
+          
         }
       );
     });
