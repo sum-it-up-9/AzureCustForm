@@ -496,11 +496,7 @@ const CustomForm = () => {
     let resource = `https://vivacommerce-b2b-demo-i9.mybigcommerce.com/customer/current.jwt?app_client_id=23x6i6jx6x6xu24fr1q5a8f4xee9wz0`;
     return fetch(resource)
     .then(response => {
-      if(response.status === 200) {
-        return response.text();
-      } else {
-        return new Error(`response.status is ${response.status}`);
-      }
+      return response.text();
     })
     .then(jwt => {
       console.log(jwt); // JWT here
