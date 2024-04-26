@@ -616,9 +616,9 @@ const CustomForm = () => {
         await sleep(1000);
         hideLoadingIndicator();
         console.log("reload checkout with updated price.");
-        extensionService.post({
-            type: ExtensionCommandType.ReloadCheckout,
-        });
+        // extensionService.post({
+        //     type: ExtensionCommandType.ReloadCheckout,
+        // });
 
         window.top.postMessage(
             "show-checkout-shipping-continue",
