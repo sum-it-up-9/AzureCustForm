@@ -227,7 +227,7 @@ const CustomForm = () => {
   const [isDisplayingAccountNumber, setIsDisplayingAccountNumber] =
     useState("FedEx");
   const [FormFields, setFormFields] = useState(FedEx);
-  console.log(typeof FormFields);
+ // console.log(typeof FormFields);
   const [selectedRadioOption, setSelectedRadioOption] = useState("Ground");
 
   // const handleSubmit = () => {
@@ -287,7 +287,7 @@ const CustomForm = () => {
 
   function handleWillCallChange(e) {
     setWillCallObj((prev) => {
-      console.log({ ...prev, [e.target.name]: e.target.value });
+     // console.log({ ...prev, [e.target.name]: e.target.value });
       //console.log(e.target.name, e.target.value);
       return { ...prev, [e.target.name]: e.target.value };
     });
@@ -338,9 +338,9 @@ const CustomForm = () => {
     //console.log(fieldName, "name");
     // console.log(fieldType, "fieldType");
     //console.log(fieldOptions, "sdf");
-    console.log("called");
+    //console.log("called");
     if (fieldType.type === "text") {
-      console.log("req: ", fieldType.required);
+     // console.log("req: ", fieldType.required);
       return (
         <>
           {fieldName}
@@ -509,7 +509,7 @@ const CustomForm = () => {
 
         const data = await res.json();
         console.log("updated cart prices and metafield data returned: ", data);
-        console.log("reload checkout");
+      
         
     } catch (error) {
         // Handle any errors that occur during the fetch or JSON parsing
@@ -696,19 +696,19 @@ const CustomForm = () => {
 
   useEffect(() => {
     checkoutKitLoader.load("extension").then(async function (module) {
-      console.log("Checkout loader - extension");
+     // console.log("Checkout loader - extension");
       const params = new URL(document.location).searchParams;
 
-      console.log("params: ", params);
+     // console.log("params: ", params);
 
       const extensionId = params.get("extensionId");
-      console.log("this is exctention id: ", extensionId);
+     // console.log("this is exctention id: ", extensionId);
       const cartId = params.get("cartId");
 
       console.log("this is card id: ", cartId);
       setCheckoutid(cartId);
       const parentOrigin = params.get("parentOrigin");
-      console.log("this is parentOrigin: ", parentOrigin);
+    //  console.log("this is parentOrigin: ", parentOrigin);
 
       extensionService = await module.initializeExtensionService({
         extensionId,
@@ -716,7 +716,7 @@ const CustomForm = () => {
         taggedElementId: "container",
       });
 
-      console.log("extentionService: ", extensionService);
+     // console.log("extentionService: ", extensionService);
 
       extensionService.addListener(
         "EXTENSION:CONSIGNMENTS_CHANGED",
@@ -731,6 +731,7 @@ const CustomForm = () => {
           if (priceUpdateNeeded) {
             console.log("Consignment updated, need to trigger price update.");
             consignmentUpdateTriggered(extensionService, cartId, data);
+            console.log("reload checkout with updated price.");
             extensionService.post({ type: ExtensionCommandType.ReloadCheckout });
           } else {
             console.log(
