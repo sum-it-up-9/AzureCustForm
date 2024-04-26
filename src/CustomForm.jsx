@@ -175,6 +175,7 @@ const FedEx = {
   },
 };
 
+let cartId;
 let extensionService;
 const ExtensionCommandType = {
   ReloadCheckout: "EXTENSION:RELOAD_CHECKOUT",
@@ -265,7 +266,7 @@ const CustomForm = () => {
     //call azure function to update the product prices
 
     try {
-      await UpdateCartPrice();
+      await UpdateCartPrice(cartId);
     } catch (e) {
       console.log("Error in UpdateCartPrice",e);
     }
@@ -484,15 +485,17 @@ const CustomForm = () => {
   //   extensionService.post({ type: ExtensionCommandType.ReloadCheckout });
   // }
 
-  async function UpdateCartPrice() {
-    console.log("inside UpdateCartPrice ");
+  async function UpdateCartPrice(cartId) {
+    
+    console.log('inside UpdateCartPrice & this is the current checkoutid: ',checkoutid);
+    console.log('inside UpdateCartPrice & this is the current cartId: ',cartId);
     const myHeaders = new Headers();
 
     myHeaders.append("Content-Type", "application/json");
     myHeaders.append("Access-Control-Allow-Origin", "*");
 
     const raw = JSON.stringify({
-        checkoutId: checkoutid,
+        checkoutId: cartId,
         whoPaysShipping: whoPaysShippping === 'Customer Pays Freight' ? 'Customer' : 'Seller',
         metafields: payload
     });
@@ -564,7 +567,7 @@ const CustomForm = () => {
     }
     // console.log(payload);
     try {
-      await UpdateCartPrice();
+      await UpdateCartPrice(cartId);
     } catch (e) {
       console.log("Error in UpdateCartPrice",e);
     }
@@ -610,7 +613,7 @@ const CustomForm = () => {
     try {
 
       //await requestCartPriceUpdate(cartId);
-      await UpdateCartPrice();
+      await UpdateCartPrice(cartId);
     } catch (e) {
       console.log("Error in requestCartPriceUpdate");
     }
@@ -703,10 +706,11 @@ const CustomForm = () => {
 
       const extensionId = params.get("extensionId");
      // console.log("this is exctention id: ", extensionId);
-      const cartId = params.get("cartId");
+      cartId = params.get("cartId");
 
       console.log("this is card id: ", cartId);
       setCheckoutid(cartId);
+      
       const parentOrigin = params.get("parentOrigin");
     //  console.log("this is parentOrigin: ", parentOrigin);
 
