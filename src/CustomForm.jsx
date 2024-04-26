@@ -193,6 +193,8 @@ async function sendMessage() {
 let payload;
 const CustomForm = () => {
   const [formData, setFormData] = useState({});
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+
   const [specialInstructions, setSpecialInstructions] = useState("");
   const [accountNumber, setAccountNumber] = useState(0);
   const [sellarsShipper, setSellarsShipper] = useState("Prepaid Truckload");
@@ -262,7 +264,7 @@ const CustomForm = () => {
     // console.log(event.target.value);
     setWhoPaysShipping(event.target.value);
     sendMessage();
-
+    setIsButtonDisabled((prev)=>!prev);
     showLoadingIndicator(extensionService);
     //post message to parent window - hide continue button
     window.top.postMessage(
@@ -281,7 +283,7 @@ const CustomForm = () => {
     await sleep(1000);
     hideLoadingIndicator();
 
- 
+    setIsButtonDisabled((prev)=>!prev);
     
    
   };
@@ -971,6 +973,7 @@ const CustomForm = () => {
               fontWeight: "bold",
             }}
             type="submit"
+            disabled={isButtonDisabled}
           >
             Submit Shipping Options
           </button>
