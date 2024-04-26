@@ -563,6 +563,7 @@ const CustomForm = () => {
             payload = {
                 whoPaysShippping,
                 sellarsShipper,
+                specialInstructions
             };
         } else if (whoPaysShippping === "Customer Pays Freight") {
             if (selectedShipper === "FedEx") {
@@ -651,7 +652,7 @@ const CustomForm = () => {
 
     async function consignmentUpdateTriggered(extensionService, cartId, data) {
         console.log("consignments changed", data);
-        //compareConsignments(data.payload.consignments, data.payload.previousConsignments);
+        compareConsignments(data.payload.consignments, data.payload.previousConsignments);
 
         // showLoadingIndicator(extensionService);
         // //post message to parent window - hide continue button
@@ -663,7 +664,7 @@ const CustomForm = () => {
         //perform price update operations
 
         try {
-            //await requestCartPriceUpdate(cartId);
+          
             await UpdateCartPrice(cartId);
         } catch (e) {
             console.log("Error in requestCartPriceUpdate");
@@ -682,30 +683,7 @@ const CustomForm = () => {
         //window.top.postMessage("checkout-shipping-next-step", "https://sellars-absorbent-materials-sandbox-1.mybigcommerce.com");
     }
 
-    async function requestCartPriceUpdate(cartId) {
-        //make fetch call to  http://localhost:7071/api/updateProductPrices with cartID as a post json
-        //test with California and Florida
-        const cartUpdate = await fetch(
-            "http://localhost:7071/api/updateProductPrices",
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    checkoutId: cartId,
-                    fedex: {
-                        accountNumber: "CUST-101",
-                    },
-                }),
-            }
-        ).then((response) => {
-            console.log(response);
-            return response.json();
-        });
-
-        console.log(cartUpdate);
-    }
+   
 
     function compareConsignments(consignments, previousConsignments) {
         let changed = false;
