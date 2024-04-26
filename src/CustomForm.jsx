@@ -281,10 +281,7 @@ const CustomForm = () => {
     await sleep(1000);
     hideLoadingIndicator();
 
-    window.top.postMessage(
-      "show-submit-shipping-options",
-      "https://vivacommerce-b2b-demo-i9.mybigcommerce.com"
-    );
+ 
     
    
   };
@@ -613,10 +610,7 @@ const CustomForm = () => {
       "https://vivacommerce-b2b-demo-i9.mybigcommerce.com"
     );
 
-    window.top.postMessage(
-      "show-submit-shipping-options",
-      "https://vivacommerce-b2b-demo-i9.mybigcommerce.com"
-    );
+   
     
   };
 
@@ -776,10 +770,7 @@ const CustomForm = () => {
             "hide-checkout-shipping-continue",
             "https://vivacommerce-b2b-demo-i9.mybigcommerce.com"
           );
-          window.top.postMessage(
-            "hide-submit-shipping-options",
-            "https://vivacommerce-b2b-demo-i9.mybigcommerce.com"
-          );
+       
           
 
           const priceUpdateNeeded = compareConsignments(
@@ -799,10 +790,7 @@ const CustomForm = () => {
               "Key Consignment fields(country, state, shipping option) not updated, no need to trigger price update."
             );
           }
-          window.top.postMessage(
-            "show-submit-shipping-options",
-            "https://vivacommerce-b2b-demo-i9.mybigcommerce.com"
-          );
+        
           
           
         }
