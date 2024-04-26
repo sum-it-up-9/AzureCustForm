@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from "react";
 import "./CustomForm.css";
 
+import Radio from '@mui/material/Radio';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Select from "@mui/material/Select";
+import TextField from '@mui/material/TextField';
+import Grid from "@mui/material/Grid";
+import { MenuItem } from "@mui/material";
+
 const CustomerPreferred = {
   CarrierName: {
     label: "Carrier Name",
@@ -266,7 +273,7 @@ const CustomForm = () => {
     // console.log(event.target.value);
     setWhoPaysShipping(event.target.value);
     sendMessage();
-   
+
     showLoadingIndicator(extensionService);
     //post message to parent window - hide continue button
     window.top.postMessage(
@@ -285,9 +292,9 @@ const CustomForm = () => {
     await sleep(1000);
     hideLoadingIndicator();
 
-   
-    
-   
+
+
+
   };
 
   const handleSellersShipperChange = (e) => {
@@ -353,10 +360,10 @@ const CustomForm = () => {
       // console.log("req: ", fieldType.required);
       return (
         <>
-          {fieldName}
-          <input
-            type="text"
-            name={fieldName}
+          <TextField
+            fullWidth
+            label={fieldName}
+            variant="outlined" name={fieldName}
             required={fieldType.required}
             value={formName[fieldName]}
             onChange={(e) => {
@@ -370,14 +377,16 @@ const CustomForm = () => {
                 handleCustomerPreferredChange(e);
               }
             }}
-            placeholder={fieldName}
           />
+
         </>
       );
     } else if (fieldType.type === "dropdown") {
       let fieldOptions = [1, 2, 3, 4];
       return (
-        <select
+        <Select
+          style={{marginBottom: "20px"}}
+          fullWidth
           name={fieldName}
           value={fieldType[fieldName]}
           required={fieldType.required}
@@ -393,21 +402,20 @@ const CustomForm = () => {
             }
           }}
         >
-          <option value="">Select {fieldName}</option>
+          <MenuItem value="">Select {fieldName}</MenuItem>
           {fieldOptions.map((option) => (
-            <option key={option} value={option}>
+            <MenuItem key={option} value={option}>
               {option}
-            </option>
+            </MenuItem>
           ))}
-        </select>
+        </Select>
       );
     } else if (fieldType.type === "radio") {
       return (
         <div>
-          <input
-            type="radio"
-            name={fieldName}
-            value={fieldType.label}
+          <FormControlLabel
+            name={fieldName} value={fieldType.label}
+            control={<Radio />} label={fieldType.label}
             checked={
               formName === "FedExObj"
                 ? FedExObj === fieldType.label
@@ -421,17 +429,17 @@ const CustomForm = () => {
               }
             }}
           />
-          {fieldType.label}
         </div>
       );
     } else if (fieldType.type === "email") {
       return (
         <>
-          <label htmlFor={fieldName}>{fieldType.lable}</label>
-
-          <input
+          <TextField
+            fullWidth
+            variant="outlined"
             id={fieldName}
             type="email"
+            label={fieldName}
             name={fieldName}
             value={formName[fieldName]}
             onChange={(e) => {
@@ -445,7 +453,6 @@ const CustomForm = () => {
                 handleCustomerPreferredChange(e);
               }
             }}
-            placeholder="Enter email"
           />
         </>
       );
@@ -502,7 +509,7 @@ const CustomForm = () => {
         metafields: payload,
       });
     }
-    else{
+    else {
       raw = JSON.stringify({
         checkoutId: cartId,
         whoPaysShipping: whoPaysShippping === "Customer Pays Freight" ? "Customer" : "Seller",
@@ -523,7 +530,7 @@ const CustomForm = () => {
     myHeaders.append("Content-Type", "application/json");
     myHeaders.append("Access-Control-Allow-Origin", "*");
 
-    
+
 
     try {
       const res = await fetch(`http://localhost:3000/updateCartItems`, {
@@ -614,8 +621,8 @@ const CustomForm = () => {
       "https://vivacommerce-b2b-demo-i9.mybigcommerce.com"
     );
 
-   
-    
+
+
   };
 
   function sleep(ms) {
@@ -774,8 +781,8 @@ const CustomForm = () => {
             "hide-checkout-shipping-continue",
             "https://vivacommerce-b2b-demo-i9.mybigcommerce.com"
           );
-       
-          
+
+
 
           const priceUpdateNeeded = compareConsignments(
             data?.payload?.consignments,
@@ -794,9 +801,9 @@ const CustomForm = () => {
               "Key Consignment fields(country, state, shipping option) not updated, no need to trigger price update."
             );
           }
-        
-          
-          
+
+
+
         }
       );
     });
@@ -813,20 +820,24 @@ const CustomForm = () => {
         <form onSubmit={handleSubmit}>
           <div>
             <div style={{ marginBottom: "5px" }}>Who Pays Shipping</div>
-            <select
+            <Select
+              fullWidth
               required
               style={{ marginBottom: "10px" }}
+              value={whoPaysShippping}
               onChange={handleShippingChange}
               name=""
               id=""
             >
-              <option value="Sellars Pays Freight">Sellars Pays Freight</option>
-              <option value="Customer Pays Freight">
+              <MenuItem value="Sellars Pays Freight">Sellars Pays Freight</MenuItem>
+              <MenuItem value="Customer Pays Freight">
                 Customer Pays Freight
-              </option>
-            </select>
+              </MenuItem>
+            </Select>
             {/* <div style={{ position: "relative", width: "200px" }}>
-              <select
+              <Select
+                style={{marginBottom: "20px"}}
+                fullWidth
                 required
                 style={{
                   width: "100%", // Adjust the width as needed
@@ -861,36 +872,44 @@ const CustomForm = () => {
           {whoPaysShippping === "Sellars Pays Freight" ? (
             <div>
               <div style={{ marginBottom: "5px" }}>Shipper To Use</div>
-              <select
+              <Select
+                style={{marginBottom: "20px"}}
+                fullWidth
                 required
+                value={sellarsShipper}
                 onChange={handleSellersShipperChange}
                 name=""
                 id=""
               >
-                <option value="Prepaid Truckload">Prepaid Truckload</option>
-                <option value="Prepaid LTL">Prepaid LTL</option>
-              </select>
+                <MenuItem value="Prepaid Truckload">Prepaid Truckload</MenuItem>
+                <MenuItem value="Prepaid LTL">Prepaid LTL</MenuItem>
+              </Select>
             </div>
           ) : (
             <>
               <div>
                 <div style={{ marginBottom: "5px" }}>Shipper To Use</div>
-                <select onChange={handleShipperChange} name="" id="">
-                  <option value="FedEx">FedEx</option>
-                  <option value="Customer Preferred Carrier">
+                <Select
+                  style={{marginBottom: "20px"}}
+                  fullWidth
+                  defaultValue="FedEx"
+                  onChange={handleShipperChange} 
+                >
+                  <MenuItem value="FedEx">FedEx</MenuItem>
+                  <MenuItem value="Customer Preferred Carrier">
                     Customer Preferred Carrier
-                  </option>
-
-                  <option value="UPS">UPS</option>
-                  <option value="Will Call">Will Call</option>
-                </select>
+                  </MenuItem>
+                  <MenuItem value="UPS">UPS</MenuItem>
+                  <MenuItem value="Will Call">Will Call</MenuItem>
+                </Select>
               </div>
               {isDisplayingAccountNumber === "Customer Preferred Carrier" ||
-              isDisplayingAccountNumber === "UPS" ? (
-                <div>
-                  <div>Account Number</div>
-                  <input
-                    type="text"
+                isDisplayingAccountNumber === "UPS" ? (
+                <div style={{marginBottom: "20px"}}>
+                  <TextField
+                    fullWidth
+                    label="Account Number"
+                    variant="outlined"
                     required
                     onChange={(e) => {
                       setAccountNumber(e.target.value);
@@ -906,24 +925,28 @@ const CustomForm = () => {
                       Use My FedEx Account
                     </label>
                   </div>
-                  <select
+                  <Select
+                    style={{marginBottom: "20px"}}
+                    fullWidth
+                    defaultValue="Yes"
                     onChange={handleFedExAccountChange}
                     name="useFedExAccount"
                     id="useFedExAccount"
                   >
-                    <option value="Yes">Yes</option>
-                    <option value="No">No</option>
-                  </select>
+                    <MenuItem value="Yes">Yes</MenuItem>
+                    <MenuItem value="No">No</MenuItem>
+                  </Select>
 
                   {isUsingFedExAccount === "Yes" && (
-                    <div>
-                      <div>Account Number</div>
-                      <input
-                        type="text"
+                    <div style={{marginBottom: "20px"}}>
+                      <TextField
+                        fullWidth
+                        label="Account Number"
+                        variant="outlined"
+                        required
                         onChange={(e) => {
                           setAccountNumber(e.target.value);
                         }}
-                        required
                       />
                     </div>
                   )}
@@ -933,17 +956,18 @@ const CustomForm = () => {
               <div></div>
 
               <div>
-                <div>
+                <Grid container
+                  spacing={3}>
                   {Object.entries(FormFields).map(([fieldName, fieldType]) => (
-                    <div key={fieldName}>
+                    <Grid item key={fieldName} fullWidth md={6}>
                       {renderFormField(
                         fieldName,
                         fieldType,
                         fieldType?.formName
                       )}
-                    </div>
+                    </Grid>
                   ))}
-                </div>
+                </Grid>
               </div>
             </>
           )}
@@ -975,7 +999,7 @@ const CustomForm = () => {
               fontWeight: "bold",
             }}
             type="submit"
-           
+
           >
             Submit Shipping Options
           </button>
