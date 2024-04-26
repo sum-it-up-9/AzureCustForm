@@ -493,16 +493,7 @@ const CustomForm = () => {
   //   extensionService.post({ type: ExtensionCommandType.ReloadCheckout });
   // }
   async function customerJWT(apiAccountClientId) {
-    // let resource = ``;
-    const options = {
-      method: 'GET',
-      headers: {Accept: 'application/json', 'Content-Type': 'application/json'}
-    };
-    
-    fetch('https://vivacommerce-b2b-demo-i9.mybigcommerce.com/customer/current.jwt?app_client_id=23x6i6jx6x6xu24fr1q5a8f4xee9wz0', options)
-      .then(response => response.json())
-      .then(response => console.log(response))
-      .catch(err => console.error(err));
+    console.log(sessionStorage.getItem('sf-currentCustomerJWT'));
   }
 
   async function UpdateCartPrice(cartId, whoPaysFreight) {
@@ -536,9 +527,7 @@ const CustomForm = () => {
     myHeaders.append("Access-Control-Allow-Origin", "*");
     
     try {
-      customerJWT("23x6i6jx6x6xu24fr1q5a8f4xee9wz0").then((res) => {
-        console.log("Test here", res.text() );
-      })
+      customerJWT("23x6i6jx6x6xu24fr1q5a8f4xee9wz0");
       const res = await fetch(`http://localhost:3000/updateCartItems`, {
         method: "POST",
         headers: myHeaders,
