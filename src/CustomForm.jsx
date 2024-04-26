@@ -177,6 +177,8 @@ const FedEx = {
 
 let cartId;
 let extensionService;
+let payload;
+let disabled=false;
 const ExtensionCommandType = {
   ReloadCheckout: "EXTENSION:RELOAD_CHECKOUT",
   ShowLoadingIndicator: "EXTENSION:SHOW_LOADING_INDICATOR",
@@ -190,10 +192,10 @@ async function sendMessage() {
   );
 }
 
-let payload;
+
 const CustomForm = () => {
   const [formData, setFormData] = useState({});
-  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  //const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   const [specialInstructions, setSpecialInstructions] = useState("");
   const [accountNumber, setAccountNumber] = useState(0);
@@ -264,7 +266,7 @@ const CustomForm = () => {
     // console.log(event.target.value);
     setWhoPaysShipping(event.target.value);
     sendMessage();
-    setIsButtonDisabled((prev)=>!prev);
+    disabled=true;
     showLoadingIndicator(extensionService);
     //post message to parent window - hide continue button
     window.top.postMessage(
@@ -283,7 +285,7 @@ const CustomForm = () => {
     await sleep(1000);
     hideLoadingIndicator();
 
-    setIsButtonDisabled((prev)=>!prev);
+    disabled=false;
     
    
   };
@@ -973,7 +975,7 @@ const CustomForm = () => {
               fontWeight: "bold",
             }}
             type="submit"
-            disabled={isButtonDisabled}
+            disabled={disabled}
           >
             Submit Shipping Options
           </button>
