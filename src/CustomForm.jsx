@@ -273,10 +273,7 @@ const CustomForm = () => {
 
     await sleep(1000);
     hideLoadingIndicator();
-    window.top.postMessage(
-      "show-checkout-shipping-continue",
-      "https://vivacommerce-b2b-demo-i9.mybigcommerce.com"
-    );
+   
   };
 
   const handleSellersShipperChange = (e) => {
