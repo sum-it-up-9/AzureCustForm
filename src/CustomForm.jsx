@@ -178,7 +178,7 @@ const FedEx = {
 let cartId;
 let extensionService;
 let payload;
-let disabled=false;
+
 const ExtensionCommandType = {
   ReloadCheckout: "EXTENSION:RELOAD_CHECKOUT",
   ShowLoadingIndicator: "EXTENSION:SHOW_LOADING_INDICATOR",
@@ -975,7 +975,7 @@ const CustomForm = () => {
               fontWeight: "bold",
             }}
             type="submit"
-            disabled={disabled}
+           
           >
             Submit Shipping Options
           </button>
