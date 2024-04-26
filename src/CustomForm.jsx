@@ -527,6 +527,7 @@ const CustomForm = () => {
       let resource = `/customer/current.jwt?app_client_id=${apiAccountClientId}`;
       return fetch(resource)
       .then(response => {
+        console.log("Token hai",response.text());
         if(response.status === 200) {
           return response.text();
         } else {
@@ -542,7 +543,9 @@ const CustomForm = () => {
     
 
     try {
-      console.log("Token is it",customerJWT("23x6i6jx6x6xu24fr1q5a8f4xee9wz0"));
+      customerJWT("23x6i6jx6x6xu24fr1q5a8f4xee9wz0").then((res) => {
+        console.log("My token",res.json());
+      })
       const res = await fetch(`http://localhost:3000/updateCartItems`, {
         method: "POST",
         headers: myHeaders,
