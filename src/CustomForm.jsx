@@ -263,6 +263,13 @@ const CustomForm = () => {
     setWhoPaysShipping(event.target.value);
     sendMessage();
 
+    showLoadingIndicator(extensionService);
+    //post message to parent window - hide continue button
+    window.top.postMessage(
+      "hide-checkout-shipping-continue",
+      "https://vivacommerce-b2b-demo-i9.mybigcommerce.com"
+    );
+
     //call azure function to update the product prices
 
     try {
@@ -576,6 +583,12 @@ const CustomForm = () => {
       }
     }
     // console.log(payload);
+    showLoadingIndicator(extensionService);
+    //post message to parent window - hide continue button
+    window.top.postMessage(
+      "hide-checkout-shipping-continue",
+      "https://vivacommerce-b2b-demo-i9.mybigcommerce.com"
+    );
     try {
       await UpdateCartPrice(cartId);
     } catch (e) {
