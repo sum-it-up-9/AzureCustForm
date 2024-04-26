@@ -266,7 +266,7 @@ const CustomForm = () => {
     // console.log(event.target.value);
     setWhoPaysShipping(event.target.value);
     sendMessage();
-    disabled=true;
+   
     showLoadingIndicator(extensionService);
     //post message to parent window - hide continue button
     window.top.postMessage(
@@ -285,7 +285,7 @@ const CustomForm = () => {
     await sleep(1000);
     hideLoadingIndicator();
 
-    disabled=false;
+   
     
    
   };
