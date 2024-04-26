@@ -671,7 +671,7 @@ const CustomForm = () => {
 
         //sleep for 3 seconds
         await sleep(1000);
-        hideLoadingIndicator();
+      
         //post message to parent window - show continue button
 
         // window.top.postMessage(
@@ -781,15 +781,15 @@ const CustomForm = () => {
                         console.log(
                             "Key Consignment fields(country, state, shipping option) not updated, no need to trigger price update."
                         );
-                        hideLoadingIndicator();
+                     
                        
   
                     }
-
-                    window.top.postMessage(
-                      "show-checkout-shipping-continue",
-                      "https://vivacommerce-b2b-demo-i9.mybigcommerce.com"
-                  );
+                    hideLoadingIndicator();
+                  //   window.top.postMessage(
+                  //     "show-checkout-shipping-continue",
+                  //     "https://vivacommerce-b2b-demo-i9.mybigcommerce.com"
+                  // );
 
                 }
             );
