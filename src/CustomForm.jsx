@@ -492,8 +492,10 @@ const CustomForm = () => {
   //   console.log("reload checkout");
   //   extensionService.post({ type: ExtensionCommandType.ReloadCheckout });
   // }
-  async function customerJWT(apiAccountClientId) {
-    console.log(sessionStorage.getItem('sf-currentCustomerJWT'));
+  async function customerJWT() {
+    console.log("Inside JWT");
+    let abc = sessionStorage.getItem('sf-currentCustomerJWT');
+    console.log("Found value",abc);
   }
 
   async function UpdateCartPrice(cartId, whoPaysFreight) {
@@ -527,7 +529,7 @@ const CustomForm = () => {
     myHeaders.append("Access-Control-Allow-Origin", "*");
     
     try {
-      customerJWT("23x6i6jx6x6xu24fr1q5a8f4xee9wz0");
+      customerJWT();
       const res = await fetch(`http://localhost:3000/updateCartItems`, {
         method: "POST",
         headers: myHeaders,
