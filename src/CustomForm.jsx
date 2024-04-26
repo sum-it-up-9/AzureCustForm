@@ -651,7 +651,7 @@ const CustomForm = () => {
 
     async function consignmentUpdateTriggered(extensionService, cartId, data) {
         console.log("consignments changed", data);
-        compareConsignments(data.payload.consignments, data.payload.previousConsignments);
+       
 
         // showLoadingIndicator(extensionService);
         // //post message to parent window - hide continue button
