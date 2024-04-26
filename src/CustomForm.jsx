@@ -523,9 +523,26 @@ const CustomForm = () => {
     myHeaders.append("Content-Type", "application/json");
     myHeaders.append("Access-Control-Allow-Origin", "*");
 
+    const customerJWT = (apiAccountClientId) => {
+      let resource = `/customer/current.jwt?app_client_id=${apiAccountClientId}`;
+      return fetch(resource)
+      .then(response => {
+        if(response.status === 200) {
+          return response.text();
+        } else {
+          return new Error(`response.status is ${response.status}`);
+        }
+      })
+      .then(jwt => {
+        console.log(jwt); // JWT here
+        // decode...
+      })
+      .catch(error => console.error(error));
+    }
     
 
     try {
+      console.log("Token is it",customerJWT("23x6i6jx6x6xu24fr1q5a8f4xee9wz0"));
       const res = await fetch(`http://localhost:3000/updateCartItems`, {
         method: "POST",
         headers: myHeaders,
