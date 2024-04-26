@@ -627,12 +627,12 @@ const CustomForm = () => {
     console.log("consignments changed", data);
     //compareConsignments(data.payload.consignments, data.payload.previousConsignments);
 
-    showLoadingIndicator(extensionService);
-    //post message to parent window - hide continue button
-    window.top.postMessage(
-      "hide-checkout-shipping-continue",
-      "https://vivacommerce-b2b-demo-i9.mybigcommerce.com"
-    );
+    // showLoadingIndicator(extensionService);
+    // //post message to parent window - hide continue button
+    // window.top.postMessage(
+    //   "hide-checkout-shipping-continue",
+    //   "https://vivacommerce-b2b-demo-i9.mybigcommerce.com"
+    // );
 
     //perform price update operations
 
@@ -752,6 +752,14 @@ const CustomForm = () => {
         async (data) => {
           console.log("inside consignments chnaged listener");
           //console.log(data?.payload?.consignments,data?.payload?.previousConsignments);
+
+          showLoadingIndicator(extensionService);
+          //post message to parent window - hide continue button
+          window.top.postMessage(
+            "hide-checkout-shipping-continue",
+            "https://vivacommerce-b2b-demo-i9.mybigcommerce.com"
+          );
+
 
           const priceUpdateNeeded = compareConsignments(
             data?.payload?.consignments,
