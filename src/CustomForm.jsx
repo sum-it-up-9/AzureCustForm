@@ -527,13 +527,10 @@ const CustomForm = () => {
 
     myHeaders.append("Content-Type", "application/json");
     myHeaders.append("Access-Control-Allow-Origin", "*");
-<<<<<<< HEAD
 
     
 
-=======
     
->>>>>>> 8b1fe38915f04df11f90a097433615211e39ed8c
     try {
       customerJWT();
       const res = await fetch(`http://localhost:3000/updateCartItems`, {
