@@ -499,11 +499,11 @@ const CustomForm = () => {
   //   console.log("reload checkout");
   //   extensionService.post({ type: ExtensionCommandType.ReloadCheckout });
   // }
-  // async function customerJWT() {
-  //   console.log("Inside JWT");
-  //   let abc = await sessionStorage.getItem('sf-currentCustomerJWT');
-  //   console.log("Found value",abc);
-  // }
+  async function customerJWT() {
+    console.log("Inside JWT");
+    let abc = await sessionStorage.getItem('sf-currentCustomerJWT');
+    console.log("Found value",abc);
+  }
 
   async function UpdateCartPrice(cartId, whoPaysFreight) {
     let raw;
@@ -542,7 +542,7 @@ const CustomForm = () => {
     
 >>>>>>> 8b1fe38915f04df11f90a097433615211e39ed8c
     try {
-      // customerJWT();
+      customerJWT();
       const res = await fetch(`http://localhost:3000/updateCartItems`, {
         method: "POST",
         headers: myHeaders,
