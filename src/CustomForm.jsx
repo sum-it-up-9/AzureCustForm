@@ -175,10 +175,6 @@ const FedEx = {
   },
 };
 
-let cartId;
-let extensionService;
-let payload;
-
 const ExtensionCommandType = {
   ReloadCheckout: "EXTENSION:RELOAD_CHECKOUT",
   ShowLoadingIndicator: "EXTENSION:SHOW_LOADING_INDICATOR",
@@ -192,8 +188,11 @@ async function sendMessage() {
   );
 }
 
-
 const CustomForm = () => {
+  
+  let cartId;
+  let extensionService;
+  let payload;
   const [formData, setFormData] = useState({});
   //const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
@@ -266,7 +265,7 @@ const CustomForm = () => {
     // console.log(event.target.value);
     setWhoPaysShipping(event.target.value);
     sendMessage();
-   
+
     showLoadingIndicator(extensionService);
     //post message to parent window - hide continue button
     window.top.postMessage(
@@ -284,10 +283,6 @@ const CustomForm = () => {
 
     await sleep(1000);
     hideLoadingIndicator();
-
-   
-    
-   
   };
 
   const handleSellersShipperChange = (e) => {
@@ -498,14 +493,15 @@ const CustomForm = () => {
     if (whoPaysFreight) {
       raw = JSON.stringify({
         checkoutId: cartId,
-        whoPaysShipping: whoPaysFreight === "Customer Pays Freight" ? "Customer" : "Seller",
+        whoPaysShipping:
+          whoPaysFreight === "Customer Pays Freight" ? "Customer" : "Seller",
         metafields: payload,
       });
-    }
-    else{
+    } else {
       raw = JSON.stringify({
         checkoutId: cartId,
-        whoPaysShipping: whoPaysShippping === "Customer Pays Freight" ? "Customer" : "Seller",
+        whoPaysShipping:
+          whoPaysShippping === "Customer Pays Freight" ? "Customer" : "Seller",
         metafields: payload,
       });
     }
@@ -522,8 +518,6 @@ const CustomForm = () => {
 
     myHeaders.append("Content-Type", "application/json");
     myHeaders.append("Access-Control-Allow-Origin", "*");
-
-    
 
     try {
       const res = await fetch(`http://localhost:3000/updateCartItems`, {
@@ -613,9 +607,6 @@ const CustomForm = () => {
       "show-checkout-shipping-continue",
       "https://vivacommerce-b2b-demo-i9.mybigcommerce.com"
     );
-
-   
-    
   };
 
   function sleep(ms) {
@@ -774,8 +765,6 @@ const CustomForm = () => {
             "hide-checkout-shipping-continue",
             "https://vivacommerce-b2b-demo-i9.mybigcommerce.com"
           );
-       
-          
 
           const priceUpdateNeeded = compareConsignments(
             data?.payload?.consignments,
@@ -788,15 +777,11 @@ const CustomForm = () => {
             extensionService.post({
               type: ExtensionCommandType.ReloadCheckout,
             });
-
           } else {
             console.log(
               "Key Consignment fields(country, state, shipping option) not updated, no need to trigger price update."
             );
           }
-        
-          
-          
         }
       );
     });
@@ -975,7 +960,6 @@ const CustomForm = () => {
               fontWeight: "bold",
             }}
             type="submit"
-           
           >
             Submit Shipping Options
           </button>
