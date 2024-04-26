@@ -7,6 +7,33 @@ body {
     font-family: Arial, sans-serif;
 }
 
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 16px;
+}
+
+input, 
+select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+input[type="radio"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    border: 1px solid #ccc; 
+}
+
+select {
+   height: auto; 
+}
+
 textarea {
     width: 100%;
     height: fit-content;
