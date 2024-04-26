@@ -494,7 +494,9 @@ const CustomForm = () => {
   // }
   async function customerJWT() {
     console.log("Inside JWT");
-    let abc = sessionStorage.getItem('sf-currentCustomerJWT');
+    while(sessionStorage.getItem('sf-currentCustomerJWT') == null){
+    } 
+    let abc = await sessionStorage.getItem('sf-currentCustomerJWT');
     console.log("Found value",abc);
   }
 
