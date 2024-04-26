@@ -182,6 +182,10 @@ const FedEx = {
     },
 };
 
+let cartId;
+let extensionService;
+let payload;
+
 const ExtensionCommandType = {
     ReloadCheckout: "EXTENSION:RELOAD_CHECKOUT",
     ShowLoadingIndicator: "EXTENSION:SHOW_LOADING_INDICATOR",
