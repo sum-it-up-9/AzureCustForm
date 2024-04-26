@@ -257,13 +257,26 @@ const CustomForm = () => {
   };
   const [selectedShipper, setSelectedShipper] = useState("FedEx");
 
-  const handleShippingChange = (event) => {
+  const handleShippingChange = async (event) => {
     // console.log(event.target.value);
     setWhoPaysShipping(event.target.value)
     sendMessage();
-    extensionService.post({ type: ExtensionCommandType.ReloadCheckout });;
 
     //call azure function to update the product prices
+
+    try {
+      await UpdateCartPrice();
+    } catch (e) {
+      console.log("Error in UpdateCartPrice",e);
+    }
+
+    await sleep(1000);
+    hideLoadingIndicator();
+    window.top.postMessage("show-checkout-shipping-continue","https://vivacommerce-b2b-demo-i9.mybigcommerce.com");
+    
+   
+
+    
   };
 
   const handleSellersShipperChange = (e) => {
@@ -283,7 +296,7 @@ const CustomForm = () => {
 
   function handleFedExChange(e) {
     setFedExObj(e.target.value);
-    console.log("change", e.target.value);
+   // console.log("change", e.target.value);
    // sendMessage();
   }
 
@@ -447,31 +460,66 @@ const CustomForm = () => {
   //   console.log('updated cart value returned from dicounted api: ',data);
   // }
 
+  // async function UpdateCartPrice() {
+  //   console.log("inside UpdateCartPrice ");
+  //   const myHeaders = new Headers();
+
+  //   myHeaders.append("Content-Type", "application/json");
+  //   myHeaders.append("Access-Control-Allow-Origin", "*");
+    
+   
+  //   const raw = JSON.stringify( {
+  //     checkoutId:checkoutid,
+  //     whoPaysShipping: whoPaysShippping === 'Customer Pays Freight' ? 'Customer' : 'Seller',
+  //     metafields:payload
+  //   });
+
+  //   const res = await fetch(
+  //     `http://localhost:3000/updateCartItems`,
+  //     { method: "POST", headers: myHeaders, body: raw, redirect: "follow" }
+  //   );
+  //   const data = await res.json();
+  //   console.log("updated cart prices and metafield data returned: ", data);
+  //   console.log("reload checkout");
+  //   extensionService.post({ type: ExtensionCommandType.ReloadCheckout });
+  // }
+
   async function UpdateCartPrice() {
     console.log("inside UpdateCartPrice ");
     const myHeaders = new Headers();
 
     myHeaders.append("Content-Type", "application/json");
     myHeaders.append("Access-Control-Allow-Origin", "*");
-    
-   
-    const raw = JSON.stringify( {
-      checkoutId:checkoutid,
-      whoPaysShipping: whoPaysShippping === 'Customer Pays Freight' ? 'Customer' : 'Seller',
-      metafields:payload
+
+    const raw = JSON.stringify({
+        checkoutId: checkoutid,
+        whoPaysShipping: whoPaysShippping === 'Customer Pays Freight' ? 'Customer' : 'Seller',
+        metafields: payload
     });
 
-    const res = await fetch(
-      `http://localhost:3000/updateCartItems`,
-      { method: "POST", headers: myHeaders, body: raw, redirect: "follow" }
-    );
-    const data = await res.json();
-    console.log("updated cart prices and metafield data returned: ", data);
-    console.log("reload checkout");
-    extensionService.post({ type: ExtensionCommandType.ReloadCheckout });
-  }
+    try {
+        const res = await fetch(
+            `http://localhost:3000/updateCartItems`,
+            { method: "POST", headers: myHeaders, body: raw, redirect: "follow" }
+        );
+        
+        if (!res.ok) {
+            throw new Error(`HTTP error! Status: ${res.status}`);
+        }
 
-  const handleSubmit = (e) => {
+        const data = await res.json();
+        console.log("updated cart prices and metafield data returned: ", data);
+        console.log("reload checkout");
+        
+    } catch (error) {
+        // Handle any errors that occur during the fetch or JSON parsing
+        console.error("Error updating cart prices:", error);
+        // You may want to notify the user or take other appropriate actions here
+    }
+}
+
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (whoPaysShippping === "Sellars Pays Freight") {
       payload = {
@@ -515,11 +563,15 @@ const CustomForm = () => {
       }
     }
     // console.log(payload);
-    UpdateCartPrice();
-    window.top.postMessage(
-      "show-checkout-shipping-continue",
-      "https://vivacommerce-b2b-demo-i9.mybigcommerce.com"
-    );
+    try {
+      await UpdateCartPrice();
+    } catch (e) {
+      console.log("Error in UpdateCartPrice",e);
+    }
+
+    await sleep(1000);
+    hideLoadingIndicator();
+    window.top.postMessage("show-checkout-shipping-continue","https://vivacommerce-b2b-demo-i9.mybigcommerce.com");
   };
 
   function sleep(ms) {
@@ -571,6 +623,7 @@ const CustomForm = () => {
       "show-checkout-shipping-continue",
       "https://vivacommerce-b2b-demo-i9.mybigcommerce.com"
     );
+   
     //window.top.postMessage("checkout-shipping-next-step", "https://sellars-absorbent-materials-sandbox-1.mybigcommerce.com");
   }
 
@@ -652,6 +705,7 @@ const CustomForm = () => {
       const cartId = params.get("cartId");
 
       console.log("this is card id: ", cartId);
+      setCheckoutid(cartId);
       const parentOrigin = params.get("parentOrigin");
       console.log("this is parentOrigin: ", parentOrigin);
 
@@ -676,6 +730,7 @@ const CustomForm = () => {
           if (priceUpdateNeeded) {
             console.log("Consignment updated, need to trigger price update.");
             consignmentUpdateTriggered(extensionService, cartId, data);
+            extensionService.post({ type: ExtensionCommandType.ReloadCheckout });
           } else {
             console.log(
               "Key Consignment fields(country, state, shipping option) not updated, no need to trigger price update."
@@ -685,7 +740,7 @@ const CustomForm = () => {
         }
       );
 
-      setCheckoutid(cartId);
+    
     });
 
     // Cleanup function
