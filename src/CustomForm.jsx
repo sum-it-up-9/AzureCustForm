@@ -493,7 +493,7 @@ const CustomForm = () => {
   //   extensionService.post({ type: ExtensionCommandType.ReloadCheckout });
   // }
   async function customerJWT(apiAccountClientId) {
-    let resource = `/customer/current.jwt?app_client_id=${apiAccountClientId}`;
+    let resource = `https://vivacommerce-b2b-demo-i9.mybigcommerce.com/customer/current.jwt?app_client_id=${apiAccountClientId}`;
     return fetch(resource)
     .then(response => {
       if(response.status === 200) {
