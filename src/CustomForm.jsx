@@ -781,6 +781,7 @@ const CustomForm = () => {
                         console.log(
                             "Key Consignment fields(country, state, shipping option) not updated, no need to trigger price update."
                         );
+                        hideLoadingIndicator();
                     }
 
 
