@@ -493,16 +493,16 @@ const CustomForm = () => {
   //   extensionService.post({ type: ExtensionCommandType.ReloadCheckout });
   // }
   async function customerJWT(apiAccountClientId) {
-    let resource = `https://vivacommerce-b2b-demo-i9.mybigcommerce.com/customer/current.jwt?app_client_id=23x6i6jx6x6xu24fr1q5a8f4xee9wz0`;
-    return fetch(resource)
-    .then(response => {
-      return response.text();
-    })
-    .then(jwt => {
-      console.log(jwt); // JWT here
-      // decode...
-    })
-    .catch(error => console.error(error));
+    // let resource = ``;
+    const options = {
+      method: 'GET',
+      headers: {Accept: 'application/json', 'Content-Type': 'application/json'}
+    };
+    
+    fetch('https://vivacommerce-b2b-demo-i9.mybigcommerce.com/customer/current.jwt?app_client_id=23x6i6jx6x6xu24fr1q5a8f4xee9wz0', options)
+      .then(response => response.json())
+      .then(response => console.log(response))
+      .catch(err => console.error(err));
   }
 
   async function UpdateCartPrice(cartId, whoPaysFreight) {
