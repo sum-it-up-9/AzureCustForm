@@ -758,10 +758,10 @@ const CustomForm = () => {
 
                     showLoadingIndicator(extensionService);
                     //post message to parent window - hide continue button
-                    window.top.postMessage(
-                        "hide-checkout-shipping-continue",
-                        "https://vivacommerce-b2b-demo-i9.mybigcommerce.com"
-                    );
+                    // window.top.postMessage(
+                    //     "hide-checkout-shipping-continue",
+                    //     "https://vivacommerce-b2b-demo-i9.mybigcommerce.com"
+                    // );
 
 
 
