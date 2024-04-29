@@ -396,9 +396,9 @@ const CustomForm = () => {
         hideLoadingIndicator();
 
         console.log("do not reload checkout with updated price.");
-        // extensionService.post({
-        //     type: ExtensionCommandType.ReloadCheckout,
-        // });
+        extensionService.post({
+            type: ExtensionCommandType.ReloadCheckout,
+        });
 
 
     };
