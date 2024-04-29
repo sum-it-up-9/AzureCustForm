@@ -373,8 +373,7 @@ const CustomForm = () => {
     const handleShippingChange = async (event) => {
         // console.log(event.target.value);
         setWhoPaysShipping(event.target.value);
-        sendMessage();
-
+       
         extensionService.post({
             type: ExtensionCommandType.ShowLoadingIndicator,
             payload: { show: true },
@@ -396,10 +395,10 @@ const CustomForm = () => {
         await sleep(1000);
         hideLoadingIndicator();
 
-        console.log("reload checkout with updated price.");
-        extensionService.post({
-            type: ExtensionCommandType.ReloadCheckout,
-        });
+        console.log("do not reload checkout with updated price.");
+        // extensionService.post({
+        //     type: ExtensionCommandType.ReloadCheckout,
+        // });
 
 
     };
