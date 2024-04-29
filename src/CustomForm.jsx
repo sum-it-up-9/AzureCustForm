@@ -50,12 +50,14 @@ const CustomerPreferred = {
         type: "dropdown",
         formName: "CustomerPreferredObj",
         required: true,
+        fieldOptions:['New York', 'California', 'Texas']
     },
     City: {
         label: "City",
         type: "text",
         formName: "CustomerPreferredObj",
         required: true,
+        
     },
     Zip: {
         label: "Zip",
@@ -68,6 +70,7 @@ const CustomerPreferred = {
         type: "dropdown",
         formName: "CustomerPreferredObj",
         required: true,
+        fieldOptions:['United States']
     },
 };
 
@@ -239,7 +242,7 @@ const CustomForm = () => {
         useState("FedEx");
     const [FormFields, setFormFields] = useState(FedEx);
     // console.log(typeof FormFields);
-    const [selectedRadioOption, setSelectedRadioOption] = useState("Ground");
+    //const [selectedRadioOption, setSelectedRadioOption] = useState("Ground");
 
     // const handleSubmit = () => {
     //   console.log("handlesubmit called");
@@ -259,13 +262,13 @@ const CustomForm = () => {
     //     });
     // };
 
-    const handleRadioOptionChange = (event) => {
-        setSelectedRadioOption(event.target.value);
-    };
+    // const handleRadioOptionChange = (event) => {
+    //     setSelectedRadioOption(event.target.value);
+    // };
 
-    const handleInputChange = (fieldName, value) => {
-        setFormData({ ...formData, [fieldName]: value });
-    };
+    // const handleInputChange = (fieldName, value) => {
+    //     setFormData({ ...formData, [fieldName]: value });
+    // };
     const [selectedShipper, setSelectedShipper] = useState("FedEx");
 
     
@@ -419,7 +422,7 @@ const CustomForm = () => {
 
     function handleFedExChange(e) {
         setFedExObj(e.target.value);
-        // console.log("change", e.target.value);
+         //console.log("change",  e.target.name,e.target.value);
         // sendMessage();
     }
 
@@ -461,7 +464,7 @@ const CustomForm = () => {
         sendMessage();
     };
 
-    const renderFormField = (fieldName, fieldType, formName) => {
+    const renderFormField = (fieldName, fieldType, formName,fieldOptions) => {
         //console.log(fieldName, "name");
         // console.log(fieldType, "fieldType");
         //console.log(fieldOptions, "sdf");
@@ -492,7 +495,7 @@ const CustomForm = () => {
                 </>
             );
         } else if (fieldType.type === "dropdown") {
-            let fieldOptions = [1, 2, 3, 4];
+            //let fieldOptions = [1, 2, 3, 4];
             return (
                 <Select
                     style={{ marginBottom: "20px" }}
@@ -512,9 +515,9 @@ const CustomForm = () => {
                         }
                     }}
                 >
-                    <MenuItem value="">Select {fieldName}</MenuItem>
+                    
                     {fieldOptions.map((option) => (
-                        <MenuItem key={option} value={option}>
+                        <MenuItem key={option} value={option} >
                             {option}
                         </MenuItem>
                     ))}
@@ -682,6 +685,7 @@ const CustomForm = () => {
                     shipper: selectedShipper,
                     useFedExAccount: isDisplayingAccountNumber,
                     specialInstructions,
+                    formData: FedExObj,
                 };
                 if (payload.useFedExAccount) {
                     payload.AccountNumber = accountNumber;
@@ -967,7 +971,8 @@ const CustomForm = () => {
                                             {renderFormField(
                                                 fieldName,
                                                 fieldType,
-                                                fieldType?.formName
+                                                fieldType?.formName,
+                                                fieldType?.fieldOptions
                                             )}
                                         </Grid>
                                     ))}
