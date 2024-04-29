@@ -375,7 +375,10 @@ const CustomForm = () => {
         setWhoPaysShipping(event.target.value);
         sendMessage();
 
-        showLoadingIndicator();
+        extensionService.post({
+            type: ExtensionCommandType.ShowLoadingIndicator,
+            payload: { show: true },
+        });
         //post message to parent window - hide continue button
         window.top.postMessage(
             "hide-checkout-shipping-continue",
