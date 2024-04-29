@@ -623,14 +623,14 @@ const CustomForm = () => {
         if (whoPaysFreight) {
             raw = JSON.stringify({
                 checkoutId: cartId,
-                whoPaysShipping: whoPaysFreight === "Customer Pays Freight" ? "Customer" : "Seller",
+                whoPaysShipping: whoPaysFreight === "Customer Pays Freight" ? "Customer Pays Freight" : "Sellars Pays Freight",
                 metafields: payload,
             });
         }
         else {
             raw = JSON.stringify({
                 checkoutId: cartId,
-                whoPaysShipping: whoPaysShippping === "Customer Pays Freight" ? "Customer" : "Seller",
+                whoPaysShipping: whoPaysFreight === "Customer Pays Freight" ? "Customer Pays Freight" : "Sellars Pays Freight",
                 metafields: payload,
             });
         }
