@@ -268,6 +268,108 @@ const CustomForm = () => {
     };
     const [selectedShipper, setSelectedShipper] = useState("FedEx");
 
+    
+    function sleep(ms) {
+        return new Promise((resolve) => {
+            setTimeout(resolve, ms);
+        });
+    }
+
+    function showLoadingIndicator() {
+        extensionService.post({
+            type: ExtensionCommandType.ShowLoadingIndicator,
+            payload: { show: true },
+        });
+    }
+
+    function hideLoadingIndicator() {
+        extensionService.post({
+            type: ExtensionCommandType.ShowLoadingIndicator,
+            payload: { show: false },
+        });
+    }
+
+    async function consignmentUpdateTriggered(extensionService, cartId, data) {
+        console.log("consignments changed", data);
+       
+
+        // showLoadingIndicator(extensionService);
+        // //post message to parent window - hide continue button
+        // window.top.postMessage(
+        //   "hide-checkout-shipping-continue",
+        //   "https://vivacommerce-b2b-demo-i9.mybigcommerce.com"
+        // );
+
+        //perform price update operations
+
+        try {
+          
+            await UpdateCartPrice(cartId);
+        } catch (e) {
+            console.log("Error in requestCartPriceUpdate");
+        }
+
+        //sleep for 3 seconds
+        await sleep(1000);
+      
+        //post message to parent window - show continue button
+
+        // window.top.postMessage(
+        //   "show-checkout-shipping-continue",
+        //   "https://vivacommerce-b2b-demo-i9.mybigcommerce.com"
+        // );
+
+        //window.top.postMessage("checkout-shipping-next-step", "https://sellars-absorbent-materials-sandbox-1.mybigcommerce.com");
+    }
+
+   
+
+    function compareConsignments(consignments, previousConsignments) {
+        let changed = false;
+        consignments.forEach((consignment) => {
+            const {
+                id,
+                shippingAddress: { country, stateOrProvinceCode },
+            } = consignment;
+            //const shippingOptionId = consignment?.selectedShippingOption?.id;
+
+            if (previousConsignments.length === 0) {
+                changed = true;
+            } else {
+                const prevConsignment = previousConsignments.find(
+                    (prev) => prev.id === id
+                );
+                const previousCountry = prevConsignment.shippingAddress.country;
+                const previousStateOrProvinceCode =
+                    prevConsignment.shippingAddress.stateOrProvinceCode;
+                //  const previousShippingOptionId = prevConsignment?.selectedShippingOption?.id;
+
+                if (country !== previousCountry) {
+                    console.log(
+                        `️🔄 Consignment #${id} shipping country change: ${previousCountry} -> ${country}.`
+                    );
+                    changed = true;
+                }
+                if (stateOrProvinceCode !== previousStateOrProvinceCode) {
+                    console.log(
+                        `️🔄 Consignment #${id} shipping state change: ${previousStateOrProvinceCode} -> ${stateOrProvinceCode}.`
+                    );
+                    changed = true;
+                }
+                // if (shippingOptionId !== previousShippingOptionId) {
+                //   console.log(`️🔄 Consignment #${id} shipping option change: ${previousShippingOptionId} -> ${shippingOptionId}.`);
+                //   changed = true;
+                // }
+            }
+        });
+        return changed;
+    }
+
+
+
+
+
+
     const handleShippingChange = async (event) => {
         // console.log(event.target.value);
         setWhoPaysShipping(event.target.value);
@@ -331,6 +433,10 @@ const CustomForm = () => {
             return { ...prev, [e.target.name]: e.target.value };
         });
     }
+
+
+
+
 
     const handleShipperChange = (event) => {
         const Shipper = event.target.value;
@@ -631,102 +737,6 @@ const CustomForm = () => {
 
 
     };
-
-    function sleep(ms) {
-        return new Promise((resolve) => {
-            setTimeout(resolve, ms);
-        });
-    }
-
-    function showLoadingIndicator() {
-        extensionService.post({
-            type: ExtensionCommandType.ShowLoadingIndicator,
-            payload: { show: true },
-        });
-    }
-
-    function hideLoadingIndicator() {
-        extensionService.post({
-            type: ExtensionCommandType.ShowLoadingIndicator,
-            payload: { show: false },
-        });
-    }
-
-    async function consignmentUpdateTriggered(extensionService, cartId, data) {
-        console.log("consignments changed", data);
-       
-
-        // showLoadingIndicator(extensionService);
-        // //post message to parent window - hide continue button
-        // window.top.postMessage(
-        //   "hide-checkout-shipping-continue",
-        //   "https://vivacommerce-b2b-demo-i9.mybigcommerce.com"
-        // );
-
-        //perform price update operations
-
-        try {
-          
-            await UpdateCartPrice(cartId);
-        } catch (e) {
-            console.log("Error in requestCartPriceUpdate");
-        }
-
-        //sleep for 3 seconds
-        await sleep(1000);
-      
-        //post message to parent window - show continue button
-
-        // window.top.postMessage(
-        //   "show-checkout-shipping-continue",
-        //   "https://vivacommerce-b2b-demo-i9.mybigcommerce.com"
-        // );
-
-        //window.top.postMessage("checkout-shipping-next-step", "https://sellars-absorbent-materials-sandbox-1.mybigcommerce.com");
-    }
-
-   
-
-    function compareConsignments(consignments, previousConsignments) {
-        let changed = false;
-        consignments.forEach((consignment) => {
-            const {
-                id,
-                shippingAddress: { country, stateOrProvinceCode },
-            } = consignment;
-            //const shippingOptionId = consignment?.selectedShippingOption?.id;
-
-            if (previousConsignments.length === 0) {
-                changed = true;
-            } else {
-                const prevConsignment = previousConsignments.find(
-                    (prev) => prev.id === id
-                );
-                const previousCountry = prevConsignment.shippingAddress.country;
-                const previousStateOrProvinceCode =
-                    prevConsignment.shippingAddress.stateOrProvinceCode;
-                //  const previousShippingOptionId = prevConsignment?.selectedShippingOption?.id;
-
-                if (country !== previousCountry) {
-                    console.log(
-                        `️🔄 Consignment #${id} shipping country change: ${previousCountry} -> ${country}.`
-                    );
-                    changed = true;
-                }
-                if (stateOrProvinceCode !== previousStateOrProvinceCode) {
-                    console.log(
-                        `️🔄 Consignment #${id} shipping state change: ${previousStateOrProvinceCode} -> ${stateOrProvinceCode}.`
-                    );
-                    changed = true;
-                }
-                // if (shippingOptionId !== previousShippingOptionId) {
-                //   console.log(`️🔄 Consignment #${id} shipping option change: ${previousShippingOptionId} -> ${shippingOptionId}.`);
-                //   changed = true;
-                // }
-            }
-        });
-        return changed;
-    }
 
     useEffect(() => {
         checkoutKitLoader.load("extension").then(async function (module) {
