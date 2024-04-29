@@ -827,7 +827,7 @@ const CustomForm = () => {
     return (
         <div id="container">
             <div>
-                <form onSubmit={handleSubmit}>
+                <form fullWidth onSubmit={handleSubmit}>
                     <div>
                         <div style={{ marginBottom: "5px" }}>Who Pays Shipping</div>
                         <Select
@@ -836,8 +836,7 @@ const CustomForm = () => {
                             style={{ marginBottom: "10px" }}
                             value={whoPaysShippping}
                             onChange={handleShippingChange}
-                            name=""
-                            id=""
+                            data-testid="whoPaysShipping"
                         >
                             <MenuItem value="Sellars Pays Freight">Sellars Pays Freight</MenuItem>
                             <MenuItem value="Customer Pays Freight">
@@ -889,7 +888,7 @@ const CustomForm = () => {
                                 value={sellarsShipper}
                                 onChange={handleSellersShipperChange}
                                 name=""
-                                id=""
+                                
                             >
                                 <MenuItem value="Prepaid Truckload">Prepaid Truckload</MenuItem>
                                 <MenuItem value="Prepaid LTL">Prepaid LTL</MenuItem>
@@ -900,6 +899,7 @@ const CustomForm = () => {
                             <div>
                                 <div style={{ marginBottom: "5px" }}>Shipper To Use</div>
                                 <Select
+                                    data-testid=""
                                     style={{ marginBottom: "20px" }}
                                     fullWidth
                                     defaultValue="FedEx"
