@@ -395,7 +395,7 @@ const CustomForm = () => {
         await sleep(1000);
         hideLoadingIndicator();
 
-        console.log("do not reload checkout with updated price.");
+        console.log(" reload checkout with updated price.");
         extensionService.post({
             type: ExtensionCommandType.ReloadCheckout,
         });
