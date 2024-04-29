@@ -293,7 +293,7 @@ const CustomForm = () => {
         console.log("consignments changed", data);
        
 
-        // showLoadingIndicator(extensionService);
+        // showLoadingIndicator();
         // //post message to parent window - hide continue button
         // window.top.postMessage(
         //   "hide-checkout-shipping-continue",
@@ -375,7 +375,7 @@ const CustomForm = () => {
         setWhoPaysShipping(event.target.value);
         sendMessage();
 
-        showLoadingIndicator(extensionService);
+        showLoadingIndicator();
         //post message to parent window - hide continue button
         window.top.postMessage(
             "hide-checkout-shipping-continue",
@@ -710,7 +710,7 @@ const CustomForm = () => {
             }
         }
         // console.log(payload);
-        showLoadingIndicator(extensionService);
+        showLoadingIndicator();
         //post message to parent window - hide continue button
         window.top.postMessage(
             "hide-checkout-shipping-continue",
@@ -767,9 +767,10 @@ const CustomForm = () => {
                 "EXTENSION:CONSIGNMENTS_CHANGED",
                 async (data) => {
                     console.log("inside consignments chnaged listener");
+                    showLoadingIndicator();
+                   
                     //console.log(data?.payload?.consignments,data?.payload?.previousConsignments);
-
-                    showLoadingIndicator(extensionService);
+                   
                     //post message to parent window - hide continue button
                     // window.top.postMessage(
                     //     "hide-checkout-shipping-continue",
