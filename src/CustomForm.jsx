@@ -799,6 +799,7 @@ const CustomForm = () => {
                        
   
                     }
+                    await sleep(1000);
                     hideLoadingIndicator();
                   //   window.top.postMessage(
                   //     "show-checkout-shipping-continue",
