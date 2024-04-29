@@ -786,10 +786,10 @@ const CustomForm = () => {
                     if (priceUpdateNeeded) {
                         console.log("Consignment updated, need to trigger price update.");
                         consignmentUpdateTriggered(extensionService, cartId, data);
-                        console.log("reload checkout with updated price.");
-                        extensionService.post({
-                            type: ExtensionCommandType.ReloadCheckout,
-                        });
+                        console.log("do not reload checkout with updated price.");
+                        // extensionService.post({
+                        //     type: ExtensionCommandType.ReloadCheckout,
+                        // });
 
                     } else {
                         console.log(
