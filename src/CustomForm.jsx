@@ -6,7 +6,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Select from "@mui/material/Select";
 import TextField from '@mui/material/TextField';
 import Grid from "@mui/material/Grid";
-import { MenuItem } from "@mui/material";
+import { FormControl, InputLabel, MenuItem } from "@mui/material";
 
 const CustomerPreferred = {
     CarrierName: {
@@ -497,31 +497,33 @@ const CustomForm = () => {
         } else if (fieldType.type === "dropdown") {
             //let fieldOptions = [1, 2, 3, 4];
             return (
-                <Select
-                    style={{ marginBottom: "20px" }}
-                    fullWidth
-                    name={fieldName}
-                    value={fieldType[fieldName]}
-                    required={fieldType.required}
-                    onChange={(e) => {
-                        if (formName === "FedExObj") {
-                            handleFedExChange(e);
-                        } else if (formName === "WillCallObj") {
-                            handleWillCallChange(e);
-                        } else if (formName === "UPSObj") {
-                            handleUPSChange(e);
-                        } else if (formName === "CustomerPreferredObj") {
-                            handleCustomerPreferredChange(e);
-                        }
-                    }}
-                >
-                    
-                    {fieldOptions.map((option) => (
-                        <MenuItem key={option} value={option} >
-                            {option}
-                        </MenuItem>
-                    ))}
-                </Select>
+                <FormControl fullWidth>
+                    <InputLabel>Select a {fieldName}</InputLabel>
+                    <Select
+                        style={{ marginBottom: "20px" }}
+                        name={fieldName}
+                        value={fieldType[fieldName]}
+                        label={`Select a ${fieldName}`}
+                        required={fieldType.required}
+                        onChange={(e) => {
+                            if (formName === "FedExObj") {
+                                handleFedExChange(e);
+                            } else if (formName === "WillCallObj") {
+                                handleWillCallChange(e);
+                            } else if (formName === "UPSObj") {
+                                handleUPSChange(e);
+                            } else if (formName === "CustomerPreferredObj") {
+                                handleCustomerPreferredChange(e);
+                            }
+                        }}
+                    >
+                        {fieldOptions.map((option) => (
+                            <MenuItem key={option} value={option}>
+                                {option}
+                            </MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
             );
         } else if (fieldType.type === "radio") {
             return (
