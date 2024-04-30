@@ -386,7 +386,7 @@ const CustomForm = () => {
 
     const handleSellersShipperChange = (e) => {
         setSellarsShipper(e.target.value);
-        sendMessage();
+        //sendMessage();
     };
 
     function handleWillCallChange(e) {
