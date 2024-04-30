@@ -1008,6 +1008,7 @@ const CustomForm = () => {
                             cursor: "pointer",
                             fontSize: "16px",
                             fontWeight: "bold",
+                            marginTop:'15px'
                         }}
                         type="submit"
 
