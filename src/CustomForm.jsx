@@ -420,7 +420,7 @@ const CustomForm = () => {
 
     const handleShipperChange = (event) => {
         const Shipper = event.target.value;
-        console.log("shipper to use: ", event.target.value);
+       // console.log("shipper to use: ", event.target.value);
         setSelectedShipper(Shipper);
       
         if (Shipper === "UPS") {
@@ -436,7 +436,7 @@ const CustomForm = () => {
             setFormFields(CustomerPreferred);
             setIsDisplayingAccountNumber("Customer Preferred Carrier");
         }
-        sendMessage();
+       // sendMessage();
     };
 
     const renderFormField = (fieldName, fieldType, formName,fieldOptions) => {
