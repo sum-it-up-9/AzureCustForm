@@ -198,13 +198,13 @@ const ExtensionCommandType = {
 async function sendMessage() {
     window.top.postMessage(
         "hide-checkout-shipping-continue",
-        "https://vivacommerce-b2b-demo-i9.mybigcommerce.com"
+        "https://sellars-absorbent-materials-sandbox-1.mybigcommerce.com"
     );
 }
 
 const CustomForm = () => {
     const [formData, setFormData] = useState({});
-    //const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+   
 
     const [specialInstructions, setSpecialInstructions] = useState("");
     const [accountNumber, setAccountNumber] = useState(0);
@@ -241,34 +241,7 @@ const CustomForm = () => {
     const [isDisplayingAccountNumber, setIsDisplayingAccountNumber] =
         useState("FedEx");
     const [FormFields, setFormFields] = useState(FedEx);
-    // console.log(typeof FormFields);
-    //const [selectedRadioOption, setSelectedRadioOption] = useState("Ground");
-
-    // const handleSubmit = () => {
-    //   console.log("handlesubmit called");
-    //   fetch(`http://localhost:3000/cart/cart1`, {
-    //     method: "GET",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //   })
-    //     .then((response) => response.json())
-    //     .then((data) => {
-    //       console.log("Response from server:", data);
-    //       // Do something with the response data
-    //     })
-    //     .catch((error) => {
-    //       console.error("Error:", error);
-    //     });
-    // };
-
-    // const handleRadioOptionChange = (event) => {
-    //     setSelectedRadioOption(event.target.value);
-    // };
-
-    // const handleInputChange = (fieldName, value) => {
-    //     setFormData({ ...formData, [fieldName]: value });
-    // };
+   
     const [selectedShipper, setSelectedShipper] = useState("FedEx");
 
     
@@ -300,7 +273,7 @@ const CustomForm = () => {
         // //post message to parent window - hide continue button
         // window.top.postMessage(
         //   "hide-checkout-shipping-continue",
-        //   "https://vivacommerce-b2b-demo-i9.mybigcommerce.com"
+        //   "https://sellars-absorbent-materials-sandbox-1.mybigcommerce.com"
         // );
 
         //perform price update operations
@@ -319,7 +292,7 @@ const CustomForm = () => {
 
         // window.top.postMessage(
         //   "show-checkout-shipping-continue",
-        //   "https://vivacommerce-b2b-demo-i9.mybigcommerce.com"
+        //   "https://sellars-absorbent-materials-sandbox-1.mybigcommerce.com"
         // );
 
         //window.top.postMessage("checkout-shipping-next-step", "https://sellars-absorbent-materials-sandbox-1.mybigcommerce.com");
@@ -384,11 +357,10 @@ const CustomForm = () => {
         //post message to parent window - hide continue button
         window.top.postMessage(
             "hide-checkout-shipping-continue",
-            "https://vivacommerce-b2b-demo-i9.mybigcommerce.com"
+            "https://sellars-absorbent-materials-sandbox-1.mybigcommerce.com"
         );
 
         //call azure function to update the product prices
-
         try {
             await UpdateCartPrice(cartId, event.target.value);
         } catch (e) {
@@ -398,43 +370,46 @@ const CustomForm = () => {
         await sleep(1000);
         hideLoadingIndicator();
 
+
+        
+
         console.log(" reload checkout with updated price.");
         extensionService.post({
             type: ExtensionCommandType.ReloadCheckout,
         });
-
+        window.top.postMessage(
+            "show-checkout-shipping-continue",
+            "https://sellars-absorbent-materials-sandbox-1.mybigcommerce.com"
+        );
 
     };
 
     const handleSellersShipperChange = (e) => {
         setSellarsShipper(e.target.value);
-        sendMessage();
+        //sendMessage();
     };
 
     function handleWillCallChange(e) {
         setWillCallObj((prev) => {
-            // console.log({ ...prev, [e.target.name]: e.target.value });
-            //console.log(e.target.name, e.target.value);
+            
             return { ...prev, [e.target.name]: e.target.value };
         });
-        //sendMessage();
+       
     }
 
     function handleFedExChange(e) {
         setFedExObj(e.target.value);
-         //console.log("change",  e.target.name,e.target.value);
-        // sendMessage();
+        
     }
 
     function handleUPSChange(e) {
         setUPSObj(e.target.value);
-        //sendMessage();
+        
     }
 
     function handleCustomerPreferredChange(e) {
         setCustomerPreferredObj((prev) => {
-            //console.log({...prev,[e.target.name]:e.target.value});
-            //console.log(e.target.name, e.target.value);
+          
             return { ...prev, [e.target.name]: e.target.value };
         });
     }
@@ -445,9 +420,9 @@ const CustomForm = () => {
 
     const handleShipperChange = (event) => {
         const Shipper = event.target.value;
-        console.log("shipper to use: ", event.target.value);
+       // console.log("shipper to use: ", event.target.value);
         setSelectedShipper(Shipper);
-        // setFormFields(event.target.value);
+      
         if (Shipper === "UPS") {
             setFormFields(UPS);
             setIsDisplayingAccountNumber("UPS");
@@ -461,16 +436,13 @@ const CustomForm = () => {
             setFormFields(CustomerPreferred);
             setIsDisplayingAccountNumber("Customer Preferred Carrier");
         }
-        sendMessage();
+       // sendMessage();
     };
 
     const renderFormField = (fieldName, fieldType, formName,fieldOptions) => {
-        //console.log(fieldName, "name");
-        // console.log(fieldType, "fieldType");
-        //console.log(fieldOptions, "sdf");
-        //console.log("called");
+       
         if (fieldType.type === "text") {
-            // console.log("req: ", fieldType.required);
+           
             return (
                 <>
                     <TextField
@@ -495,7 +467,7 @@ const CustomForm = () => {
                 </>
             );
         } else if (fieldType.type === "dropdown") {
-            //let fieldOptions = [1, 2, 3, 4];
+            
             return (
                 <FormControl fullWidth>
                     <InputLabel>Select a {fieldName}</InputLabel>
@@ -722,7 +694,7 @@ const CustomForm = () => {
         //post message to parent window - hide continue button
         window.top.postMessage(
             "hide-checkout-shipping-continue",
-            "https://vivacommerce-b2b-demo-i9.mybigcommerce.com"
+            "https://sellars-absorbent-materials-sandbox-1.mybigcommerce.com"
         );
         try {
             await UpdateCartPrice(cartId);
@@ -739,7 +711,7 @@ const CustomForm = () => {
 
         window.top.postMessage(
             "show-checkout-shipping-continue",
-            "https://vivacommerce-b2b-demo-i9.mybigcommerce.com"
+            "https://sellars-absorbent-materials-sandbox-1.mybigcommerce.com"
         );
 
 
@@ -782,7 +754,7 @@ const CustomForm = () => {
                     //post message to parent window - hide continue button
                     window.top.postMessage(
                         "hide-checkout-shipping-continue",
-                        "https://vivacommerce-b2b-demo-i9.mybigcommerce.com"
+                        "https://sellars-absorbent-materials-sandbox-1.mybigcommerce.com"
                     );
 
 
@@ -809,10 +781,10 @@ const CustomForm = () => {
                     }
                     await sleep(1000);
                     hideLoadingIndicator();
-                  //   window.top.postMessage(
-                  //     "show-checkout-shipping-continue",
-                  //     "https://vivacommerce-b2b-demo-i9.mybigcommerce.com"
-                  // );
+                    window.top.postMessage(
+                      "show-checkout-shipping-continue",
+                      "https://sellars-absorbent-materials-sandbox-1.mybigcommerce.com"
+                  );
 
                 }
             );
@@ -843,39 +815,7 @@ const CustomForm = () => {
                                 Customer Pays Freight
                             </MenuItem>
                         </Select>
-                        {/* <div style={{ position: "relative", width: "200px" }}>
-              <Select
-                style={{marginBottom: "20px"}}
-                fullWidth
-                required
-                style={{
-                  width: "100%", // Adjust the width as needed
-                  height: "30px", // Adjust the height as needed
-                  fontSize: "12px", // Adjust the font size as needed
-                }}
-                onChange={handleShippingChange}
-                name=""
-                id=""
-                defaultValue="Customer Pays Freight" // Set default value
-              >
-                <option value="Sellars Pays Freight">
-                  Sellars Pays Freight
-                </option>
-                <option value="Customer Pays Freight">
-                  Customer Pays Freight
-                </option>
-              </select>
-              <div
-                style={{
-                  position: "absolute",
-                  top: "0",
-                  left: "0",
-                  fontSize: "10px",
-                }}
-              >
-                Who Pays Shipping
-              </div>
-            </div> */}
+                       
                     </div>
 
                     {whoPaysShippping === "Sellars Pays Freight" ? (
@@ -1008,6 +948,7 @@ const CustomForm = () => {
                             cursor: "pointer",
                             fontSize: "16px",
                             fontWeight: "bold",
+                            marginTop:'15px'
                         }}
                         type="submit"
 
