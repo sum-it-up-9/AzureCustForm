@@ -652,7 +652,7 @@ const CustomForm = () => {
 
         try {
             //customerJWT();
-            const res = await fetch(`https://sam-bc-test.azurewebsites.net/api/updateproductprices`, {
+            const res = await fetch(`https://sam-bc-sandbox.azurewebsites.net/api/updateproductprices`, {
                 method: "POST",
                 headers: myHeaders,
                 body: raw,
