@@ -204,6 +204,7 @@ async function sendMessage() {
 }
 
 const CustomForm = () => {
+    console.log('this is metafields after re-render: ',metafields);
     const [formData, setFormData] = useState({});
    
     const [flag,setFlag]=useState(false);
