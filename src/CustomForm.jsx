@@ -729,6 +729,25 @@ const CustomForm = () => {
             // console.log("this is exctention id: ", extensionId);
             cartId = params.get("cartId");
 
+            async function fetchData() {
+                try {
+                  const response = await fetch(`https://api-hit-henna.vercel.app/getCartMetafields/${cartId}`);
+                  
+                  if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                  }
+                  
+                  const data = await response.json();
+                  console.log(data); // Process the data received from the API
+                } catch (error) {
+                  console.error('There was a problem with the fetch operation:', error);
+                }
+            }
+              
+              // Call the function to fetch the data
+            fetchData();
+
+
             console.log("this is card id: ", cartId);
             setCheckoutid(cartId);
 
@@ -799,23 +818,7 @@ const CustomForm = () => {
 
 
     useEffect(()=>{
-        async function fetchData() {
-            try {
-              const response = await fetch(`https://api-hit-henna.vercel.app/getCartMetafields/${cartId}`);
-              
-              if (!response.ok) {
-                throw new Error('Network response was not ok');
-              }
-              
-              const data = await response.json();
-              console.log(data); // Process the data received from the API
-            } catch (error) {
-              console.error('There was a problem with the fetch operation:', error);
-            }
-        }
-          
-          // Call the function to fetch the data
-        fetchData();
+        
           
     })
 
