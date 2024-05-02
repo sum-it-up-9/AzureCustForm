@@ -212,7 +212,7 @@ const CustomForm = () => {
     const [specialInstructions, setSpecialInstructions] = useState("");
     const [accountNumber, setAccountNumber] = useState(0);
 
-    const [whoPaysShippping, setWhoPaysShipping] = useState("Sellars Pays Freight");
+    const [whoPaysShippping, setWhoPaysShipping] = useState( metafields?.whoPaysShippping ?  metafields?.whoPaysShippping : "Sellars Pays Freight");
     const [isUsingFedExAccount, setIsUsingFedExAccount] = useState("No");
     const [isDisplayingAccountNumber, setIsDisplayingAccountNumber] =useState("FedEx");
     const [FormFields, setFormFields] = useState(FedEx);
