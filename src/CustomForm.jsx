@@ -237,7 +237,7 @@ const CustomForm = () => {
     const [whoPaysShippping, setWhoPaysShipping] = useState(
         "Sellars Pays Freight"
     );
-    const [isUsingFedExAccount, setIsUsingFedExAccount] = useState("Yes");
+    const [isUsingFedExAccount, setIsUsingFedExAccount] = useState("No");
     const [isDisplayingAccountNumber, setIsDisplayingAccountNumber] =
         useState("FedEx");
     const [FormFields, setFormFields] = useState(FedEx);
@@ -878,13 +878,14 @@ const CustomForm = () => {
                                     <Select
                                         style={{ marginBottom: "20px" }}
                                         fullWidth
-                                        defaultValue="Yes"
+                                        defaultValue="No"
                                         onChange={handleFedExAccountChange}
                                         name="useFedExAccount"
                                         id="useFedExAccount"
                                     >
-                                        <MenuItem value="Yes">Yes</MenuItem>
                                         <MenuItem value="No">No</MenuItem>
+                                        <MenuItem value="Yes">Yes</MenuItem>
+                                      
                                     </Select>
 
                                     {isUsingFedExAccount === "Yes" && (
