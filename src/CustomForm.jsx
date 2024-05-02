@@ -188,6 +188,7 @@ const FedEx = {
 let cartId;
 let extensionService;
 let payload;
+let metafields;
 
 const ExtensionCommandType = {
     ReloadCheckout: "EXTENSION:RELOAD_CHECKOUT",
@@ -205,9 +206,17 @@ async function sendMessage() {
 const CustomForm = () => {
     const [formData, setFormData] = useState({});
    
+    const [flag,setFlag]=useState(false);
 
     const [specialInstructions, setSpecialInstructions] = useState("");
     const [accountNumber, setAccountNumber] = useState(0);
+
+    const [whoPaysShippping, setWhoPaysShipping] = useState("Sellars Pays Freight");
+    const [isUsingFedExAccount, setIsUsingFedExAccount] = useState("No");
+    const [isDisplayingAccountNumber, setIsDisplayingAccountNumber] =useState("FedEx");
+    const [FormFields, setFormFields] = useState(FedEx);
+   
+    const [selectedShipper, setSelectedShipper] = useState("FedEx");
     const [sellarsShipper, setSellarsShipper] = useState("Prepaid Truckload");
 
     const [checkoutid, setCheckoutid] = useState(0);
@@ -234,15 +243,7 @@ const CustomForm = () => {
     const [FedExObj, setFedExObj] = useState("Ground");
     const [UPSObj, setUPSObj] = useState("Ground");
 
-    const [whoPaysShippping, setWhoPaysShipping] = useState(
-        "Sellars Pays Freight"
-    );
-    const [isUsingFedExAccount, setIsUsingFedExAccount] = useState("No");
-    const [isDisplayingAccountNumber, setIsDisplayingAccountNumber] =
-        useState("FedEx");
-    const [FormFields, setFormFields] = useState(FedEx);
    
-    const [selectedShipper, setSelectedShipper] = useState("FedEx");
 
     
     function sleep(ms) {
@@ -550,47 +551,7 @@ const CustomForm = () => {
         setIsUsingFedExAccount(e.target.value);
     };
 
-    // async function updateCartDiscount() {
-    //   console.log('inside updateCartDiscount ');
-    //   const myHeaders = new Headers();
-    //   myHeaders.append("X-Auth-Token", "44v4r4o38ki0gznr4kn5exdznzft69c");
-    //   myHeaders.append("Content-Type", "application/json");
-    //   myHeaders.append( 'Access-Control-Allow-Origin', '*');
-    //   //const raw = JSON.stringify({ "cart": { "discounts": [{ "discounted_amount": 2, "name": "manual" }] } });
-
-    //   const checkoutid = cart.id;
-    //   const res=await fetch(`https://api-hit-pied.vercel.app/discount/${checkoutid}`, { method: "GET", headers: myHeaders, redirect: "follow" });
-    //   const data= await res.json();
-    //   console.log('updated cart value returned from dicounted api: ',data);
-    // }
-
-    // async function UpdateCartPrice() {
-    //   console.log("inside UpdateCartPrice ");
-    //   const myHeaders = new Headers();
-
-    //   myHeaders.append("Content-Type", "application/json");
-    //   myHeaders.append("Access-Control-Allow-Origin", "*");
-
-    //   const raw = JSON.stringify( {
-    //     checkoutId:checkoutid,
-    //     whoPaysShipping: whoPaysShippping === 'Customer Pays Freight' ? 'Customer' : 'Seller',
-    //     metafields:payload
-    //   });
-
-    //   const res = await fetch(
-    //     `http://localhost:3000/updateCartItems`,
-    //     { method: "POST", headers: myHeaders, body: raw, redirect: "follow" }
-    //   );
-    //   const data = await res.json();
-    //   console.log("updated cart prices and metafield data returned: ", data);
-    //   console.log("reload checkout");
-    //   extensionService.post({ type: ExtensionCommandType.ReloadCheckout });
-    // }
-    //   async function customerJWT() {
-    //     console.log("Inside JWT");
-    //     let abc = await sessionStorage.getItem('sf-currentCustomerJWT');
-    //     console.log("Found value",abc);
-    //   }
+   
 
     async function UpdateCartPrice(cartId, whoPaysFreight) {
         let raw;
@@ -739,6 +700,8 @@ const CustomForm = () => {
                   
                   const data = await response.json();
                   console.log(data); // Process the data received from the API
+                  metafields=json.parse(data[0]?.value);
+                  console.log('this is metafields',metafields);
                 } catch (error) {
                   console.error('There was a problem with the fetch operation:', error);
                 }
@@ -747,6 +710,7 @@ const CustomForm = () => {
               // Call the function to fetch the data
             fetchData();
 
+            setFlag(prev=>!prev);
 
             console.log("this is card id: ", cartId);
             setCheckoutid(cartId);
