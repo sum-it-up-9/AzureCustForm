@@ -703,6 +703,7 @@ const CustomForm = () => {
                   console.log(data); // Process the data received from the API
                   metafields=JSON.parse(data?.data[0]?.value);
                   console.log('this is metafields',metafields);
+                  setFlag(prev=>!prev);
                 } catch (error) {
                   console.error('There was a problem with the fetch operation:', error);
                 }
@@ -711,7 +712,7 @@ const CustomForm = () => {
               // Call the function to fetch the data
             fetchData();
 
-            setFlag(prev=>!prev);
+            
 
             console.log("this is card id: ", cartId);
             setCheckoutid(cartId);
