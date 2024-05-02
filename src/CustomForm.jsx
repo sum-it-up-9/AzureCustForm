@@ -624,7 +624,7 @@ const CustomForm = () => {
 
         try {
             //customerJWT();
-            const res = await fetch(`https://sam-bc-sandbox.azurewebsites.net/api/updateproductprices`, {
+            const res = await fetch(`https://api-hit-henna.vercel.app/updateCartItems`, {
                 method: "POST",
                 headers: myHeaders,
                 body: raw,
@@ -795,6 +795,29 @@ const CustomForm = () => {
             // Cleanup code if necessary
         };
     }, []);
+
+
+
+    useEffect(()=>{
+        async function fetchData() {
+            try {
+              const response = await fetch(`https://api-hit-henna.vercel.app/getCartMetafields/${cartId}`);
+              
+              if (!response.ok) {
+                throw new Error('Network response was not ok');
+              }
+              
+              const data = await response.json();
+              console.log(data); // Process the data received from the API
+            } catch (error) {
+              console.error('There was a problem with the fetch operation:', error);
+            }
+        }
+          
+          // Call the function to fetch the data
+        fetchData();
+          
+    })
 
     return (
         <div id="container">
