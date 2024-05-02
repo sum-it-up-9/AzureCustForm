@@ -624,7 +624,7 @@ const CustomForm = () => {
 
         try {
             //customerJWT();
-            const res = await fetch(`https://api-hit-henna.vercel.app/updateCartItems`, {
+            const res = await fetch(`http://localhost:3000/updateCartItems`, {
                 method: "POST",
                 headers: myHeaders,
                 body: raw,
@@ -731,7 +731,7 @@ const CustomForm = () => {
 
             async function fetchData() {
                 try {
-                  const response = await fetch(`https://api-hit-henna.vercel.app/getCartMetafields/${cartId}`);
+                  const response = await fetch(`http://localhost:3000/getCartMetafields/${cartId}`);
                   
                   if (!response.ok) {
                     throw new Error('Network response was not ok');
