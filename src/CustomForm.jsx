@@ -231,7 +231,10 @@ const CustomForm = () => {
     
 
     useEffect(()=>{
-        setWhoPaysShipping(initialwhoPaysShippping);
+        if(initialwhoPaysShippping){
+            setWhoPaysShipping(initialwhoPaysShippping);
+        }
+      
     },[initialwhoPaysShippping]);
     console.log('check usestate: ', whoPaysShippping);
 
