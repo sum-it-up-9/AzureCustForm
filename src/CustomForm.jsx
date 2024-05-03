@@ -754,7 +754,7 @@ const CustomForm = () => {
                     specialInstructions,
                     formData: FedExObj,
                 };
-                if (payload.useFedExAccount) {
+                if (isUsingFedExAccount==='Yes') {
                     payload.AccountNumber = accountNumber;
                 }
             } else if (selectedShipper === "Customer Preferred Carrier") {
