@@ -604,7 +604,7 @@ const CustomForm = () => {
                     <Select
                         style={{ marginBottom: "20px" }}
                         name={fieldName}
-                        value={fieldType[fieldName]}
+                        value={formName === "WillCallObj" ? WillCallObj[fieldName] : customerPreferredObj[fieldName]}
                         label={`Select a ${fieldName}`}
                         required={fieldType.required}
                         onChange={(e) => {
