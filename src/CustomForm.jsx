@@ -564,13 +564,14 @@ const CustomForm = () => {
            
             return (
                 <>
+                <div>value : {formName[fieldName]}</div>
                     <input
                         fullWidth
                         type="text"
                         label={fieldName}
                         variant="outlined" name={fieldName}
                         required={fieldType.required}
-                        value={ formName[fieldName]}
+                        value={formName[fieldName]}
                         onChange={(e) => {
                             if (formName === "FedExObj") {
                                 handleFedExChange(e);
