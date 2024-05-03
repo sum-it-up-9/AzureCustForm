@@ -259,7 +259,19 @@ const CustomForm = () => {
         }
         else{
             setSelectedShipper(initialShipper);
-            setIsDisplayingAccountNumber(initialShipper);
+            if (initialShipper === "UPS") {
+                setFormFields(UPS);
+                setIsDisplayingAccountNumber("UPS");
+            } else if (initialShipper === "Will Call") {
+                setFormFields(WillCall);
+                setIsDisplayingAccountNumber("WillCall");
+            } else if (initialShipper === "FedEx") {
+                setFormFields(FedEx);
+                setIsDisplayingAccountNumber("FedEx");
+            } else if (initialShipper === "Customer Preferred Carrier") {
+                setFormFields(CustomerPreferred);
+                setIsDisplayingAccountNumber("Customer Preferred Carrier");
+            }
             console.log('dhekc sgipperL ',initialShipper);
         }
     },[initialShipper]);
