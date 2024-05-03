@@ -252,9 +252,7 @@ const CustomForm = () => {
     const [sellarsShipper, setSellarsShipper] = useState("Prepaid Truckload");
 
     useEffect(()=>{
-        if(!initialShipper){
-            return;
-        }
+        if(!initialShipper) return;
         console.log(initialwhoPaysShippping,'in effec');
         if(initialwhoPaysShippping==='Sellars Pays Freight'){
             setSellarsShipper(initialShipper);
@@ -262,7 +260,7 @@ const CustomForm = () => {
         else{
             setSelectedShipper(initialShipper);
             isDisplayingAccountNumber(initialShipper);
-            console.log('customer shipper ',initialShipper);
+            console.log('dhekc sgipperL ',initialShipper);
         }
     },[initialShipper]);
 
