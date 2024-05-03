@@ -653,7 +653,7 @@ const CustomForm = () => {
                         type="email"
                         label={fieldName}
                         name={fieldName}
-                        value={formName[fieldName]}
+                        value={formName === "WillCallObj" ? WillCallObj[fieldName] : customerPreferredObj[fieldName]}
                         onChange={(e) => {
                             if (formName === "FedExObj") {
                                 handleFedExChange(e);
