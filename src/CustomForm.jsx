@@ -294,9 +294,10 @@ const CustomForm = () => {
                     }
                 }
                 else if(initialShipper === 'Will Call'){
-                    for (let key in formData) {  
-                           
+                    for (let key in formData) {   
+                        console.log('key',key);    
                         if (key in WillCallObj) {
+                            console.log('key found in ');    
                             setWillCallObj(prevState => ({
                                 ...prevState,
                                 [key]: formData[key]
