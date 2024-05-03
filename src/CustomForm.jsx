@@ -866,6 +866,7 @@ const CustomForm = () => {
                                     <MenuItem value="UPS">UPS</MenuItem>
                                     <MenuItem value="Will Call">Will Call</MenuItem>
                                 </Select>
+                                {console.log('selectedShipper: ',selectedShipper)}
                             </div>
                             {isDisplayingAccountNumber === "Customer Preferred Carrier" ||
                                 isDisplayingAccountNumber === "UPS" ? (
