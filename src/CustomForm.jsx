@@ -569,9 +569,9 @@ const CustomForm = () => {
             return (
                 <>
                   
-                    <input
+                    <TextField
                         fullWidth
-                        type="text"
+                       
                         label={fieldName}
                         variant="outlined" name={fieldName}
                         required={fieldType.required}
