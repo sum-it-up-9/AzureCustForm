@@ -285,15 +285,23 @@ const CustomForm = () => {
                 }
                 else if(initialShipper==='Customer Preferred Carrier'){
                     for (let key in formData) { 
+                       
                         if (key in customerPreferredObj) {
-                            customerPreferredObj[key] = formData[key];
+                            customerPreferredObj(prevState => ({
+                                ...prevState,
+                                [key]: formData[key]
+                            }));
                         }
                     }
                 }
                 else if(initialShipper === 'WillCall'){
-                    for (let key in formData) {     
+                    for (let key in formData) {  
+                           
                         if (key in WillCallObj) {
-                            WillCallObj[key] = formData[key];
+                            setWillCallObj(prevState => ({
+                                ...prevState,
+                                [key]: formData[key]
+                            }));
                         }
                     }
                     console.log('modifed:.....',WillCallObj);
