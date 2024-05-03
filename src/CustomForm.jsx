@@ -239,7 +239,7 @@ const CustomForm = () => {
             setSelectedShipper(initialShipper);
             console.log('dhekc sgipperL ',initialShipper);
         }
-    },[initialShipper,selectedShipper]);
+    },[initialShipper]);
 
     const [checkoutid, setCheckoutid] = useState(0);
 
