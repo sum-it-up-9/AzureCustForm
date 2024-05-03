@@ -959,7 +959,7 @@ const CustomForm = () => {
                         <>
                             <div>
                                 <div style={{ marginBottom: "5px" }}>Shipper To Use</div>
-                                <div>{selectedShipper}</div>
+                              
                                 <select
                                     data-testid=""
                                     style={{ marginBottom: "20px" }}
@@ -974,7 +974,7 @@ const CustomForm = () => {
                                     <option value="UPS">UPS</option>
                                     <option value="Will Call">Will Call</option>
                                 </select>
-                                <div>{selectedShipper}</div>
+                              
                             </div>
                             {isDisplayingAccountNumber === "Customer Preferred Carrier" ||
                                 isDisplayingAccountNumber === "UPS" ? (
@@ -1084,7 +1084,7 @@ const CustomForm = () => {
                     </button>
                 </form>
             </div>
-            <div>newsatteupdate- {JSON.stringify(WillCallObj)}</div>
+        
         </div>
        
     );
