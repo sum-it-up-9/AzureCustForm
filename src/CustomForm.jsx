@@ -852,20 +852,20 @@ const CustomForm = () => {
                             <div>
                                 <div style={{ marginBottom: "5px" }}>Shipper To Use</div>
                                 <div>{selectedShipper}</div>
-                                <Select
+                                <select
                                     data-testid=""
                                     style={{ marginBottom: "20px" }}
                                     fullWidth
                                     value={selectedShipper}
                                     onChange={handleShipperChange}
                                 >
-                                    <MenuItem value="FedEx">FedEx</MenuItem>
-                                    <MenuItem value="Customer Preferred Carrier">
+                                    <option value="FedEx">FedEx</option>
+                                    <option value="Customer Preferred Carrier">
                                         Customer Preferred Carrier
-                                    </MenuItem>
-                                    <MenuItem value="UPS">UPS</MenuItem>
-                                    <MenuItem value="Will Call">Will Call</MenuItem>
-                                </Select>
+                                    </option>
+                                    <option value="UPS">UPS</option>
+                                    <option value="Will Call">Will Call</option>
+                                </select>
                                 <div>{selectedShipper}</div>
                             </div>
                             {isDisplayingAccountNumber === "Customer Preferred Carrier" ||
