@@ -833,7 +833,10 @@ const CustomForm = () => {
                   
                   const data = await response.json();
                   console.log(data); // Process the data received from the API
-                  metafields=JSON.parse(data?.data[0]?.value);
+                  if(data?.data[0]?.value){
+                    metafields=JSON.parse(data?.data[0]?.value);
+                  }
+                 
                   console.log('this is metafields',metafields);
                   setFlag(prev=>!prev);
                 } catch (error) {
