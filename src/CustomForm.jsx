@@ -900,7 +900,7 @@ const CustomForm = () => {
                 <form fullWidth onSubmit={handleSubmit}>
                     <div>
                         <div style={{ marginBottom: "5px" }}>Who Pays Shipping</div>
-                        <Select
+                        <select
                             fullWidth
                             required
                             style={{ marginBottom: "10px" }}
@@ -908,11 +908,11 @@ const CustomForm = () => {
                             onChange={handleShippingChange}
                             data-testid="whoPaysShipping"
                         >
-                            <MenuItem value="Sellars Pays Freight">Sellars Pays Freight</MenuItem>
-                            <MenuItem value="Customer Pays Freight">
+                            <option value="Sellars Pays Freight">Sellars Pays Freight</option>
+                            <option value="Customer Pays Freight">
                                 Customer Pays Freight
-                            </MenuItem>
-                        </Select>
+                            </option>
+                        </select>
                        
                     </div>
 
