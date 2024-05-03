@@ -740,7 +740,7 @@ const CustomForm = () => {
         if (whoPaysShippping === "Sellars Pays Freight") {
             payload = {
                 whoPaysShippping,
-                sellarsShipper,
+                shipper:sellarsShipper,
                 specialInstructions
             };
         } else if (whoPaysShippping === "Customer Pays Freight") {
