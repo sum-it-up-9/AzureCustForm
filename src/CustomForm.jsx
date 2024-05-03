@@ -856,7 +856,7 @@ const CustomForm = () => {
                                     data-testid=""
                                     style={{ marginBottom: "20px" }}
                                     fullWidth
-                                    value={selectedShipper}
+                                    defaultvalue={selectedShipper}
                                     onChange={handleShipperChange}
                                 >
                                     <MenuItem value="FedEx">FedEx</MenuItem>
