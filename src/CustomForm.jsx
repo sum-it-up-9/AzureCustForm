@@ -239,7 +239,7 @@ const CustomForm = () => {
             setSelectedShipper(initialShipper);
             console.log('dhekc sgipperL ',initialShipper);
         }
-    },[initialShipper]);
+    },[initialShipper,selectedShipper]);
 
     const [checkoutid, setCheckoutid] = useState(0);
 
@@ -851,7 +851,7 @@ const CustomForm = () => {
                         <>
                             <div>
                                 <div style={{ marginBottom: "5px" }}>Shipper To Use</div>
-                                {selectedShipper}
+                                <div>{selectedShipper}</div>
                                 <Select
                                     data-testid=""
                                     style={{ marginBottom: "20px" }}
@@ -867,7 +867,7 @@ const CustomForm = () => {
                                     <MenuItem value="UPS">UPS</MenuItem>
                                     <MenuItem value="Will Call">Will Call</MenuItem>
                                 </Select>
-                                {console.log('selectedShipper: ',selectedShipper)}
+                                <div>{selectedShipper}</div>
                             </div>
                             {isDisplayingAccountNumber === "Customer Preferred Carrier" ||
                                 isDisplayingAccountNumber === "UPS" ? (
