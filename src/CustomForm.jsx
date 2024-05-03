@@ -528,6 +528,7 @@ const CustomForm = () => {
     }
 
     function handleFedExChange(e) {
+        console.log(e.target.value);
         setFedExObj(e.target.value);
         
     }
