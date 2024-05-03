@@ -284,8 +284,7 @@ const CustomForm = () => {
                     setUPSObj(formData);
                 }
                 else if(initialShipper==='Customer Preferred Carrier'){
-                    for (let key in formData) { 
-                       
+                    for (let key in formData) {    
                         if (key in customerPreferredObj) {
                             customerPreferredObj(prevState => ({
                                 ...prevState,
@@ -294,7 +293,7 @@ const CustomForm = () => {
                         }
                     }
                 }
-                else if(initialShipper === 'WillCall'){
+                else if(initialShipper === 'Will Call'){
                     for (let key in formData) {  
                            
                         if (key in WillCallObj) {
