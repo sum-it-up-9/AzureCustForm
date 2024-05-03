@@ -259,7 +259,7 @@ const CustomForm = () => {
         }
         else{
             setSelectedShipper(initialShipper);
-            isDisplayingAccountNumber(initialShipper);
+            //isDisplayingAccountNumber(initialShipper);
             console.log('dhekc sgipperL ',initialShipper);
         }
     },[initialShipper]);
