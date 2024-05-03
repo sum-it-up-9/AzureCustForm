@@ -89,21 +89,21 @@ const WillCall = {
         lable: "Contact Name",
         type: "text",
         formName: "WillCallObj",
-        value:'',
+        
         required: true,
     },
     ContactEmail: {
         lable: "Contact Email",
         type: "email",
         formName: "WillCallObj",
-        value:'',
+       
         required: true,
     },
     ContactPhone: {
         lable: "Contact Phone",
         type: "text",
         formName: "WillCallObj",
-        value:'',
+       
         required: true,
     },
 };
