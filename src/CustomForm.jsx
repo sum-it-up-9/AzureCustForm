@@ -13,36 +13,42 @@ const CustomerPreferred = {
         label: "Carrier Name",
         type: "text",
         formName: "CustomerPreferredObj",
+        value:'',
         required: true,
     },
     ContactName: {
         label: "Contact Name",
         type: "text",
         formName: "CustomerPreferredObj",
+        value:'',
         required: true,
     },
     Name: {
         label: "Name",
         type: "text",
         formName: "CustomerPreferredObj",
+        value:'',
         required: true,
     },
     ContactPhone: {
         label: "Contact Phone",
         type: "text",
         formName: "CustomerPreferredObj",
+        value:'',
         required: true,
     },
     Address1: {
         label: "Address 1",
         type: "text",
         formName: "CustomerPreferredObj",
+        value:'',
         required: true,
     },
     Address2: {
         label: "Address 2",
         type: "text",
         formName: "CustomerPreferredObj",
+        value:'',
         required: false,
     },
     State: {
@@ -50,12 +56,14 @@ const CustomerPreferred = {
         type: "dropdown",
         formName: "CustomerPreferredObj",
         required: true,
+        value:'',
         fieldOptions:['New York', 'California', 'Texas']
     },
     City: {
         label: "City",
         type: "text",
         formName: "CustomerPreferredObj",
+        value:'',
         required: true,
         
     },
@@ -63,6 +71,7 @@ const CustomerPreferred = {
         label: "Zip",
         type: "text",
         formName: "CustomerPreferredObj",
+        value:'',
         required: true,
     },
     Country: {
@@ -70,6 +79,7 @@ const CustomerPreferred = {
         type: "dropdown",
         formName: "CustomerPreferredObj",
         required: true,
+        value:'',
         fieldOptions:['United States']
     },
 };
@@ -251,6 +261,23 @@ const CustomForm = () => {
     const [selectedShipper, setSelectedShipper] = useState("FedEx");
     const [sellarsShipper, setSellarsShipper] = useState("Prepaid Truckload");
 
+
+    function formDataUpdate(initialwhoPaysShippping,initialShipper){
+        if(initialwhoPaysShippping==='Sellars Pays Freight'){
+
+        }
+        else{
+            const formData=metafields?.formData;
+            if (formData) {
+                for (let key in formData) {
+                    if (key in CustomerPreferred) {
+                        CustomerPreferred[key].value = formData[key];
+                    }
+                }
+            }
+        }
+    }       
+
     useEffect(()=>{
         if(!initialShipper) return;
         console.log(initialwhoPaysShippping,'in effec');
@@ -259,6 +286,7 @@ const CustomForm = () => {
         }
         else{
             setSelectedShipper(initialShipper);
+            formDataUpdate(initialwhoPaysShippping,initialShipper);
             if (initialShipper === "UPS") {
                 setFormFields(UPS);
                 setIsDisplayingAccountNumber("UPS");
@@ -271,9 +299,11 @@ const CustomForm = () => {
             } else if (initialShipper === "Customer Preferred Carrier") {
                 setFormFields(CustomerPreferred);
                 setIsDisplayingAccountNumber("Customer Preferred Carrier");
+                
             }
-            console.log('dhekc sgipperL ',initialShipper);
+            console.log('dhekc sgipperL ',initialShipper);    
         }
+       
     },[initialShipper]);
 
     const [checkoutid, setCheckoutid] = useState(0);
