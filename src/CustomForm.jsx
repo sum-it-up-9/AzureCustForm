@@ -243,7 +243,7 @@ const CustomForm = () => {
      
     },[initialAccountNumber]);
 
-    const [isDisplayingAccountNumber, setIsDisplayingAccountNumber] =useState("");
+    const [isDisplayingAccountNumber, setIsDisplayingAccountNumber] =useState("FedEx");
     const [FormFields, setFormFields] = useState(FedEx);
    
 
@@ -252,16 +252,17 @@ const CustomForm = () => {
     const [sellarsShipper, setSellarsShipper] = useState("Prepaid Truckload");
 
     useEffect(()=>{
+        if(!initialShipper){
+            return;
+        }
         console.log(initialwhoPaysShippping,'in effec');
         if(initialwhoPaysShippping==='Sellars Pays Freight'){
             setSellarsShipper(initialShipper);
         }
         else{
             setSelectedShipper(initialShipper);
-            if(initialShipper=='FedEx'){
-                isDisplayingAccountNumber("FedEx");
-            }
-            console.log('dhekc sgipperL ',initialShipper);
+            isDisplayingAccountNumber(initialShipper);
+            console.log('customer shipper ',initialShipper);
         }
     },[initialShipper]);
 
