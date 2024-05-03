@@ -284,14 +284,19 @@ const CustomForm = () => {
                     setUPSObj(formData);
                 }
                 else if(initialShipper==='Customer Preferred Carrier'){
-                    for (let key in formData) {    
-                        if (key in customerPreferredObj) {
-                            customerPreferredObj(prevState => ({
-                                ...prevState,
-                                [key]: formData[key]
-                            }));
+
+                    setCustomerPreferredObj((prevState) =>{   
+                        let newObj={};
+                        for (let key in formData) {
+                            if (key in prevState) {
+                                newObj[key]=formData[key];
+                            }
                         }
-                    }
+                        console.log('new obj,',newObj);
+                        return newObj;
+                    });
+
+                 
                 }
                 else if(initialShipper === 'Will Call'){
                   
