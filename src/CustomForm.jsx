@@ -274,15 +274,12 @@ const CustomForm = () => {
 
 
             if (formData) {
-
                 if( initialShipper==='FedEx'){
                     setFedExObj(formData);
                 }
-
                 if(initialShipper ==='UPS'){
                     setUPSObj(formData);
                 }
-
                 for (let key in formData) {
                     if (key in CustomerPreferred) {
                         CustomerPreferred[key].value = formData[key];
@@ -549,7 +546,7 @@ const CustomForm = () => {
                         label={fieldName}
                         variant="outlined" name={fieldName}
                         required={fieldType.required}
-                        value={formName[fieldName]}
+                        value={value!==undefined ? fieldType.value : formName[fieldName]}
                         onChange={(e) => {
                             if (formName === "FedExObj") {
                                 handleFedExChange(e);
