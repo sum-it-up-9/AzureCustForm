@@ -856,7 +856,6 @@ const CustomForm = () => {
                                     data-testid=""
                                     style={{ marginBottom: "20px" }}
                                     fullWidth
-                                    defaultValue={selectedShipper}
                                     value={selectedShipper}
                                     onChange={handleShipperChange}
                                 >
