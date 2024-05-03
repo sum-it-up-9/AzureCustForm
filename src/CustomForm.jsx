@@ -942,7 +942,7 @@ const CustomForm = () => {
                     {whoPaysShippping === "Sellars Pays Freight" ? (
                         <div>
                             <div style={{ marginBottom: "5px" }}>Shipper To Use</div>
-                            <select
+                            <Select
                                 style={{ marginBottom: "20px" }}
                                 fullWidth
                                 required
@@ -951,9 +951,9 @@ const CustomForm = () => {
                                 name=""
                                 
                             >
-                                <option value="Prepaid Truckload">Prepaid Truckload</option>
-                                <option value="Prepaid LTL">Prepaid LTL</option>
-                            </select>
+                                <MenuItem value="Prepaid Truckload">Prepaid Truckload</MenuItem>
+                                <MenuItem value="Prepaid LTL">Prepaid LTL</MenuItem>
+                            </Select>
                         </div>
                     ) : (
                         <>
