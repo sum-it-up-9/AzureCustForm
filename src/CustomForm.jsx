@@ -546,7 +546,7 @@ const CustomForm = () => {
                         label={fieldName}
                         variant="outlined" name={fieldName}
                         required={fieldType.required}
-                        value={value!==undefined ? fieldType.value : formName[fieldName]}
+                        value={fieldType.value!==undefined ? fieldType.value : formName[fieldName]}
                         onChange={(e) => {
                             if (formName === "FedExObj") {
                                 handleFedExChange(e);
@@ -570,7 +570,7 @@ const CustomForm = () => {
                     <Select
                         style={{ marginBottom: "20px" }}
                         name={fieldName}
-                        value={fieldType[fieldName]}
+                        value={fieldType.value!==undefined ? fieldType.value :fieldType[fieldName]}
                         label={`Select a ${fieldName}`}
                         required={fieldType.required}
                         onChange={(e) => {
@@ -624,7 +624,7 @@ const CustomForm = () => {
                         type="email"
                         label={fieldName}
                         name={fieldName}
-                        value={formName[fieldName]}
+                        value={fieldType.value!==undefined ? fieldType.value :formName[fieldName]}
                         onChange={(e) => {
                             if (formName === "FedExObj") {
                                 handleFedExChange(e);
