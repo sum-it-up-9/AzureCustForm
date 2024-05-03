@@ -269,7 +269,7 @@ const CustomForm = () => {
 
     function formDataUpdate(initialwhoPaysShippping,initialShipper){
         if(initialwhoPaysShippping==='Sellars Pays Freight'){
-
+           
         }
         else{
             const formData=metafields?.formData;
@@ -941,7 +941,7 @@ const CustomForm = () => {
                     {whoPaysShippping === "Sellars Pays Freight" ? (
                         <div>
                             <div style={{ marginBottom: "5px" }}>Shipper To Use</div>
-                            <Select
+                            <select
                                 style={{ marginBottom: "20px" }}
                                 fullWidth
                                 required
@@ -950,9 +950,9 @@ const CustomForm = () => {
                                 name=""
                                 
                             >
-                                <MenuItem value="Prepaid Truckload">Prepaid Truckload</MenuItem>
-                                <MenuItem value="Prepaid LTL">Prepaid LTL</MenuItem>
-                            </Select>
+                                <option value="Prepaid Truckload">Prepaid Truckload</option>
+                                <option value="Prepaid LTL">Prepaid LTL</option>
+                            </select>
                         </div>
                     ) : (
                         <>
