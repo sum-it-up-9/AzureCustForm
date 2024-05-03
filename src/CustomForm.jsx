@@ -228,7 +228,7 @@ const CustomForm = () => {
 
     useEffect(()=>{
         if(initialuseFedExAccount){
-            setIsUsingFedExAccount(initialuseFedExAccount);
+            setIsUsingFedExAccount("Yes");
         }
         console.log(initialuseFedExAccount,'initialuseFedExAccount');
      
@@ -237,8 +237,7 @@ const CustomForm = () => {
 
     useEffect(()=>{
         if(initialAccountNumber){
-            setIsUsingFedExAccount("Yes");
-            console.error('yessssssssssss');
+            
             setAccountNumber(initialAccountNumber);
         }
         console.log(initialAccountNumber,'initialAccountNumber');
