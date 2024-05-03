@@ -912,10 +912,11 @@ const CustomForm = () => {
                                             Use My FedEx Account
                                         </label>
                                     </div>
+                                    <div></div>
                                     <Select
                                         style={{ marginBottom: "20px" }}
                                         fullWidth
-                                        defaultValue="No"
+                                        value={isUsingFedExAccount}
                                         onChange={handleFedExAccountChange}
                                         name="useFedExAccount"
                                         id="useFedExAccount"
