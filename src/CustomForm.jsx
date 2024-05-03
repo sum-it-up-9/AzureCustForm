@@ -298,10 +298,10 @@ const CustomForm = () => {
                         console.log('key',key);    
                         if (key in WillCallObj) {
                             console.log('key found in ');    
-                            setWillCallObj(prevState => ({
-                                ...prevState,
-                                [key]: formData[key]
-                            }));
+                            setWillCallObj((prevState) =>{   
+                                console.log('prev obj,'{...prevState,[key]: formData[key]});
+                               return {...prevState,[key]: formData[key]}
+                            });
                         }
                     }
                     console.log('modifed:.....',WillCallObj);
