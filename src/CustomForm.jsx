@@ -276,7 +276,7 @@ const CustomForm = () => {
 
            
             if (formData) {
-                  let objToModify;
+                 
                 if( initialShipper==='FedEx'){
                     setFedExObj(formData);
                 }
@@ -296,6 +296,7 @@ const CustomForm = () => {
                             WillCallObj[key] = formData[key];
                         }
                     }
+                    console.log('modifed:.....',WillCallObj);
                 }
 
                 
