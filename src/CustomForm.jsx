@@ -225,8 +225,19 @@ const CustomForm = () => {
     const [isDisplayingAccountNumber, setIsDisplayingAccountNumber] =useState("FedEx");
     const [FormFields, setFormFields] = useState(FedEx);
    
+
+    const initialShipper = metafields?.shipper;
     const [selectedShipper, setSelectedShipper] = useState("FedEx");
     const [sellarsShipper, setSellarsShipper] = useState("Prepaid Truckload");
+
+    useEffect(()=>{
+        if(metafields?.whoPaysShippping==='Sellars Pays Freight'){
+            setSellarsShipper(initialShipper);
+        }
+        else{
+            setSelectedShipper(initialShipper);
+        }
+    },[initialShipper]);
 
     const [checkoutid, setCheckoutid] = useState(0);
 
