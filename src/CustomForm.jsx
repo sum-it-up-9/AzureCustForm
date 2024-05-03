@@ -237,14 +237,13 @@ const CustomForm = () => {
 
     useEffect(()=>{
         if(initialAccountNumber){
-            
             setAccountNumber(initialAccountNumber);
         }
         console.log(initialAccountNumber,'initialAccountNumber');
      
     },[initialAccountNumber]);
 
-    const [isDisplayingAccountNumber, setIsDisplayingAccountNumber] =useState("FedEx");
+    const [isDisplayingAccountNumber, setIsDisplayingAccountNumber] =useState("");
     const [FormFields, setFormFields] = useState(FedEx);
    
 
@@ -259,6 +258,9 @@ const CustomForm = () => {
         }
         else{
             setSelectedShipper(initialShipper);
+            if(initialShipper=='FedEx'){
+                isDisplayingAccountNumber("FedEx");
+            }
             console.log('dhekc sgipperL ',initialShipper);
         }
     },[initialShipper]);
@@ -287,9 +289,6 @@ const CustomForm = () => {
     const [FedExObj, setFedExObj] = useState("Ground");
     const [UPSObj, setUPSObj] = useState("Ground");
 
-   
-
-    
     function sleep(ms) {
         return new Promise((resolve) => {
             setTimeout(resolve, ms);
