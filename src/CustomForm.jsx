@@ -272,19 +272,31 @@ const CustomForm = () => {
         else{
             const formData=metafields?.formData;
 
-
+           
             if (formData) {
+                  let objToModify;
                 if( initialShipper==='FedEx'){
                     setFedExObj(formData);
                 }
-                if(initialShipper ==='UPS'){
+                else if(initialShipper ==='UPS'){
                     setUPSObj(formData);
                 }
-                for (let key in formData) {
-                    if (key in CustomerPreferred) {
-                        CustomerPreferred[key].value = formData[key];
+                else if(initialShipper==='Customer Preferred Carrier'){
+                    for (let key in formData) { 
+                        if (key in CustomerPreferredObj) {
+                            CustomerPreferredObj[key].value = formData[key];
+                        }
                     }
                 }
+                else if(initialShipper === 'WillCall'){
+                    for (let key in formData) {     
+                        if (key in WillCallObj) {
+                            WillCallObj[key].value = formData[key];
+                        }
+                    }
+                }
+
+                
             }
         }
     }       
@@ -546,7 +558,7 @@ const CustomForm = () => {
                         label={fieldName}
                         variant="outlined" name={fieldName}
                         required={fieldType.required}
-                        value={fieldType.value!==undefined ? fieldType.value : formName[fieldName]}
+                        value={ formName[fieldName]}
                         onChange={(e) => {
                             if (formName === "FedExObj") {
                                 handleFedExChange(e);
@@ -570,7 +582,7 @@ const CustomForm = () => {
                     <Select
                         style={{ marginBottom: "20px" }}
                         name={fieldName}
-                        value={fieldType.value!==undefined ? fieldType.value :fieldType[fieldName]}
+                        value={fieldType[fieldName]}
                         label={`Select a ${fieldName}`}
                         required={fieldType.required}
                         onChange={(e) => {
@@ -624,7 +636,7 @@ const CustomForm = () => {
                         type="email"
                         label={fieldName}
                         name={fieldName}
-                        value={fieldType.value!==undefined ? fieldType.value :formName[fieldName]}
+                        value={formName[fieldName]}
                         onChange={(e) => {
                             if (formName === "FedExObj") {
                                 handleFedExChange(e);
