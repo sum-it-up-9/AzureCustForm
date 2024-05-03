@@ -223,6 +223,7 @@ const CustomForm = () => {
     console.log('check usestate: ', whoPaysShippping);
 
     const initialuseFedExAccount = metafields?.useFedExAccount;
+    const initialAccountNumber = metafields?.AccountNumber;
     const [isUsingFedExAccount, setIsUsingFedExAccount] = useState("No");
 
     useEffect(()=>{
@@ -232,6 +233,15 @@ const CustomForm = () => {
         console.log(initialuseFedExAccount,'initialuseFedExAccount');
      
     },[initialuseFedExAccount]);
+
+
+    useEffect(()=>{
+        if(initialAccountNumber){
+            setIsUsingFedExAccount(true);
+        }
+        console.log(initialAccountNumber,'initialAccountNumber');
+     
+    },[initialAccountNumber]);
 
     const [isDisplayingAccountNumber, setIsDisplayingAccountNumber] =useState("FedEx");
     const [FormFields, setFormFields] = useState(FedEx);
