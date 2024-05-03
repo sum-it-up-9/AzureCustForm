@@ -294,16 +294,20 @@ const CustomForm = () => {
                     }
                 }
                 else if(initialShipper === 'Will Call'){
-                    for (let key in formData) {   
-                        console.log('key',key);    
-                        if (key in WillCallObj) {
+                  
                             console.log('key found in ');    
                             setWillCallObj((prevState) =>{   
-                                console.log('prev obj,',{...prevState,[key]: formData[key]});
-                               return {...prevState,[key]: formData[key]}
+                                let newObj={};
+                                for (let key in formData) {
+                                    if (key in prevState) {
+                                        newObj[key]=formData[key];
+                                    }
+                                }
+                                console.log('new obj,',newObj);
+                               return newObj;
                             });
-                        }
-                    }
+                        
+                    
                     console.log('modifed:.....',WillCallObj);
                 }
 
