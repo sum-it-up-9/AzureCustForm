@@ -211,7 +211,7 @@ const CustomForm = () => {
 
     const [specialInstructions, setSpecialInstructions] = useState("");
     const [accountNumber, setAccountNumber] = useState(0);
-    console.log('trying to assign to usestate: ', metafields.whoPaysShippping);
+    console.log('trying to assign to usestate: ', metafields);
     const [whoPaysShippping, setWhoPaysShipping] = useState( metafields?.whoPaysShippping!== undefined ?  metafields?.whoPaysShippping : "Sellars Pays Freight");
     const [isUsingFedExAccount, setIsUsingFedExAccount] = useState("No");
     const [isDisplayingAccountNumber, setIsDisplayingAccountNumber] =useState("FedEx");
