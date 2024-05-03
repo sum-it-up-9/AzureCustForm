@@ -568,7 +568,7 @@ const CustomForm = () => {
            
             return (
                 <>
-                <div>value : {formName,fieldName}</div>
+                <div>value : {formName}{fieldName}</div>
                     <input
                         fullWidth
                         type="text"
