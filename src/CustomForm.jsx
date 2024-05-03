@@ -322,6 +322,7 @@ const CustomForm = () => {
     }       
 
     useEffect(()=>{
+        console.log(initialShipper,'asd');
         if(!initialShipper) return;
         console.log(initialwhoPaysShippping,'in effec');
         if(initialwhoPaysShippping==='Sellars Pays Freight'){
