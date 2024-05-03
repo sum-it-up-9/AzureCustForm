@@ -913,7 +913,7 @@ const CustomForm = () => {
                                         </label>
                                     </div>
                                     <div></div>
-                                    <Select
+                                    <select
                                         style={{ marginBottom: "20px" }}
                                         fullWidth
                                         value={isUsingFedExAccount}
@@ -921,10 +921,10 @@ const CustomForm = () => {
                                         name="useFedExAccount"
                                         id="useFedExAccount"
                                     >
-                                        <MenuItem value="No">No</MenuItem>
-                                        <MenuItem value="Yes">Yes</MenuItem>
+                                        <option value="No">No</option>
+                                        <option value="Yes">Yes</option>
                                       
-                                    </Select>
+                                    </select>
 
                                     {isUsingFedExAccount === "Yes" && (
                                         <div style={{ marginBottom: "20px" }}>
