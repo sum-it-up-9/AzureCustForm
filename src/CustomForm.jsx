@@ -237,6 +237,7 @@ const CustomForm = () => {
         }
         else{
             setSelectedShipper(initialShipper);
+            console.log('dhekc sgipperL ',initialShipper);
         }
     },[initialShipper]);
 
