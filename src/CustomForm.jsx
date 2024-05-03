@@ -851,6 +851,7 @@ const CustomForm = () => {
                         <>
                             <div>
                                 <div style={{ marginBottom: "5px" }}>Shipper To Use</div>
+                                {console.log('selectedShipper: ',selectedShipper)}
                                 <Select
                                     data-testid=""
                                     style={{ marginBottom: "20px" }}
