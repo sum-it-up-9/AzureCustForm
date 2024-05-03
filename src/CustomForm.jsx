@@ -300,7 +300,7 @@ const CustomForm = () => {
                                 let newObj={};
                                 for (let key in formData) {
                                     if (key in prevState) {
-                                        newObj.key=formData[key];
+                                        newObj[key]=formData[key];
                                     }
                                 }
                                 console.log('new obj,',newObj);
@@ -568,7 +568,7 @@ const CustomForm = () => {
            
             return (
                 <>
-                <div>value : {WillCallObj.ContactName}</div>
+                <div>value : {typeof formName}</div>
                     <input
                         fullWidth
                         type="text"
