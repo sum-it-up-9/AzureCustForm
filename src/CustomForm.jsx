@@ -896,6 +896,7 @@ const CustomForm = () => {
                                         label="Account Number"
                                         variant="outlined"
                                         required
+                                        value={accountNumber}
                                         onChange={(e) => {
                                             setAccountNumber(e.target.value);
                                         }}
