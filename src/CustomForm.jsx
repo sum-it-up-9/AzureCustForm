@@ -231,7 +231,8 @@ const CustomForm = () => {
     const [sellarsShipper, setSellarsShipper] = useState("Prepaid Truckload");
 
     useEffect(()=>{
-        if(metafields?.whoPaysShippping==='Sellars Pays Freight'){
+        console.log(initialwhoPaysShippping,'in effec');
+        if(initialwhoPaysShippping==='Sellars Pays Freight'){
             setSellarsShipper(initialShipper);
         }
         else{
