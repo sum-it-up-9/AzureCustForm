@@ -727,7 +727,7 @@ const CustomForm = () => {
                 console.log('hello');
                 if(!payload?.shipper || payload.shipper==='FedEx' || payload.shipper==='UPS' || payload.shipper==='Customer Preferred Carrier' || payload.shipper==='Will Call'){
                     payload={};
-                    payload.shipper=sellarsShipper ?  sellarsShipper : 'Prepaid Truckload';
+                    payload.shipper='Prepaid Truckload';
                     payload.specialInstructions=specialInstructions;      
                 }
             }
