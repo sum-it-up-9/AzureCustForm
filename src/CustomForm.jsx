@@ -200,7 +200,7 @@ const FedEx = {
 
 let cartId;
 let extensionService;
-let payload;
+let payload={};
 let metafields;
 
 const ExtensionCommandType = {
