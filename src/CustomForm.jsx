@@ -724,7 +724,7 @@ const CustomForm = () => {
                 
             }
             else{
-                console.log('hello');
+              
                 if(!payload?.shipper || payload.shipper==='FedEx' || payload.shipper==='UPS' || payload.shipper==='Customer Preferred Carrier' || payload.shipper==='Will Call'){
                     payload={};
                     payload.shipper='Prepaid Truckload';
@@ -736,7 +736,7 @@ const CustomForm = () => {
                 whoPaysShipping: whoPaysShippping === "Customer Pays Freight" ? "Customer Pays Freight" : "Sellars Pays Freight",
                 metafields: payload,
             });
-            console.log('raw',raw);
+          
         }
 
         console.log(
