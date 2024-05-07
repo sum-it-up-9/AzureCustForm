@@ -224,9 +224,9 @@ const CustomForm = () => {
 
     const [specialInstructions, setSpecialInstructions] = useState("");
     const [accountNumber, setAccountNumber] = useState(0);
-    console.log('trying to assign to usestate: ', metafields?.whoPaysShippping);
+    //console.log('trying to assign to usestate: ', metafields?.whoPaysShippping);
     const initialwhoPaysShippping = metafields?.whoPaysShippping;
-    console.log('initialwhoPaysShippping: ', initialwhoPaysShippping);
+   // console.log('initialwhoPaysShippping: ', initialwhoPaysShippping);
     const [whoPaysShippping, setWhoPaysShipping] = useState("Sellars Pays Freight");
     
 
@@ -235,7 +235,7 @@ const CustomForm = () => {
             setWhoPaysShipping(initialwhoPaysShippping);
         }
     },[initialwhoPaysShippping]);
-    console.log('check usestate: ', whoPaysShippping);
+  
 
     const initialuseFedExAccount = metafields?.useFedExAccount;
     const initialAccountNumber = metafields?.AccountNumber;
@@ -244,7 +244,7 @@ const CustomForm = () => {
         if(initialuseFedExAccount==='Yes'){
             setIsUsingFedExAccount("Yes");
         }
-        console.log(initialuseFedExAccount,'initialuseFedExAccount');
+    
      
     },[initialuseFedExAccount]);
 
@@ -253,7 +253,7 @@ const CustomForm = () => {
         if(initialAccountNumber){
             setAccountNumber(initialAccountNumber);
         }
-        console.log(initialAccountNumber,'initialAccountNumber');
+      
      
     },[initialAccountNumber]);
 
@@ -293,7 +293,7 @@ const CustomForm = () => {
                                 newObj[key]=formData[key];
                             }
                         }
-                        console.log('new obj,',newObj);
+                       
                         return newObj;
                     });
 
@@ -301,7 +301,7 @@ const CustomForm = () => {
                 }
                 else if(initialShipper === 'Will Call'){
                   
-                            console.log('key found in ');    
+                           
                             setWillCallObj((prevState) =>{   
                                 let newObj={};
                                 for (let key in formData) {
@@ -309,12 +309,12 @@ const CustomForm = () => {
                                         newObj[key]=formData[key];
                                     }
                                 }
-                                console.log('new obj,',newObj);
+                              
                                return newObj;
                             });
                         
                     
-                    console.log('modifed:.....',WillCallObj);
+                 
                 }
 
                 
@@ -323,9 +323,9 @@ const CustomForm = () => {
     }       
 
     useEffect(()=>{
-        console.log(initialShipper,'asd');
+        //console.log(initialShipper,'asd');
         if(!initialShipper) return;
-        console.log(initialwhoPaysShippping,'in effec');
+       // console.log(initialwhoPaysShippping,'in effec');
         if(initialwhoPaysShippping==='Sellars Pays Freight'){
             setSellarsShipper(initialShipper);
         }
@@ -346,7 +346,7 @@ const CustomForm = () => {
                 setIsDisplayingAccountNumber("Customer Preferred Carrier");
                 
             }
-            console.log('dhekc sgipperL ',initialShipper);    
+          //  console.log('dhekc sgipperL ',initialShipper);    
         }
        
     },[initialShipper]);
@@ -398,16 +398,6 @@ const CustomForm = () => {
     async function consignmentUpdateTriggered(extensionService, cartId, data) {
         console.log("consignments changed", data);
        
-
-        // showLoadingIndicator();
-        // //post message to parent window - hide continue button
-        // window.top.postMessage(
-        //   "hide-checkout-shipping-continue",
-        //   "https://sellars-absorbent-materials-sandbox-1.mybigcommerce.com"
-        // );
-
-        //perform price update operations
-
         try {
           
             await UpdateCartPrice(cartId);
@@ -418,14 +408,7 @@ const CustomForm = () => {
         //sleep for 3 seconds
         await sleep(1000);
       
-        //post message to parent window - show continue button
-
-        // window.top.postMessage(
-        //   "show-checkout-shipping-continue",
-        //   "https://sellars-absorbent-materials-sandbox-1.mybigcommerce.com"
-        // );
-
-        //window.top.postMessage("checkout-shipping-next-step", "https://sellars-absorbent-materials-sandbox-1.mybigcommerce.com");
+       
     }
 
    
@@ -688,7 +671,7 @@ const CustomForm = () => {
     async function UpdateCartPrice(cartId, whoPaysFreightLocal) {
         let raw;
         //here fucntions second atturibute's name is similar to usestate varible so kindly do not get confused with 2nd parameter of function with state variable as both are different
-        console.log('inside updateCartItems ..........');
+      //  console.log('inside updateCartItems ..........');
         if (whoPaysFreightLocal) {
             if(whoPaysFreightLocal === "Customer Pays Freight"){
                 if (!payload?.shipper || payload.shipper==='Prepaid Truckload' || payload.shipper==='Prepaid LTL') {      
@@ -702,7 +685,7 @@ const CustomForm = () => {
             else{
                 if(!payload?.shipper || payload.shipper==='FedEx' || payload.shipper==='UPS' || payload.shipper==='Customer Preferred Carrier' || payload.shipper==='Will Call'){
                     payload={};
-                    console.log('in');
+                   // console.log('in');
                     payload.shipper=sellarsShipper ?  sellarsShipper : 'Prepaid Truckload';
                     payload.specialInstructions=specialInstructions;      
                 }
@@ -739,14 +722,8 @@ const CustomForm = () => {
           
         }
 
-        console.log(
-            "inside UpdateCartPrice & this is the current checkoutid: ",
-            checkoutid
-        );
-        console.log(
-            "inside UpdateCartPrice & this is the current cartId: ",
-            cartId
-        );
+       // console.log( "inside UpdateCartPrice & this is the current checkoutid: ", checkoutid);
+       
         const myHeaders = new Headers();
 
         myHeaders.append("Content-Type", "application/json");
@@ -870,12 +847,12 @@ const CustomForm = () => {
                   }
                   
                   const data = await response.json();
-                  console.log(data); // Process the data received from the API
+                //  console.log(data); // Process the data received from the API
                   if(data?.data[0]?.value){
                     metafields=JSON.parse(data?.data[0]?.value);
                   }
                  
-                  console.log('this is metafields',metafields);
+                //  console.log('this is metafields',metafields);
                   setFlag(prev=>!prev);
                 } catch (error) {
                   console.error('There was a problem with the fetch operation:', error);
@@ -887,7 +864,7 @@ const CustomForm = () => {
 
             
 
-            console.log("this is card id: ", cartId);
+            //console.log("this is card id: ", cartId);
             setCheckoutid(cartId);
 
             const parentOrigin = params.get("parentOrigin");
@@ -924,10 +901,10 @@ const CustomForm = () => {
                     if (priceUpdateNeeded) {
                         console.log("Consignment updated, need to trigger price update.");
                         consignmentUpdateTriggered(extensionService, cartId, data);
-                        console.log("do not reload checkout with updated price.");
-                        // extensionService.post({
-                        //     type: ExtensionCommandType.ReloadCheckout,
-                        // });
+                        console.log("reload checkout with updated price.");
+                        extensionService.post({
+                            type: ExtensionCommandType.ReloadCheckout,
+                        });
 
                     } else {
                         console.log(
@@ -941,7 +918,7 @@ const CustomForm = () => {
                     hideLoadingIndicator();
                     window.top.postMessage(
                       "show-checkout-shipping-continue",
-                      "https://sellars-absorbent-materials-sandbox-1.mybigcommerce.com"
+                      "https://vivacommerce-b2b-demo-i9.mybigcommerce.com"
                   );
 
                 }
