@@ -1124,7 +1124,7 @@ const CustomForm = () => {
                     </button>
                 </form>
             </div>
-                        <div>{selectedShipper}</div>
+                        {/* <div>{selectedShipper}</div> */}
         </div>
        
     );
