@@ -212,7 +212,7 @@ const ExtensionCommandType = {
 async function sendMessage() {
     window.top.postMessage(
         "hide-checkout-shipping-continue",
-        "https://sellars-absorbent-materials-sandbox-1.mybigcommerce.com"
+        "https://vivacommerce-b2b-demo-i9.mybigcommerce.com"
     );
 }
 
@@ -470,7 +470,7 @@ const CustomForm = () => {
         //post message to parent window - hide continue button
         window.top.postMessage(
             "hide-checkout-shipping-continue",
-            "https://sellars-absorbent-materials-sandbox-1.mybigcommerce.com"
+            "https://vivacommerce-b2b-demo-i9.mybigcommerce.com"
         );
 
         //call azure function to update the product prices
@@ -492,7 +492,7 @@ const CustomForm = () => {
         });
         window.top.postMessage(
             "show-checkout-shipping-continue",
-            "https://sellars-absorbent-materials-sandbox-1.mybigcommerce.com"
+            "https://vivacommerce-b2b-demo-i9.mybigcommerce.com"
         );
 
     };
@@ -803,7 +803,7 @@ const CustomForm = () => {
         //post message to parent window - hide continue button
         window.top.postMessage(
             "hide-checkout-shipping-continue",
-            "https://sellars-absorbent-materials-sandbox-1.mybigcommerce.com"
+            "https://vivacommerce-b2b-demo-i9.mybigcommerce.com"
         );
         try {
             await UpdateCartPrice(cartId);
@@ -820,7 +820,7 @@ const CustomForm = () => {
 
         window.top.postMessage(
             "show-checkout-shipping-continue",
-            "https://sellars-absorbent-materials-sandbox-1.mybigcommerce.com"
+            "https://vivacommerce-b2b-demo-i9.mybigcommerce.com"
         );
 
 
@@ -889,7 +889,7 @@ const CustomForm = () => {
                     //post message to parent window - hide continue button
                     window.top.postMessage(
                         "hide-checkout-shipping-continue",
-                        "https://sellars-absorbent-materials-sandbox-1.mybigcommerce.com"
+                        "https://vivacommerce-b2b-demo-i9.mybigcommerce.com"
                     );
 
 
