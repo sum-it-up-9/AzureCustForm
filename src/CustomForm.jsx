@@ -724,6 +724,7 @@ const CustomForm = () => {
                 
             }
             else{
+                console.log('hello');
                 if(!payload?.shipper || payload.shipper==='FedEx' || payload.shipper==='UPS' || payload.shipper==='Customer Preferred Carrier' || payload.shipper==='Will Call'){
                     payload={};
                     payload.shipper=sellarsShipper ?  sellarsShipper : 'Prepaid Truckload';
@@ -735,6 +736,7 @@ const CustomForm = () => {
                 whoPaysShipping: whoPaysFreight === "Customer Pays Freight" ? "Customer Pays Freight" : "Sellars Pays Freight",
                 metafields: payload,
             });
+            console.log('raw',raw);
         }
 
         console.log(
@@ -750,7 +752,7 @@ const CustomForm = () => {
         myHeaders.append("Content-Type", "application/json");
         myHeaders.append("Access-Control-Allow-Origin", "*");
 
-        console.log('raw: ',raw);
+       
         try {
             //customerJWT();
             const res = await fetch(`http://localhost:3000/updateCartItems`, {
