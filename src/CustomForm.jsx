@@ -685,16 +685,47 @@ const CustomForm = () => {
 
    
 
-    async function UpdateCartPrice(cartId, whoPaysFreight) {
+    async function UpdateCartPrice(cartId, whoPaysFreightLocal) {
         let raw;
-        if (whoPaysFreight) {
+        //here fucntions second atturibute's name is similar to usestate varible so kindly do not get confused with 2nd parameter of function with state variable as both are different
+        if (whoPaysFreightLocal) {
+            if(whoPaysFreightLocal === "Customer Pays Freight"){
+                if (!payload.shipper) {
+                    payload.shipper = 'FedEx';
+                    payload.useFedExAccount = isUsingFedExAccount;
+                    payload.specialInstructions = specialInstructions;
+                    payload.formData = FedExObj;
+                }
+                
+            }
+            else{
+                if(!payload.shipper){
+                    payload.shipper='Prepaid Truckload';
+                    payload.specialInstructions=specialInstructions;      
+                }
+            }
             raw = JSON.stringify({
                 checkoutId: cartId,
-                whoPaysShipping: whoPaysFreight === "Customer Pays Freight" ? "Customer Pays Freight" : "Sellars Pays Freight",
+                whoPaysShipping: whoPaysFreightLocal === "Customer Pays Freight" ? "Customer Pays Freight" : "Sellars Pays Freight",
                 metafields: payload,
             });
         }
         else {
+            if(whoPaysFreight === "Customer Pays Freight"){
+                if (!payload.shipper) {
+                    payload.shipper = 'FedEx';
+                    payload.useFedExAccount = isUsingFedExAccount;
+                    payload.specialInstructions = specialInstructions;
+                    payload.formData = FedExObj;
+                }
+                
+            }
+            else{
+                if(!payload.shipper){
+                    payload.shipper='Prepaid Truckload';
+                    payload.specialInstructions=specialInstructions;      
+                }
+            }
             raw = JSON.stringify({
                 checkoutId: cartId,
                 whoPaysShipping: whoPaysFreight === "Customer Pays Freight" ? "Customer Pays Freight" : "Sellars Pays Freight",
