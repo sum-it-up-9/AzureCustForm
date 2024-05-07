@@ -691,6 +691,7 @@ const CustomForm = () => {
         if (whoPaysFreightLocal) {
             if(whoPaysFreightLocal === "Customer Pays Freight"){
                 if (!payload?.shipper || payload.shipper==='Prepaid Truckload') {
+                    
                     payload.shipper = 'FedEx';
                     payload.useFedExAccount = isUsingFedExAccount;
                     payload.specialInstructions = specialInstructions;
@@ -700,6 +701,7 @@ const CustomForm = () => {
             }
             else{
                 if(!payload?.shipper || payload.shipper==='FedEx'){
+                    payload={};
                     payload.shipper='Prepaid Truckload';
                     payload.specialInstructions=specialInstructions;      
                 }
@@ -722,6 +724,7 @@ const CustomForm = () => {
             }
             else{
                 if(!payload?.shipper || payload.shipper==='FedEx'){
+                    payload={};
                     payload.shipper='Prepaid Truckload';
                     payload.specialInstructions=specialInstructions;      
                 }
