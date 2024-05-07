@@ -690,8 +690,7 @@ const CustomForm = () => {
         //here fucntions second atturibute's name is similar to usestate varible so kindly do not get confused with 2nd parameter of function with state variable as both are different
         if (whoPaysFreightLocal) {
             if(whoPaysFreightLocal === "Customer Pays Freight"){
-                if (!payload?.shipper || payload.shipper==='Prepaid Truckload') {
-                    
+                if (!payload?.shipper || payload.shipper==='Prepaid Truckload' || payload.shipper==='Prepaid LTL') {      
                     payload.shipper = 'FedEx';
                     payload.useFedExAccount = isUsingFedExAccount;
                     payload.specialInstructions = specialInstructions;
@@ -700,7 +699,7 @@ const CustomForm = () => {
                 
             }
             else{
-                if(!payload?.shipper || payload.shipper==='FedEx'){
+                if(!payload?.shipper || payload.shipper==='FedEx' || payload.shipper==='UPS' || payload.shipper==='Customer Preferred Carrier' || payload.shipper==='Will Call'){
                     payload={};
                     payload.shipper='Prepaid Truckload';
                     payload.specialInstructions=specialInstructions;      
@@ -714,7 +713,7 @@ const CustomForm = () => {
         }
         else {
             if(whoPaysFreight === "Customer Pays Freight"){
-                if (!payload?.shipper || payload.shipper==='Prepaid Truckload') {
+                if (!payload?.shipper || payload.shipper==='Prepaid Truckload' || payload.shipper==='Prepaid LTL') {
                     payload.shipper = 'FedEx';
                     payload.useFedExAccount = isUsingFedExAccount;
                     payload.specialInstructions = specialInstructions;
@@ -723,7 +722,7 @@ const CustomForm = () => {
                 
             }
             else{
-                if(!payload?.shipper || payload.shipper==='FedEx'){
+                if(!payload?.shipper || payload.shipper==='FedEx' || payload.shipper==='UPS' || payload.shipper==='Customer Preferred Carrier' || payload.shipper==='Will Call'){
                     payload={};
                     payload.shipper='Prepaid Truckload';
                     payload.specialInstructions=specialInstructions;      
