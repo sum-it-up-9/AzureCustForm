@@ -714,7 +714,7 @@ const CustomForm = () => {
             });
         }
         else {
-            if(whoPaysFreight === "Customer Pays Freight"){
+            if(whoPaysShippping === "Customer Pays Freight"){
                 if (!payload?.shipper || payload.shipper==='Prepaid Truckload' || payload.shipper==='Prepaid LTL') {
                     payload.shipper = 'FedEx';
                     payload.useFedExAccount = isUsingFedExAccount;
@@ -733,7 +733,7 @@ const CustomForm = () => {
             }
             raw = JSON.stringify({
                 checkoutId: cartId,
-                whoPaysShipping: whoPaysFreight === "Customer Pays Freight" ? "Customer Pays Freight" : "Sellars Pays Freight",
+                whoPaysShipping: whoPaysShippping === "Customer Pays Freight" ? "Customer Pays Freight" : "Sellars Pays Freight",
                 metafields: payload,
             });
             console.log('raw',raw);
