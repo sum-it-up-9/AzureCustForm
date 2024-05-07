@@ -690,7 +690,7 @@ const CustomForm = () => {
         //here fucntions second atturibute's name is similar to usestate varible so kindly do not get confused with 2nd parameter of function with state variable as both are different
         if (whoPaysFreightLocal) {
             if(whoPaysFreightLocal === "Customer Pays Freight"){
-                if (!payload?.shipper) {
+                if (!payload?.shipper || payload.shipper==='Prepaid Truckload') {
                     payload.shipper = 'FedEx';
                     payload.useFedExAccount = isUsingFedExAccount;
                     payload.specialInstructions = specialInstructions;
@@ -699,7 +699,7 @@ const CustomForm = () => {
                 
             }
             else{
-                if(!payload?.shipper){
+                if(!payload?.shipper || payload.shipper==='FedEx'){
                     payload.shipper='Prepaid Truckload';
                     payload.specialInstructions=specialInstructions;      
                 }
@@ -712,7 +712,7 @@ const CustomForm = () => {
         }
         else {
             if(whoPaysFreight === "Customer Pays Freight"){
-                if (!payload?.shipper) {
+                if (!payload?.shipper || payload.shipper==='Prepaid Truckload') {
                     payload.shipper = 'FedEx';
                     payload.useFedExAccount = isUsingFedExAccount;
                     payload.specialInstructions = specialInstructions;
@@ -721,7 +721,7 @@ const CustomForm = () => {
                 
             }
             else{
-                if(!payload?.shipper){
+                if(!payload?.shipper || payload.shipper==='FedEx'){
                     payload.shipper='Prepaid Truckload';
                     payload.specialInstructions=specialInstructions;      
                 }
