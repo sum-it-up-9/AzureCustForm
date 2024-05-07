@@ -701,7 +701,8 @@ const CustomForm = () => {
             else{
                 if(!payload?.shipper || payload.shipper==='FedEx' || payload.shipper==='UPS' || payload.shipper==='Customer Preferred Carrier' || payload.shipper==='Will Call'){
                     payload={};
-                    payload.shipper='Prepaid Truckload';
+                    console.log('in');
+                    payload.shipper=sellarsShipper ?  sellarsShipper : 'Prepaid Truckload';
                     payload.specialInstructions=specialInstructions;      
                 }
             }
@@ -724,7 +725,7 @@ const CustomForm = () => {
             else{
                 if(!payload?.shipper || payload.shipper==='FedEx' || payload.shipper==='UPS' || payload.shipper==='Customer Preferred Carrier' || payload.shipper==='Will Call'){
                     payload={};
-                    payload.shipper='Prepaid Truckload';
+                    payload.shipper=sellarsShipper ?  sellarsShipper : 'Prepaid Truckload';
                     payload.specialInstructions=specialInstructions;      
                 }
             }
