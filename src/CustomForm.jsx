@@ -688,6 +688,7 @@ const CustomForm = () => {
     async function UpdateCartPrice(cartId, whoPaysFreightLocal) {
         let raw;
         //here fucntions second atturibute's name is similar to usestate varible so kindly do not get confused with 2nd parameter of function with state variable as both are different
+        console.log('inside updateCartItems ..........');
         if (whoPaysFreightLocal) {
             if(whoPaysFreightLocal === "Customer Pays Freight"){
                 if (!payload?.shipper || payload.shipper==='Prepaid Truckload' || payload.shipper==='Prepaid LTL') {      
