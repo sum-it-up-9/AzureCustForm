@@ -7,6 +7,7 @@ import Select from "@mui/material/Select";
 import TextField from '@mui/material/TextField';
 import Grid from "@mui/material/Grid";
 import { FormControl, InputLabel, MenuItem } from "@mui/material";
+import checkoutKitLoader from "./checkoutLoader";
 
 const CustomerPreferred = {
     CarrierName: {
@@ -453,10 +454,6 @@ const CustomForm = () => {
         });
         return changed;
     }
-
-
-
-
 
 
     const handleShippingChange = async (event) => {
