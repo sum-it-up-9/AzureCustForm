@@ -7,7 +7,7 @@ import Select from "@mui/material/Select";
 import TextField from '@mui/material/TextField';
 import Grid from "@mui/material/Grid";
 import { FormControl, InputLabel, MenuItem } from "@mui/material";
-import checkoutKitLoader from "./checkoutLoader";
+import checkoutKitLoaderModule from "./checkoutLoader";
 
 const CustomerPreferred = {
     CarrierName: {
@@ -821,7 +821,7 @@ const CustomForm = () => {
     };
 
     useEffect(() => {
-        checkoutKitLoader.load("extension");
+        checkoutKitLoaderModule.load("extension");
         // Cleanup function
         return () => {
             // Cleanup code if necessary

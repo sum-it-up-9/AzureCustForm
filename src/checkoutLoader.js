@@ -24,7 +24,7 @@ function hideLoadingIndicator() {
     });
 }
 
-const checkoutKitLoader = {
+const checkoutKitLoaderModule = {
     load: async function (extension) {
         return checkoutKitLoader.load(extension).then(async function (module) {
             // console.log("Checkout loader - extension");
@@ -126,4 +126,4 @@ const checkoutKitLoader = {
     }
 }
 
-export default checkoutKitLoader;
+export default checkoutKitLoaderModule;
